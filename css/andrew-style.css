@@ -1,0 +1,25 @@
+#portal-logo { 
+    display: block;
+    margin: auto;
+    width: 10%;
+}
+
+#workflow-name { 
+    font-size: 40px;
+    padding-left: 100px;
+}
+
+#metadata-label { 
+    font-size: 20px;
+    padding-left: 200px;
+}
+
+#metadata-list { 
+    list-style-type: none;
+    width: 550px;
+    padding-left: 280px;
+}
+
+.list-group-item {
+    padding: 3px 10px
+}
