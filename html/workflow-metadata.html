@@ -10,16 +10,37 @@
    </head>
 
    <body>
-   	  <a href="workflow-metadata.html"><img id="portal-logo" src="../images/wings-logo.png" title="Return to Home Page" width="185" height="63" /></a>
+
+   	  <!-- Navigation Bar-->
+   	  <nav class="navbar navbar-default" role="navigation">
+	    <div class="navbar-header">
+	      <a href="workflow-metadata.html"><img id="portal-logo" src="../images/wings-logo.png" title="Return to Home Page"></a>
+	    </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <div class="col-md-3 pull-right">
+          <form class="nav navbar-form" role="search">
+            <input type="text" class="form-control" placeholder="Search Workflows" name="search-workflow-name">
+          </form>
+        </div>
+	  </nav>
+
+	  <!-- Workflow Metadata -->
       <div id="workflow-name">Stemming</div>
-      <div id="metadata-label">Metadata <span class="glyphicon glyphicon-chevron-down"></span></div> 
+      <div id="metadata-label">Metadata <i class="glyphicon glyphicon-chevron-down"></i></div> 
       <ul id="metadata-list">
         <li class="list-group-item">Status: SUCCESS</li>
-        <li class="list-group-item">Label: Execution account created on 1383103382</li>
-        <li class="list-group-item">End Time: 2012-05-24 T20:05:20Z</li>
-        <li class="list-group-item">Start Time: 2012-05-24 T20:05:07Z</li>
+        <li class="list-group-item">Label: Execution account created on 10/15/2016</li>
+        <li class="list-group-item">End Time: 2012-05-24 14:12:10</li>
+        <li class="list-group-item">Start Time: 2012-05-24 13:52:55</li>
       </ul>	
+
+      <hr>
+
       <script src = "../js/bundle.js"></script>
+
    </body>
 
 </html>
