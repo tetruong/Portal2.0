@@ -30,14 +30,42 @@
 	  <!-- Workflow Metadata -->
       <div id="workflow-name">Stemming</div>
       <div id="metadata-label">Metadata <i class="glyphicon glyphicon-chevron-down"></i></div> 
-      <ul id="metadata-list">
-        <li class="list-group-item">Status: SUCCESS</li>
-        <li class="list-group-item">Label: Execution account created on 10/15/2016</li>
-        <li class="list-group-item">End Time: 2012-05-24 14:12:10</li>
-        <li class="list-group-item">Start Time: 2012-05-24 13:52:55</li>
-      </ul>	
+       <!-- 
+      <tr class = "col-md-3 pull-right" id="metadata-list">
+        <td>Status: SUCCESS</td>
+        <td>Label: Execution account created on 10/15/2010</td>
+        <td>End Time: 2012-05-24 14:12:10</td>
+        <td>Start Time: 2012-05-24 13:52:55</td>
+      </tr>	
+        -->
+       
+    <div class="container-fluid">
+      <table class="table-responsive table-bordered table-hover col-md-10 pull-right">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Label</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SUCCESS</td>
+          <td>Execution account created on 10/15/2016</td>
+          <td>2012-05-24 13:52:55</td>
+          <td>2012-05-24 14:12:10</td>
+        </tr>
+      </tbody>
+      </table>
+       </div>
 
       <hr>
+       
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Workflow</a></li>
+        <li><a href="#">Execution</a></li>
+      </ul>
 
       <script src = "../js/bundle.js"></script>
 

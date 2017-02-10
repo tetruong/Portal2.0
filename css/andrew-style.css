@@ -29,3 +29,13 @@ hr {
     border-width: 2px;
 }
 
+td {
+    border: 1px solid black;
+    padding: 3px 10px
+}
+
+
+.navbar-nav>li, .navbar-nav {
+    float: left !important;
+}
+
