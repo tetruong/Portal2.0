@@ -1,0 +1,89 @@
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+
+html,
+body {
+  height: 100%;
+  background-color: #a7c7cc;
+}
+
+body {
+  color: #fff;
+  text-align: center;
+  
+}
+#workflow-name { 
+    font-size: 40px;
+    padding-left: 5%;
+    text-align: left;
+    text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+}
+
+#metadata-label { 
+    font-size: 14px;
+    text-align: left;
+    padding-left: 5%;
+    text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+}
+
+.container-fluid { 
+    list-style-type: none;
+    width: auto;
+    padding-left: 5%;
+    align-items: baseline;
+}
+
+th {
+    padding: 5px 15px;
+    text-align: left;    
+    text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+    border: 2px solid dimgray;
+    font-size: 14px;
+}
+
+.list-group-item {
+	font-size: 12px;
+    padding: 3px 10px
+}
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 2px;
+}
+
+td {
+    border: 2px solid dimgray;
+    padding: 5px 15px;
+    color: whitesmoke;
+    font-size: 12px;
+}
+
+
+table {
+    border: 2px solid dimgray;
+    width: 95%;
+    text-align: left;
+    padding-left: 5%;
+    
+}
+
+
+.navbar-nav>li, .navbar-nav {
+    float: left !important;
+    background-color: #a7c7cc;
+    text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+}
+
+.navbar {
+ background-color: #a7c7cc;   
+}
+
