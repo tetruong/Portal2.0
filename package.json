@@ -18,6 +18,7 @@
   "homepage": "https://github.com/tetruong/Portal2.0#readme",
   "dependencies": {
     "react": "^15.4.2",
+    "react-autosuggest": "^8.0.1",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
