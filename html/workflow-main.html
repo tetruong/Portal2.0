@@ -4,6 +4,7 @@
    <head>
       <meta charset = "UTF-8">
       <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+       <script src="../js/processInfoScript.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="../css/workflow-style.css">
       <link rel="stylesheet" type="text/css" href="../css/tiff-style.css">
@@ -69,18 +70,24 @@
       </ul>
            
        
-      <div style="width:1000px; height:1000px"></div>   
+      <div style="width:1000px; height:1000px; background:#f2f6f7"></div>   
        
-    <hr>
-
-        <button id="buttonClose" name="close_info_button">x</button>
-        <h2>Name of Process</h2>
-
-
-      <script src = "../js/bundle.js"></script>
-
-   <div class="row">
+<!--       THIS IS TIFF"S PART    -->
+   
+       <img src="../images/legend.png" style="width:133;height:85px;" id="legend_image"> 
+       
+    <button id="tempAdd">Click here to test add</button>
+    <button id="tempClose">Click here to test close</button>
+       
+       <hr>
+       
+    <div id="processInfoDivLayout" hidden>
         
+        <button id="buttonCloseProcessInfo" name="close_info_button">x</button>
+        <script src = "../js/bundle.js"></script>
+        <h2>Name of Process</h2>
+    
+        <div class="checkRow">
             <div class="input-group">
                 <div class="col-md-5">
                     <span class="input-group-addon">
@@ -97,9 +104,9 @@
             
             </div><!-- /.col-lg-2 -->
 
-    </div><!-- /.row -->
+            </div><!-- /.row -->
     
-    <div class="row">
+    <div class="rowDataInfo">
         <div class="col-md-4 col-md-offset-1" style="padding:15px;border:2px solid black;border-radius=5px">
             <h5>Process Information</h5>
             <ul>
@@ -135,7 +142,9 @@
         
     </div> <!-- /.info row -->
     
-    <hr>
+        <hr>
+        </div>
+       </div>
     
   </body>
 
