@@ -1,4 +1,4 @@
-d3.json('data.json', function(data) {
+d3.json('./../js/data.json', function(data) {
     var results = data['results']['bindings'];
     var processInputMapping = {};
     var processOutputMapping = {};
@@ -29,7 +29,8 @@ d3.json('data.json', function(data) {
                 console.log("step: " + step);
                 processNodeIndices[step] = j;
                 vis.setNode(j, { 
-                    label: step
+                    label: step,
+                    style: "fill: #FFCC99;"
                 });
                 j++;
             }
@@ -40,7 +41,9 @@ d3.json('data.json', function(data) {
                     console.log("input: " + input);
                     putNodeIndices[input] = j;
                     vis.setNode(j, { 
-                        label: input
+                        label: input,
+                        shape: 'ellipse',
+                        style: "fill: #003366;"
                     });
                     j++;
                 }
@@ -53,7 +56,9 @@ d3.json('data.json', function(data) {
                     putNodeIndices[output] = j;
                     console.log(output);
                     vis.setNode(j, { 
-                        label: output
+                        label: output,
+                        shape: 'ellipse',
+                        style: "fill: #003366;"
                     });
                     j++;
                 }
@@ -70,13 +75,17 @@ d3.json('data.json', function(data) {
     
     for (var process in processInputMapping) {
         for (var i = 0; i < processInputMapping[process].length; i++) {
-            vis.setEdge(putNodeIndices[processInputMapping[process][i]], processNodeIndices[process]);
+            vis.setEdge(putNodeIndices[processInputMapping[process][i]], processNodeIndices[process], {
+                style: "stroke: #000; fill:none"
+            });
         }
     }
     
     for (var process in processOutputMapping) {
         for (var i = 0; i < processOutputMapping[process].length; i++) {
-            vis.setEdge(processNodeIndices[process], putNodeIndices[processOutputMapping[process][i]]);
+            vis.setEdge(processNodeIndices[process], putNodeIndices[processOutputMapping[process][i]], {
+                style: "stroke: #000; fill:none"
+            });
         }
     }
     
@@ -84,12 +93,12 @@ d3.json('data.json', function(data) {
     var render = new dagreD3.render();
 
     // Set up an SVG group so that we can translate the final graph.
-    var svg = d3.select("svg").attr('width',2000).attr('height',2000),
-        svgGroup = svg.append("g");
+    var svg = d3.select("svg").attr('width',500).attr('height',1000), svgGroup = svg.append("g");
 
     // Run the renderer. This is what draws the final graph.
-    render(d3.select("svg g"), vis);
-    
+    render(svgGroup, vis);
+    console.log(d3.select('svg g g g.nodes').empty())
+    d3.select('svg g g g.nodes').attr('fill', '#FFF');
 });
 
 // Create the input graph
