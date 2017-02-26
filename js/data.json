@@ -5,56 +5,24 @@
   "results": {
     "bindings": [
       {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_DETECTBADLINKSNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTEDDOCUMENT" }
+        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_MODELER" } ,
+        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_TRAININGDATA" }
       } ,
       {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_DETECTBADLINKSNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_WHITELIST" }
+        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_CLASSIFIER" } ,
+        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_TESTDATA" }
       } ,
       {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_WHITELIST" }
-      } , 
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_REMOVEUSERSNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_FILTEREDDOCUMENT" }
+        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_CLASSIFIER" } ,
+        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_MODEL" }
       } ,
       {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_REMOVEUSERSNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTEDDOCUMENT" }
+        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_MODELER" } ,
+        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_MODEL" }
       } ,
       {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_JOINREPORTSNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_FILTEREDDOCUMENTS" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_COLLECTIONFILTERNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_DOCUMENTSTOFILTER" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTNODE" } ,
-        "input": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_MERGEDCILLECTION" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_DETECTBADLINKSNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_FILTEREDDOCUMENT" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_REMOVEUSERSNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_FILTEREDDOCUMENT1" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_JOINREPORTSNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_MERGEDCILLECTION" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_COLLECTIONFILTERNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_FILTEREDDOCUMENTS" }
-      } ,
-      {
-        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTNODE" } ,
-        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/ADDRESSPROBLEMATICUSERS-D751713988987E9331980363E24189CE_SORTEDDOCUMENT" }
+        "step": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/WorkflowTemplateProcess/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_CLASSIFIER" } ,
+        "output": { "type": "uri" , "value": "http://www.opmw.org/export/4.0/resource/DataVariable/MODELTHENCLASSIFY-D751713988987E9331980363E24189CE_CLASSIFICATION" }
       }
     ]
   }
