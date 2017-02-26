@@ -12,31 +12,31 @@ window.onload = function() {
     var testShowButton = document.getElementById("tempAdd");
     var testCloseButton = document.getElementById("tempClose");
 
-    function addProcessInfo() {
-        if (processInfosCount == 4) {
-            // remove a 
-        }
-        // check that process div thing is not over count;
-        var newProcessInfoDiv = document.createElement("div"); // create a new div
-        newProcessInfoDiv.setAttribute("id", processInfosIndex);
-        newProcessInfoDiv.setAttribute("class", "processInfo");
-        var layoutDiv = document.getElementById("processInfoDivLayout");
-        var layoutDivCopy = layoutDiv.cloneNode(true);
-        layoutDivCopy.style.display = "block";
-        newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
-        document.body.appendChild(newProcessInfoDiv);
-        processInfosCount = processInfosCount + 1;
-        processInfosIndex = processInfosIndex + 1;
-        console.log(processInfosCount);
-    }
-    
-    function removeProcessInfo(i) {
-        var divToRemove = document.getElementById(i);
-        divToRemove.remove();
-        
-    }
-
     // For testing
     testShowButton.onclick = function() {addProcessInfo()};
     testCloseButton.onclick = function() {removeProcessInfo(1)};
+}
+
+function addProcessInfo() {
+    if (processInfosCount == 4) {
+        // remove a 
+    }
+    // check that process div thing is not over count;
+    var newProcessInfoDiv = document.createElement("div"); // create a new div
+    newProcessInfoDiv.setAttribute("id", processInfosIndex);
+    newProcessInfoDiv.setAttribute("class", "processInfo");
+    var layoutDiv = document.getElementById("processInfoDivLayout");
+    var layoutDivCopy = layoutDiv.cloneNode(true);
+    layoutDivCopy.style.display = "block";
+    newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
+    document.body.appendChild(newProcessInfoDiv);
+    processInfosCount = processInfosCount + 1;
+    processInfosIndex = processInfosIndex + 1;
+    console.log(processInfosCount);
+}
+    
+function removeProcessInfo(i) {
+    var divToRemove = document.getElementById(i);
+    divToRemove.remove();
+
 }

@@ -37,7 +37,8 @@ d3.json('./../js/data.json', function(data) {
                 stepToDisplay = stepToDisplay.substring(0, stepToDisplay.lastIndexOf('node')) == '' ? stepToDisplay : stepToDisplay.substring(0, stepToDisplay.lastIndexOf('node'));
                 vis.setNode(j, { 
                     label: stepToDisplay,
-                    style: "fill: #FFCC99;"
+                    style: "fill: #FFCC99;",
+                    uri: step
                 });
                 j++;
             }
@@ -51,7 +52,8 @@ d3.json('./../js/data.json', function(data) {
                     vis.setNode(j, { 
                         label: inputToDisplay,
                         shape: 'ellipse',
-                        style: "fill: #003366;"
+                        style: "fill: #003366;",
+                        uri: input
                     });
                     j++;
                 }
@@ -66,7 +68,8 @@ d3.json('./../js/data.json', function(data) {
                     vis.setNode(j, { 
                         label: outputToDisplay,
                         shape: 'ellipse',
-                        style: "fill: #003366;"
+                        style: "fill: #003366;",
+                        uri: output
                     });
                     j++;
                 }
@@ -113,4 +116,11 @@ d3.json('./../js/data.json', function(data) {
     svg.attr("height", vis.graph().height + yTopMargin + 40);
     
     d3.select('svg g g g.nodes').attr('fill', '#FFF');
+    
+    //setup on click listeners for every node
+    svg.selectAll("g.node").on("click", function(id) {
+        //call function from processInfoScript.js to add 1 table to roulette
+        addProcessInfo();
+        //TODO: connect to Tiff's roulette logic and populate her roulette info
+    });
 });
