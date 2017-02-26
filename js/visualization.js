@@ -101,10 +101,16 @@ d3.json('./../js/data.json', function(data) {
     var render = new dagreD3.render();
 
     // Set up an SVG group so that we can translate the final graph.
-    var svg = d3.select("svg").attr('width',4000).attr('height',4000), svgGroup = svg.append("g");
+    var svg = d3.select("svg").attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
 
     // Run the renderer. This is what draws the final graph.
     render(svgGroup, vis);
-    console.log(d3.select('svg g g g.nodes').empty())
+    
+    //centers graph and calculates top margin of graph based on screen size
+    var xCenterOffset = (screen.width - vis.graph().width) / 2;
+    var yTopMargin = screen.height * .05;
+    svgGroup.attr("transform", "translate(" + xCenterOffset + ", " + yTopMargin + ")");
+    svg.attr("height", vis.graph().height + yTopMargin + 40);
+    
     d3.select('svg g g g.nodes').attr('fill', '#FFF');
 });
