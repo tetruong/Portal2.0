@@ -16,6 +16,13 @@ text {
   stroke-width: 1.5px;
 }
 
+.visualization-container {
+    width: 100%;
+    display: block;
+    margin: auto;
+    background: #f2f6f7;
+}
+
 .edgePath path {
   stroke: #333;
   stroke-width: 1px;
