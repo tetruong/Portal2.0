@@ -2,62 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Autosuggest from 'react-autosuggest';
 
-const languages = [
+const workflowNames = [
   {
-    name: 'C',
-    year: 1972
+    name: 'AquaFlow_NTM',
   },
   {
-    name: 'C#',
-    year: 2000
+    name: 'AquaFlow_EDM',
   },
   {
-    name: 'C++',
-    year: 1983
+    name: 'ASL Process',
   },
   {
-    name: 'Clojure',
-    year: 2007
+    name: 'AbstractSubWfDocking',
+  },
+    {
+    name: 'Andrew',
   },
   {
-    name: 'Elm',
-    year: 2012
+    name: 'ModelThenClassify',
   },
   {
-    name: 'Go',
-    year: 2009
+    name: 'Stemming',
   },
   {
-    name: 'Haskell',
-    year: 1990
-  },
-  {
-    name: 'Java',
-    year: 1995
-  },
-  {
-    name: 'Javascript',
-    year: 1995
-  },
-  {
-    name: 'Perl',
-    year: 1987
-  },
-  {
-    name: 'PHP',
-    year: 1995
-  },
-  {
-    name: 'Python',
-    year: 1991
-  },
-  {
-    name: 'Ruby',
-    year: 1995
-  },
-  {
-    name: 'Scala',
-    year: 2003
+    name: 'Pre Process',
   }
 ];
 
@@ -73,9 +41,9 @@ function getSuggestions(value) {
     return [];
   }
 
-  const regex = new RegExp('^' + escapedValue, 'i');
+  const regex = new RegExp(escapedValue, 'i');
 
-  return languages.filter(language => regex.test(language.name));
+  return workflowNames.filter(workflowName => regex.test(workflowName.name));
 }
 
 function getSuggestionValue(suggestion) {
