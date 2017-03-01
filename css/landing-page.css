@@ -229,6 +229,10 @@ li { list-style-type:none;}
 
 
 /* Autocomplete Search */
+.btn-default {
+    height: 4rem;
+}
+
 .react-autosuggest__container {
   position: relative;
 }
