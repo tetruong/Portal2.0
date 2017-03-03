@@ -68,6 +68,15 @@ class SearchBar extends React.Component {
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
   }
+    
+  componentDidMount() {
+      var suggestions = {};
+      // call function to execute ajax call from query.js, passing into it, a function that takes in an input "res" which we define to execute when the ajax call returns successfully
+      populateSearchBar(function(res) { 
+          //executes after ajax call returns
+          console.log(res);
+      });
+  }
 
   onChange(event, { newValue, method }) {
     this.setState({
@@ -94,7 +103,6 @@ class SearchBar extends React.Component {
       value,
       onChange: this.onChange
     };
-
     return (
       <Autosuggest 
         suggestions={suggestions}
