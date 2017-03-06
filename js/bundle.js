@@ -21603,6 +21603,7 @@
 	}
 
 	function getSuggestionValue(suggestion) {
+	  localStorage.setItem("workflow-uri", suggestion.uri);
 	  return suggestion.label;
 	}
 
@@ -21651,6 +21652,7 @@
 	    _this.onChange = _this.onChange.bind(_this);
 	    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
 	    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+	    _this.onSuggestionSelected = _this.onSuggestionSelected.bind(_this);
 	    return _this;
 	  }
 
@@ -21661,6 +21663,11 @@
 	      populateSearchBar(function (res) {
 	        //executes after ajax call returns
 	        parseAutocompleteData(res);
+	      });
+
+	      var goButton = document.getElementById("id-button");
+	      goButton.addEventListener('click', function () {
+	        window.location = "../html/workflow-main.html";
 	      });
 	    }
 	  }, {
@@ -21688,6 +21695,17 @@
 	      this.setState({
 	        suggestions: []
 	      });
+	    }
+	  }, {
+	    key: 'onSuggestionSelected',
+	    value: function onSuggestionSelected(event, _ref3) {
+	      var suggestion = _ref3.suggestion,
+	          suggestionValue = _ref3.suggestionValue,
+	          suggestionIndex = _ref3.suggestionIndex,
+	          sectionIndex = _ref3.sectionIndex,
+	          method = _ref3.method;
+
+	      window.location = "../html/workflow-main.html";
 	    }
 	  }, {
 	    key: 'render',

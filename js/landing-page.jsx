@@ -22,6 +22,7 @@ function getSuggestions(value) {
 }
 
 function getSuggestionValue(suggestion) {
+  localStorage.setItem("workflow-uri", suggestion.uri);
   return suggestion.label;
 }
 
@@ -66,6 +67,7 @@ class SearchBar extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
   }
     
   componentDidMount() {
@@ -73,6 +75,11 @@ class SearchBar extends React.Component {
       populateSearchBar(function(res) { 
           //executes after ajax call returns
           parseAutocompleteData(res);
+      });
+      
+      var goButton = document.getElementById("id-button");
+      goButton.addEventListener('click', function() {
+          window.location = "../html/workflow-main.html";
       });
   }
 
@@ -92,6 +99,10 @@ class SearchBar extends React.Component {
     this.setState({
       suggestions: []
     });
+  };
+    
+  onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+      window.location = "../html/workflow-main.html";
   };
 
   render() {
