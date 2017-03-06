@@ -17,7 +17,7 @@ window.onload = function() {
     testCloseButton.onclick = function() {removeProcessInfo(1)};
 }
 
-function addProcessInfo() {
+function addProcessInfo(processURI, inputsArray, outputsArray) {
     if (processInfosCount == 4) {
         // remove a 
     }
@@ -33,6 +33,8 @@ function addProcessInfo() {
     processInfosCount = processInfosCount + 1;
     processInfosIndex = processInfosIndex + 1;
     console.log(processInfosCount);
+    
+    
 }
     
 function removeProcessInfo(i) {
