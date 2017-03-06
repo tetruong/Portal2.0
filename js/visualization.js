@@ -1,5 +1,6 @@
 var processInputMapping = {};
 var processOutputMapping = {};
+var json = getGraphJSON(localStorage.getItem("workflowURI"));
 
 d3.json('./../js/data.json', function(data) {
     var results = data['results']['bindings'];

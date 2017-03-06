@@ -31,3 +31,18 @@ var getInputs = function(workflow, handler) {
         }
     });
 }
+
+var getGraphJSON = function(workflowURI) {
+    var sparql = "select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <" + workflowURI + ">.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <" + workflowURI +">.?output <http://www.opmw.org/ontology/isGeneratedBy> ?step.}}"
+    
+    var endpointURI = "http://seagull.isi.edu:3030/ds/query?query=" + escape(sparql) + "&format=json";
+    
+    $.ajax({
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        url: endpointURI,
+        success: function(res) {
+            console.log(res);
+        }
+    })
+}
