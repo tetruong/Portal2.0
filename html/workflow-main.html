@@ -85,9 +85,10 @@
        
        <hr>
        
-    <div id="processInfoDivLayout" hidden>
+    <div id="processInfoDivLayout" hidden style="width:100%">
         
-        <button id="buttonCloseProcessInfo" name="close_info_button">x</button>
+        
+        <button id="buttonCloseProcessInfo" name="close_info_button" style="float:right">x</button>
         <script src = "../js/bundle.js"></script>
         <h2>Name of Process</h2>
     
@@ -98,57 +99,44 @@
                         <input type="checkbox" aria-label="..." value="input checked" size = "35">
                            Highlight Inputs<br>
                     </span>
-                </div><!-- /.col-lg-1 -->
+                </div>
 
-            <div class="col-md-5">
-                <span class="input-group-addon">
-                    <input type="checkbox" aria-label="..." value="input checked" size = "35">
-                        Highlight Outputs<br>
-                </span>
+                <div class="col-md-5">
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." value="input checked" size = "35">
+                            Highlight Outputs<br>
+                    </span>
+                </div>
+            </div>
+        </div>    
             
-            </div><!-- /.col-lg-2 -->
-
-            </div><!-- /.row -->
-    
-    <div class="rowDataInfo">
-        <div class="col-md-4 col-md-offset-1" style="padding:15px;border:2px solid black;border-radius=5px">
-            <h5>Process Information</h5>
-            <ul>
-                <li>Start Time: </li>
-                <li>End Time: </li>
-                <li>Status: </li>
-                <li>Rights: </li>
-            </ul>
-        </div> <!-- /.text box 1 -->
-        
-        <div class="col-md-4 col-md-offset-1" style="padding:15px;border:2px solid black;border-radius=5px">
-            <div class="row">
-                <div class="col-md-6" style="border-right: double #000000">
-                    <h5>Input Variables</h5>
-                    <ul>
-                        <li>Var 1</li>
-                        <li>Var 2</li>
-                        <li>Var 3</li>
-                        <li>Var 4</li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <h5>Output Variables</h5>
-                    <ul>
-                        <li>Var 1</li>
-                        <li>Var 2</li>
-                        <li>Var 3</li>
-                        <li>Var 4</li>
-                    </ul>
-                </div>
-            </div> <!--inner row -->
-        </div> <!-- /.text box 2 -->
-        
-    </div> <!-- /.info row -->
+        <table id="process_info_table">
+            <tr>
+                <th colspan="2" align="center"><h4>Process Info</h4></th>
+                <th align="center"><h4>Input Variables</h4></th>
+                <th align="center"><h4>Output Variables</h4></th>
+            </tr>
+            <tr id="info-table-row-1">
+                <th>Start Time</th>
+                <td id="table_data_start_time"></td>
+            </tr>
+            <tr id="info-table-row-2">
+                <th>End Time</th>
+                <td id="table_data_end_time"></td>
+            </tr>
+            <tr id="info-table-row-3">
+                <th>Status</th>
+                <td id="table_data_status"></td>
+            </tr>
+            <tr id="info-table-row-4">
+                <th>Rights</th>
+                <td id="table_data_rights"></td>
+            </tr>
+        </table>    
     
         <hr>
-        </div>
-       </div>
+        
+    </div>
     
   </body>
 
