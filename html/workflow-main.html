@@ -3,11 +3,6 @@
 
    <head>
       <meta charset = "UTF-8">
-      <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-       <script src="../js/processInfoScript.js"></script>
-       <script src="../js/dagre-d3.min.js"></script>
-       <script src="../js/d3.min.js"></script>
-       <script src="../js/visualization.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="../css/workflow-style.css">
       <link rel="stylesheet" type="text/css" href="../css/tiff-style.css">
@@ -90,7 +85,7 @@
         
         <button id="buttonCloseProcessInfo" name="close_info_button" style="float:right">x</button>
         <script src = "../js/bundle.js"></script>
-        <h2>Name of Process</h2>
+        <h2 id="name_of_process_header">Name of Process</h2>
     
         <div class="checkRow">
             <div class="input-group">
@@ -116,6 +111,8 @@
                 <th align="center"><h4>Input Variables</h4></th>
                 <th align="center"><h4>Output Variables</h4></th>
             </tr>
+            <tbody id="process_info_table_body">
+            </tbody>
 <!--
             <tr id="info-table-row-1">
                 <th>Start Time</th>
@@ -139,7 +136,13 @@
         <hr>
         
     </div>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../js/query.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../js/processInfoScript.js"></script>
+    <script src="../js/dagre-d3.min.js"></script>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/visualization.js"></script>
   </body>
 
 </html>
