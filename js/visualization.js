@@ -1,6 +1,7 @@
 var processInputMapping = {};
 var processOutputMapping = {};
-getGraphJSON(localStorage.getItem("workflow-uri"), function(res) {
+var workflowURI = localStorage.getItem("workflow-uri");
+getGraphJSON(workflowURI, function(res) {
     var results = res['results']['bindings'];
     var processNodeIndices = {};
     var putNodeIndices = {};
@@ -85,10 +86,11 @@ getGraphJSON(localStorage.getItem("workflow-uri"), function(res) {
                 addOutputProcess(step, output);
             }
         }
+        setGraphEdges(vis);
     }
 
     /*
-        params: dagreD3 vis
+        @params: dagreD3 vis
         - connects nodes to each other via node numbers from processInputMapping
         and processOutputMapping
     */
@@ -107,8 +109,62 @@ getGraphJSON(localStorage.getItem("workflow-uri"), function(res) {
                 });
             }
         }
+        formatInputs(vis, renderGraph);
     }
+    
+    var renderGraph = function(vis) {
+        // Create the renderer
+        var render = new dagreD3.render();
 
+        // Set up an SVG group so that we can translate the final graph.
+        var svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
+
+        // Set up zoom support
+        var zoom = d3.behavior.zoom().on("zoom", function() {
+            svgGroup.attr("transform", "translate(" + d3.event.translate + ")" +
+                                        "scale(" + d3.event.scale + ")");
+        });
+        svg.call(zoom);
+
+        // Run the renderer. This is what draws the final graph.
+        render(svgGroup, vis);
+
+        //centers graph and calculates top margin of graph based on screen size
+        var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 2 - vis.graph().width) / 2;
+        var yTopMargin = screen.height * .05;
+        var scale = .75;
+        zoom
+          .translate([xCenterOffset, 20])
+          .scale(scale)
+          .event(svg);
+        svg.attr('height', vis.graph().height * scale + yTopMargin);
+
+        setupNodeOnClick(svg, vis);
+        addHover(svg);
+    }
+    
+    /*
+        
+    */
+    var formatInputs = function(vis, callback) {
+        getInputs(workflowURI, function (inputs) {
+            console.log(putNodeIndices);
+            console.log(inputs);
+            for (var i = 0; i < inputs.length; i++) {
+                var nodeIndex = putNodeIndices[inputs[i].input.value];
+                var newLabel = vis.node(nodeIndex).label;
+                var newURI = vis.node(nodeIndex).uri;
+                vis.setNode(nodeIndex, { 
+                    label: newLabel,
+                    labelStyle: "fill: #FFF",
+                    shape: 'ellipse',
+                    style: "fill: #336633;",
+                    uri: newLabel
+                });
+            }
+            callback(vis);
+        })
+    }
 
     /*
         renders graph
@@ -123,36 +179,6 @@ getGraphJSON(localStorage.getItem("workflow-uri"), function(res) {
         });
 
     mapNodesEdges(vis);
-    setGraphEdges(vis);
-
-    // Create the renderer
-    var render = new dagreD3.render();
-
-    // Set up an SVG group so that we can translate the final graph.
-    var svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
-
-    // Set up zoom support
-    var zoom = d3.behavior.zoom().on("zoom", function() {
-        svgGroup.attr("transform", "translate(" + d3.event.translate + ")" +
-                                    "scale(" + d3.event.scale + ")");
-    });
-    svg.call(zoom);
-
-    // Run the renderer. This is what draws the final graph.
-    render(svgGroup, vis);
-
-    //centers graph and calculates top margin of graph based on screen size
-    var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 2 - vis.graph().width) / 2;
-    var yTopMargin = screen.height * .05;
-    var scale = 1;
-    zoom
-      .translate([xCenterOffset, 20])
-      .scale(scale)
-      .event(svg);
-    svg.attr('height', vis.graph().height * scale + yTopMargin);
-
-    setupNodeOnClick(svg, vis);
-    addHover(svg);
 });
 
 /*

@@ -27,7 +27,9 @@ var getInputs = function(workflow, handler) {
         jsonp :'callback',
         url :endpointURI,
         success: function(res) {
-            console.log(res);
+            if (res.results.bindings) {
+                handler(res.results.bindings);
+            }
         }
     });
 }
