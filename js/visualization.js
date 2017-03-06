@@ -27,15 +27,6 @@ d3.json('./../js/data.json', function(data) {
     }
     
     /*
-        @params: string URI
-        @return: a parsed, human-readable substring of the URI
-    */
-    var stripNameFromURI = function(uri) {
-        return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
-    }
-    
-    
-    /*
         @params: dagreD3 graph
         - pulls from JSON result and sets nodes according to whether or not they are labeled as inputs, outputs, or processes
     */
@@ -194,4 +185,12 @@ var addHover = function(svg) {
             return 1;
         });
     });
+}
+
+/*
+    @params: string URI
+    @return: a parsed, human-readable substring of the URI
+*/
+var stripNameFromURI = function(uri) {
+    return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
 }
