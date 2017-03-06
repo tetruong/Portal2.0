@@ -1,7 +1,8 @@
+var processInputMapping = {};
+var processOutputMapping = {};
+
 d3.json('./../js/data.json', function(data) {
     var results = data['results']['bindings'];
-    var processInputMapping = {};
-    var processOutputMapping = {};
     var processNodeIndices = {};
     var putNodeIndices = {};
     
@@ -127,7 +128,9 @@ d3.json('./../js/data.json', function(data) {
             nodesep: 10,
             ranksep: 20,
         })
-        .setDefaultEdgeLabel(function() { return {} });
+        .setDefaultEdgeLabel(function() { 
+            return {} 
+        });
     
     mapNodesEdges(vis);
     setGraphEdges(vis);
@@ -158,7 +161,7 @@ d3.json('./../js/data.json', function(data) {
       .event(svg);
     svg.attr('height', vis.graph().height * scale + yTopMargin);
     
-    setupNodeOnClick(svg);
+    setupNodeOnClick(svg, vis);
     addHover(svg);
 });
 
@@ -167,12 +170,10 @@ d3.json('./../js/data.json', function(data) {
     @params: d3 svg
     - setup on click process for each node
 */
-var setupNodeOnClick = function (svg) {
+var setupNodeOnClick = function (svg, vis) {
     //setup on click listeners for every node
     svg.selectAll("g.node").on("click", function(id) {
-        //call function from processInfoScript.js to add 1 table to roulette
-        addProcessInfo();
-        //TODO: connect to Tiff's roulette logic and populate her roulette info
+        addProcessInfo(vis.node(id).uri, processInputMapping[vis.node(id).uri], processOutputMapping[vis.node(id).uri]);
     });
 }
 
