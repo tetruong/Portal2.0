@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Autosuggest from 'react-autosuggest';
 
 var workflowSuggestions = [];
+var workflowURI = "../html/workflow-main.html";
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -22,7 +23,6 @@ function getSuggestions(value) {
 }
 
 function getSuggestionValue(suggestion) {
-  localStorage.setItem("workflow-uri", suggestion.uri);
   return suggestion.label;
 }
 
@@ -62,7 +62,8 @@ class SearchBar extends React.Component {
 
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      noSuggestions: false
     };    
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
@@ -76,11 +77,6 @@ class SearchBar extends React.Component {
           //executes after ajax call returns
           parseAutocompleteData(res);
       });
-      
-      var goButton = document.getElementById("id-button");
-      goButton.addEventListener('click', function() {
-          window.location = "../html/workflow-main.html";
-      });
   }
 
   onChange(event, { newValue, method }) {
@@ -90,8 +86,12 @@ class SearchBar extends React.Component {
   };
   
   onSuggestionsFetchRequested({ value }) {
+    const suggestions = getSuggestions(value);
+    const isInputBlank = value.trim() === '';
+    const noSuggestions = !isInputBlank && suggestions.length === 0;
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions,
+      noSuggestions
     });
   };
 
@@ -102,24 +102,35 @@ class SearchBar extends React.Component {
   };
     
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+      localStorage.setItem("workflow-uri", suggestion.uri);
+      localStorage.setItem("workflow-suggestions", workflowSuggestions);
       window.location = "../html/workflow-main.html";
   };
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, noSuggestions } = this.state;
     const inputProps = {
       placeholder: "Search for Workflows",
       value,
       onChange: this.onChange
     };
     return (
-      <Autosuggest 
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps} />
+      <div>
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps} />
+        {
+          noSuggestions &&
+            <div className="no-suggestions">
+              No suggestions
+            </div>
+        }
+      </div>
     );
   }
 }

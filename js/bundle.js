@@ -21582,6 +21582,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var workflowSuggestions = [];
+	var workflowURI = "../html/workflow-main.html";
 
 	// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 	function escapeRegexCharacters(str) {
@@ -21603,7 +21604,6 @@
 	}
 
 	function getSuggestionValue(suggestion) {
-	  localStorage.setItem("workflow-uri", suggestion.uri);
 	  return suggestion.label;
 	}
 
@@ -21647,7 +21647,8 @@
 
 	    _this.state = {
 	      value: '',
-	      suggestions: []
+	      suggestions: [],
+	      noSuggestions: false
 	    };
 	    _this.onChange = _this.onChange.bind(_this);
 	    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
@@ -21663,11 +21664,6 @@
 	      populateSearchBar(function (res) {
 	        //executes after ajax call returns
 	        parseAutocompleteData(res);
-	      });
-
-	      var goButton = document.getElementById("id-button");
-	      goButton.addEventListener('click', function () {
-	        window.location = "../html/workflow-main.html";
 	      });
 	    }
 	  }, {
@@ -21685,8 +21681,12 @@
 	    value: function onSuggestionsFetchRequested(_ref2) {
 	      var value = _ref2.value;
 
+	      var suggestions = getSuggestions(value);
+	      var isInputBlank = value.trim() === '';
+	      var noSuggestions = !isInputBlank && suggestions.length === 0;
 	      this.setState({
-	        suggestions: getSuggestions(value)
+	        suggestions: suggestions,
+	        noSuggestions: noSuggestions
 	      });
 	    }
 	  }, {
@@ -21705,6 +21705,8 @@
 	          sectionIndex = _ref3.sectionIndex,
 	          method = _ref3.method;
 
+	      localStorage.setItem("workflow-uri", suggestion.uri);
+	      localStorage.setItem("workflow-suggestions", workflowSuggestions);
 	      window.location = "../html/workflow-main.html";
 	    }
 	  }, {
@@ -21712,20 +21714,31 @@
 	    value: function render() {
 	      var _state = this.state,
 	          value = _state.value,
-	          suggestions = _state.suggestions;
+	          suggestions = _state.suggestions,
+	          noSuggestions = _state.noSuggestions;
 
 	      var inputProps = {
 	        placeholder: "Search for Workflows",
 	        value: value,
 	        onChange: this.onChange
 	      };
-	      return _react2.default.createElement(_reactAutosuggest2.default, {
-	        suggestions: suggestions,
-	        onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
-	        onSuggestionsClearRequested: this.onSuggestionsClearRequested,
-	        getSuggestionValue: getSuggestionValue,
-	        renderSuggestion: renderSuggestion,
-	        inputProps: inputProps });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_reactAutosuggest2.default, {
+	          suggestions: suggestions,
+	          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+	          onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+	          onSuggestionSelected: this.onSuggestionSelected,
+	          getSuggestionValue: getSuggestionValue,
+	          renderSuggestion: renderSuggestion,
+	          inputProps: inputProps }),
+	        noSuggestions && _react2.default.createElement(
+	          'div',
+	          { className: 'no-suggestions' },
+	          'No suggestions'
+	        )
+	      );
 	    }
 	  }]);
 

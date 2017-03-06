@@ -229,9 +229,6 @@ li { list-style-type:none;}
 
 
 /* Autocomplete Search */
-.btn-default {
-    height: 4rem;
-}
 
 .react-autosuggest__container {
   position: relative;
@@ -290,4 +287,9 @@ li { list-style-type:none;}
 
 .react-autosuggest__suggestion--focused {
   background-color: #ddd;
+}
+
+.no-suggestions {
+  margin-top: 10px;
+  padding-left: 10px;
 }
