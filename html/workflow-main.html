@@ -3,7 +3,9 @@
 
    <head>
       <meta charset = "UTF-8">
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <link rel="stylesheet" type="text/css" href="../css/workflow-style.css">
       <link rel="stylesheet" type="text/css" href="../css/tiff-style.css">
       <title>Workflow Metadata</title>
@@ -27,9 +29,20 @@
         </div>
 	  </nav>
 
-	  <!-- Workflow Metadata -->
-      <div id="workflow-name">Stemming</div>
-      <div id="metadata-label">Metadata <i class="glyphicon glyphicon-chevron-down"></i></div> 
+	  <!-- Workflow Metadata UPDATE -->
+      <div id="workflow-name">Aquaflow_CM</div> 
+      <div id="metadata-label">Metadata 
+          
+        <button id = "metadataExpansion" type="button" data-toggle="collapse" data-target="#collapseMetadata" aria-expanded="false" aria-controls="collapseExample">
+            <i class="glyphicon glyphicon-chevron-down"></i>
+        </button>
+          
+       </div> 
+       
+    <p>
+      
+    </p>
+       
        <!-- 
       <tr class = "col-md-3 pull-right" id="metadata-list">
         <td>Status: SUCCESS</td>
@@ -39,7 +52,11 @@
       </tr>	
         -->
        
-    <div class="container-fluid">
+<!--    TEST   -->
+
+
+       
+    <div class="collapse" id="collapseMetadata">
       <table class="table-responsive">
       <thead>
         <tr>
@@ -105,7 +122,7 @@
             </div>
         </div>    
             
-        <table id="process_info_table">
+        <table id="process_info_table" >
             <tr>
 <!--                <th colspan="2" align="center"><h4>Process Info</h4></th>-->
                 <th align="center"><h4>Input Variables</h4></th>
@@ -136,7 +153,7 @@
         <hr>
         
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script src="../js/query.js"></script>
     <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
     <script src="../js/processInfoScript.js"></script>
