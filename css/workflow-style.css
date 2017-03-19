@@ -41,10 +41,10 @@ body {
   color: #66ccff;
   text-align: center;
 }
-#workflow-name { 
+#workflow-name {
+  margin-top: 3%;
   font-size: 40px;
-  padding-left: 5%;
-  text-align: left;
+  text-align: center;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
 }
 
@@ -94,10 +94,14 @@ td {
 
 
 table {
-  border: 2px solid dimgray;
+  border: 1px solid dimgray;
   width: 95%;
   text-align: left;
   padding-left: 5%;
+}
+
+.table-responsive {
+    border: 1px solid #66ccff;
 }
 
 
@@ -119,6 +123,7 @@ table {
 
 .workflow-nav {
   margin-top: 3%;
+  clear: both;
 }
 
 .searchbar {
