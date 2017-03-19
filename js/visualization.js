@@ -148,8 +148,6 @@ getGraphJSON(workflowURI, function(res) {
     */
     var formatInputs = function(vis, callback) {
         getInputs(workflowURI, function (inputs) {
-            console.log(putNodeIndices);
-            console.log(inputs);
             for (var i = 0; i < inputs.length; i++) {
                 var nodeIndex = putNodeIndices[inputs[i].input.value];
                 var newLabel = vis.node(nodeIndex).label;
