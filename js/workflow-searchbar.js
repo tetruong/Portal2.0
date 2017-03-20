@@ -3,11 +3,12 @@ var searchbarAutocomplete = function(suggestions) {
         source:suggestions,
         appendTo: '.searchbar',
         select: function(event, ui) {
-            console.log(ui.item.uri);
+            localStorage.setItem('workflow-uri', ui.item.uri);
+            window.location.reload(false);
         }
     });
 }
 
-window.onload = function() {
+window.onload = function() { 
     searchbarAutocomplete(JSON.parse(localStorage.getItem('workflow-suggestions')));
 }
