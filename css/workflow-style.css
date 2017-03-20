@@ -130,3 +130,18 @@ table {
   display: block;
   margin: auto;
 }
+
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    list-style: none;
+    display: inline-block;
+    background: #f2f6f7;
+    display: block;
+    text-align: center;
+}
+
+.ui-autocomplete li {
+    padding: 10px;
+    margin-bottom: 1px;
+}

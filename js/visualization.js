@@ -120,6 +120,7 @@ getGraphJSON(workflowURI, function(res) {
         // Create the renderer
         var render = new dagreD3.render();
         
+        // Add dimensions to nodes if there are any
         addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
         var svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
