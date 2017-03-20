@@ -42,11 +42,13 @@ getGraphJSON(workflowURI, function(res) {
                 //get readable display for step name
                 var stepToDisplay = stripNameFromURI(step);
                 stepToDisplay = stepToDisplay.substring(0, stepToDisplay.lastIndexOf('node')) == '' ? stepToDisplay : stepToDisplay.substring(0, stepToDisplay.lastIndexOf('node'));
-                vis.setNode(j, { 
+                vis.setNode(j, {
+                    shape: 'process',
                     label: stepToDisplay,
                     labelStyle: "fill: #000",
                     style: "fill: #FFCC99;",
-                    uri: step
+                    uri: step,
+                    dimensions: 3
                 });
                 j++;
             }
@@ -60,9 +62,10 @@ getGraphJSON(workflowURI, function(res) {
                     vis.setNode(j, { 
                         label: inputToDisplay,
                         labelStyle: "fill: #FFF",
-                        shape: 'ellipse',
+                        shape: 'customEllipse',
                         style: "fill: #003366;",
-                        uri: input
+                        uri: input,
+                        dimensions: 2
                     });
                     j++;
                 }
@@ -77,9 +80,10 @@ getGraphJSON(workflowURI, function(res) {
                     vis.setNode(j, { 
                         label: outputToDisplay,
                         labelStyle: "fill: #FFF",
-                        shape: 'ellipse',
+                        shape: 'customEllipse',
                         style: "fill: #003366;",
-                        uri: output
+                        uri: output,
+                        dimensions: 6
                     });
                     j++;
                 }
@@ -115,7 +119,8 @@ getGraphJSON(workflowURI, function(res) {
     var renderGraph = function(vis) {
         // Create the renderer
         var render = new dagreD3.render();
-
+        
+        addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
         var svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
 
@@ -155,7 +160,7 @@ getGraphJSON(workflowURI, function(res) {
                 vis.setNode(nodeIndex, { 
                     label: newLabel,
                     labelStyle: "fill: #FFF",
-                    shape: 'ellipse',
+                    shape: 'customInputEllipse',
                     style: "fill: #336633;",
                     uri: newLabel
                 });
@@ -215,4 +220,104 @@ var addHover = function(svg) {
 */
 var stripNameFromURI = function(uri) {
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
+}
+
+var addDimensions = function(render) {
+    render.shapes().customEllipse = function(parent, bbox, node) {
+        var rx = bbox.width/2,
+            ry = bbox.height/2,
+            shapeSvg = parent.insert("ellipse", ":first-child")
+            .attr('x', -bbox.width/2)
+            .attr('y', -bbox.height/2)
+            .attr('rx', rx)
+            .attr('ry', ry)
+            .attr('style', 'fill: #003366'); 
+        if (node.dimensions > 1) {
+            for (var i = 1; i < node.dimensions; i++) {
+                shapeSvg = parent.insert("ellipse", ":first-child")
+                .attr('x', -bbox.width/2)
+                .attr('y', -bbox.height/2)
+                .attr('rx', rx)
+                .attr('ry', ry)
+                .attr('style', "fill: #FFF; stroke: #003366")
+                .attr('transform', 'translate(' + 0 + ',' + (bbox.height/10)*i + ')' + 'scale(' + '1.0' + ')');
+            }
+            
+            shapeSvg = parent.insert("ellipse", ":first-child")
+                .attr('x', -bbox.width/2)
+                .attr('y', -bbox.height/2)
+                .attr('rx', rx)
+                .attr('ry', ry)
+                .attr('transform', 'translate(' + 0 + ',' + (bbox.height/10)*(node.dimensions) + ')' + 'scale(' + '1.0' + ')');
+                node.style = "fill: #FFF; stroke: #003366";
+        }
+
+        node.intersect = function(point) {
+            return dagreD3.intersect.ellipse(node, rx, ry, point);
+        };
+        return shapeSvg;
+    };
+    
+    render.shapes().customInputEllipse = function(parent, bbox, node) {
+        var rx = bbox.width/2,
+            ry = bbox.height/2,
+            shapeSvg = parent.insert("ellipse", ":first-child")
+            .attr('x', -bbox.width/2)
+            .attr('y', -bbox.height/2)
+            .attr('rx', rx)
+            .attr('ry', ry)
+            .attr('style', 'fill: #336633'); 
+        
+        if (node.dimensions > 1) {
+            for (var i = 1; i < node.dimensions; i++) {
+                shapeSvg = parent.insert("ellipse", ":first-child")
+                .attr('x', -bbox.width/2)
+                .attr('y', -bbox.height/2)
+                .attr('rx', rx)
+                .attr('ry', ry)
+                .attr('style', "fill: #FFF; stroke: #336633")
+                .attr('transform', 'translate(' + 3*i + ',' + (bbox.height/10)*i + ')' + 'scale(' + '1.0' + ')');
+            }
+            shapeSvg = parent.insert("ellipse", ":first-child")
+                .attr('x', -bbox.width/2)
+                .attr('y', -bbox.height/2)
+                .attr('rx', rx)
+                .attr('ry', ry)
+                .attr('transform', 'translate(' + 3*(node.dimensions) + ',' + (bbox.height/10)*(node.dimensions) + ')' + 'scale(' + '1.0' + ')');
+                node.style = "fill: #FFF; stroke: #336633";
+        }
+
+        node.intersect = function(point) {
+            return dagreD3.intersect.ellipse(node, rx, ry, point);
+        };
+        return shapeSvg;
+    };
+    
+    render.shapes().process = function(parent, bbox, node) {
+        var width = bbox.width,
+            height = bbox.height,
+            shapeSvg = parent.insert('rect', ':first-child')
+                .attr('rx', node.rx)
+                .attr('ry', node.ry)
+                .attr('x', -width/2)
+                .attr('y', -height/2)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('style', 'fill: #FFCC99;');
+
+        for (var i = 1; i < node.dimensions; i++) {
+            shapeSvg = parent.insert('rect', ':first-child')
+                .attr('rx', node.rx)
+                .attr('ry', node.ry)
+                .attr('x', -width/2 + (5*i))
+                .attr('y', -height/2 + (5*i))
+                .attr('width', width)
+                .attr('height', height)
+                .attr('style', 'fill: #FFCC99;');
+        }
+        node.intersect = function(point) {
+            return dagreD3.intersect.rect(node, point);
+        }
+        return shapeSvg;
+    }
 }

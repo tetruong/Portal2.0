@@ -22246,7 +22246,7 @@
 	          method = _ref3.method;
 	
 	      localStorage.setItem("workflow-uri", suggestion.uri);
-	      localStorage.setItem("workflow-suggestions", workflowSuggestions);
+	      localStorage.setItem("workflow-suggestions", JSON.stringify(workflowSuggestions));
 	      window.location = "../html/workflow-main.html";
 	    }
 	  }, {
