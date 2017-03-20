@@ -17,6 +17,7 @@ window.onload = function() {
     testCloseButton.onclick = function() {removeProcessInfo(1)};
 }
 
+
 function addProcessInfo(processURI, inputsArray, outputsArray) {
     if (processInfosCount == 4) {
         // remove a 
@@ -74,3 +75,15 @@ function removeProcessInfo(i) {
     divToRemove.remove();
 
 }
+
+
+function toggleChevron(e) {
+    $(e.target)
+        .prev('.panel-heading')
+        .find("i.indicator")
+        .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+}
+$('#accordion').on('hidden.bs.collapse', toggleChevron);
+$('#accordion').on('shown.bs.collapse', toggleChevron);
+
+//$('.collapse').collapse("show")

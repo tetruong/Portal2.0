@@ -13,3 +13,16 @@
     right: -10px;
     float:right;
 }
+
+
+#accordion .collapsing, #accordion .collapse.in
+{
+  position: absolute !important;
+  z-index: 20;
+  width: auto;
+  overflow:visible;
+  background-color:#fff;
+  border:1px solid #ddd;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+}

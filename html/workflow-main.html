@@ -68,14 +68,42 @@
             </a>
         </li>
     </ul>
-
+    
+<!--    expand and collapse legend-->
+    
+    
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title" style="text-align:left">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="text-align:left">
+                <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+                &nbsp;	&nbsp;View Legend
+            </a>
+          </h5>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div>
+                <img src="../images/legend.png" style="width:166;height:106px;" id="legend_image" hspace="15" vspace="15"> 
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <span>
     <div class="visualization-container">
         <svg></svg>
     </div>
+    </span>
 
 <!--       THIS IS TIFF"S PART    -->
 
-    <img src="../images/legend.png" style="width:133;height:85px;" id="legend_image"> 
+
+
+    
+    
+    
+<!--
 
     <button id="tempAdd">
         Click here to test add
@@ -83,6 +111,7 @@
     <button id="tempClose">
         Click here to test close
     </button>
+-->
 
     <hr>
 
