@@ -11,15 +11,25 @@ function escapeRegexCharacters(str) {
 }
 
 function getSuggestions(value) {
+  function removeDuplicates(value, index, self) { 
+    return self.indexOf(value) === index;
+  }
+    
   const escapedValue = escapeRegexCharacters(value.trim());
   
   if (escapedValue === '') {
     return [];
   }
 
-  const regex = new RegExp(escapedValue, 'i');
-
-  return workflowSuggestions.filter(workflowLabel => regex.test(workflowLabel.label));
+  // This regex returns suggestions where the input is found matching the beginning of the suggestion
+  const regexBeginningString = new RegExp('^' + escapedValue, 'i');
+  // This regex returns suggestions where the input is found anywhere in the suggestion
+  const regexAllString = new RegExp(escapedValue, 'i');
+    
+  var beginningSuggestions = workflowSuggestions.filter(workflowLabel => regexBeginningString.test(workflowLabel.label));
+  var allSuggestions = workflowSuggestions.filter(workflowLabel => regexAllString.test(workflowLabel.label));
+  var suggestions = beginningSuggestions.concat(allSuggestions);
+  return suggestions.filter(removeDuplicates);
 }
 
 function getSuggestionValue(suggestion) {
