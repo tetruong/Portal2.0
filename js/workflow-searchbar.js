@@ -1,4 +1,18 @@
+// Hack to replace the existing _renderItem in jQuery UI Autocomplete with our own implementation that highlights the matching input in the suggestions
+function monkeyPatchAutocomplete() {
+    $.ui.autocomplete.prototype._renderItem = function( ul, item) {
+      var re = new RegExp(this.term, "i") ;
+      var t = item.label.replace(re,"<span style='font-weight:bold;color:Blue;'>" + "$&" + "</span>");
+      return $( "<li></li>" )
+          .data( "item.autocomplete", item )
+          .append( "<a>" + t + "</a>" )
+          .appendTo( ul );
+    };
+}
+
 var searchbarAutocomplete = function(suggestions) {
+    
+    monkeyPatchAutocomplete();
         
     $( "#workflow-searchbar" ).autocomplete({
         source:suggestions,
