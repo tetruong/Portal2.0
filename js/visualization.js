@@ -1,6 +1,8 @@
 var processInputMapping = {};
 var processOutputMapping = {};
 var workflowURI = localStorage.getItem("workflow-uri");
+var vis = {};
+var svg = {};
 getGraphJSON(workflowURI, function(res) {
     var results = res['results']['bindings'];
     var processNodeIndices = {};
@@ -126,7 +128,7 @@ getGraphJSON(workflowURI, function(res) {
         // Add dimensions to nodes if there are any
         addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
-        var svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
+        svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
 
         // Set up zoom support
         var zoom = d3.behavior.zoom().on("zoom", function() {
@@ -175,7 +177,7 @@ getGraphJSON(workflowURI, function(res) {
     /*
         renders graph
     */
-    var vis = new dagreD3.graphlib.Graph()
+    vis = new dagreD3.graphlib.Graph()
         .setGraph({
             nodesep: 10,
             ranksep: 20,
@@ -186,6 +188,20 @@ getGraphJSON(workflowURI, function(res) {
 
     mapNodesEdges(vis);
 });
+
+var highlightHandler = function (checkbox) {
+    console.log(checkbox.checked);
+    highlightInputs(checkbox.checked);
+}
+
+var highlightInputs = function(checked) {
+    if (checked) {
+    } else {
+        // make an array of objects- the objects contain a process URI
+        
+        // how can I know which checkbox is checked to highlight inputs?
+    }
+}
 
 /*
     @params: d3 svg
