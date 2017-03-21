@@ -48,6 +48,7 @@ getGraphJSON(workflowURI, function(res) {
                     labelStyle: "fill: #000",
                     style: "fill: #FFCC99;",
                     uri: step,
+                    type: 'process',
                     dimensions: 3
                 });
                 j++;
@@ -61,10 +62,11 @@ getGraphJSON(workflowURI, function(res) {
                     var inputToDisplay = stripNameFromURI(input);
                     vis.setNode(j, { 
                         label: inputToDisplay,
-                        labelStyle: "fill: #FFF",
+                        labelStyle: 'fill: #FFF',
                         shape: 'customEllipse',
-                        style: "fill: #003366;",
+                        style: 'fill: #003366;',
                         uri: input,
+                        type: 'input',
                         dimensions: 2
                     });
                     j++;
@@ -83,6 +85,7 @@ getGraphJSON(workflowURI, function(res) {
                         shape: 'customEllipse',
                         style: "fill: #003366;",
                         uri: output,
+                        type: 'output',
                         dimensions: 6
                     });
                     j++;
@@ -145,7 +148,6 @@ getGraphJSON(workflowURI, function(res) {
         svg.attr('height', vis.graph().height * scale + yTopMargin);
 
         setupNodeOnClick(svg, vis);
-        addHover(svg);
     }
     
     /*
@@ -162,7 +164,8 @@ getGraphJSON(workflowURI, function(res) {
                     labelStyle: "fill: #FFF",
                     shape: 'customInputEllipse',
                     style: "fill: #336633;",
-                    uri: newLabel
+                    uri: newLabel,
+                    type: 'input'
                 });
             }
             callback(vis);
@@ -190,27 +193,19 @@ getGraphJSON(workflowURI, function(res) {
 */
 var setupNodeOnClick = function (svg, vis) {
     //setup on click listeners for every node
-    svg.selectAll("g.node").on("click", function(id) {
-        addProcessInfo(vis.node(id).uri, processInputMapping[vis.node(id).uri], processOutputMapping[vis.node(id).uri]);
-    });
-}
-
-/*
-    @params: d3 svg
-    - add hover opacity effect for each node when it is moused over, and returns back to normal opacity when it is moused out
-*/
-var addHover = function(svg) {
-    //change opacity of nodes based on whether or not the mouse is hovering over them
-    svg.selectAll('g.node').on('mouseover', function(id) {
-        svg.selectAll('g.node').style('opacity', function(id1){
-            if (id == id1) return 0.7;
-        });
-    });
-    
-    svg.selectAll('g.node').on('mouseout', function(id) {
-        svg.selectAll('g.node').style('opacity', function(id1){
-            return 1;
-        });
+    svg.selectAll("g.node").on('click', function(id) {
+        var node = vis.node(id);
+        if(d3.select(this).style('opacity') == 0.7) {
+            d3.select(this).style('opacity','1.0');
+            // TODO: remove chart of info for node, since it is being 'unselected'
+        }
+        else {
+            d3.select(this).style('opacity', '0.7');
+            // TODO: add chart of info for input/output nodes, since they are being 'selected'
+            if (node.type == 'process') {
+                addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
+            }
+        }
     });
 }
 
