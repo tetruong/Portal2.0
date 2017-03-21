@@ -21600,18 +21600,18 @@
 	    return [];
 	  }
 
-	  // This regex returns suggestions where the input is found matching the beginning of the suggestion
-	  var regexBeginningString = new RegExp('^' + escapedValue, 'i');
-	  // This regex returns suggestions where the input is found anywhere in the suggestion
-	  var regexAllString = new RegExp(escapedValue, 'i');
+	  // This regex returns suggestions that start with the input
+	  var regexStartsWith = new RegExp('^' + escapedValue, 'i');
+	  // This regex returns suggestions that contain the input anywhere in the suggestion string
+	  var regexContains = new RegExp(escapedValue, 'i');
 
-	  var beginningSuggestions = workflowSuggestions.filter(function (workflowLabel) {
-	    return regexBeginningString.test(workflowLabel.label);
+	  var suggestionsStartWith = workflowSuggestions.filter(function (workflowLabel) {
+	    return regexStartsWith.test(workflowLabel.label);
 	  });
-	  var allSuggestions = workflowSuggestions.filter(function (workflowLabel) {
-	    return regexAllString.test(workflowLabel.label);
+	  var suggestionsContains = workflowSuggestions.filter(function (workflowLabel) {
+	    return regexContains.test(workflowLabel.label);
 	  });
-	  var suggestions = beginningSuggestions.concat(allSuggestions);
+	  var suggestions = suggestionsStartWith.concat(suggestionsContains);
 	  return suggestions.filter(removeDuplicates);
 	}
 

@@ -21,14 +21,14 @@ function getSuggestions(value) {
     return [];
   }
 
-  // This regex returns suggestions where the input is found matching the beginning of the suggestion
-  const regexBeginningString = new RegExp('^' + escapedValue, 'i');
-  // This regex returns suggestions where the input is found anywhere in the suggestion
-  const regexAllString = new RegExp(escapedValue, 'i');
+  // This regex returns suggestions that start with the input
+  const regexStartsWith = new RegExp('^' + escapedValue, 'i');
+  // This regex returns suggestions that contain the input anywhere in the suggestion string
+  const regexContains = new RegExp(escapedValue, 'i');
     
-  var beginningSuggestions = workflowSuggestions.filter(workflowLabel => regexBeginningString.test(workflowLabel.label));
-  var allSuggestions = workflowSuggestions.filter(workflowLabel => regexAllString.test(workflowLabel.label));
-  var suggestions = beginningSuggestions.concat(allSuggestions);
+  var suggestionsStartWith = workflowSuggestions.filter(workflowLabel => regexStartsWith.test(workflowLabel.label));
+  var suggestionsContains = workflowSuggestions.filter(workflowLabel => regexContains.test(workflowLabel.label));
+  var suggestions = suggestionsStartWith.concat(suggestionsContains);
   return suggestions.filter(removeDuplicates);
 }
 
