@@ -39,7 +39,7 @@ var getInputs = function(workflow, handler) {
 var getGraphJSON = function(workflowURI, handler) {
     var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' + workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' + workflowURI +'>.?output <http://www.opmw.org/ontology/isGeneratedBy> ?step.}}';
     
-    var endpointURI = endpoint + "query?query=" + sparql + "&format=json";
+    var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
     
     $.ajax({
         url: endpointURI,
@@ -56,9 +56,9 @@ var getGraphJSON = function(workflowURI, handler) {
 }
 
 var getExecutionID = function (workflowURI, handler) {
-    var sparql = 'select ?execution where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
+    var sparql = 'select ?execution from <urn:x-arq:UnionGraph> where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
     
-    var endpointURI = endpoint + "query?query=" + sparql + "&format=json";
+    var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
     
     $.ajax({
         url: endpointURI,
@@ -66,10 +66,26 @@ var getExecutionID = function (workflowURI, handler) {
         cache: false,
         timeout: 30000,
         error: function(){
-            handler({});
         },
         success: function(res) {
-            console.log(res);
+            getExecutionArtifacts(res.results.bindings[0].execution.value, handler);
+        }
+    })
+}
+
+var getExecutionArtifacts = function(executionID, handler) {
+    var sparql = 'select ?step ?input ?output  from <urn:x-arq:UnionGraph> where{{?step <http://openprovenance.org/model/opmo#account> <' + executionID + '>.?step <http://purl.org/net/opmv/ns#used> ?input.}UNION{?step <http://openprovenance.org/model/opmo#account> <' + executionID +'>.?output <http://purl.org/net/opmv/ns#wasGeneratedBy> ?step.}}';
+    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+    
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
             handler(res);
         }
     })

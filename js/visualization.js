@@ -1,9 +1,19 @@
 var processInputMapping = {};
 var processOutputMapping = {};
 var workflowURI = localStorage.getItem("workflow-uri");
-var vis = {};
-var svg = {};
+var vis = null;
+var svg = null;
 getGraphJSON(workflowURI, function(res) {
+    renderVisualization(res, false);
+});
+
+var renderVisualization = function (res, isArtifact) {
+    if (svg != null) {
+        while (svg.lastChild) {
+            svg.removeChild(svg.lastChild);
+        }
+        vis = null;
+    }
     var results = res['results']['bindings'];
     var processNodeIndices = {};
     var putNodeIndices = {};
@@ -118,7 +128,10 @@ getGraphJSON(workflowURI, function(res) {
                 });
             }
         }
-        formatInputs(vis, renderGraph);
+        if (!isArtifact)
+            formatInputs(vis, renderGraph);
+        else
+            renderGraph(vis);
     }
     
     var renderGraph = function(vis) {
@@ -138,6 +151,8 @@ getGraphJSON(workflowURI, function(res) {
         svg.call(zoom);
 
         // Run the renderer. This is what draws the final graph.
+        console.log(svgGroup)
+        console.log(vis)
         render(svgGroup, vis);
 
         //centers graph and calculates top margin of graph based on screen size
@@ -187,7 +202,7 @@ getGraphJSON(workflowURI, function(res) {
         });
 
     mapNodesEdges(vis);
-});
+}
 
 var highlightHandler = function (checkbox) {
     console.log(checkbox.checked);
@@ -230,6 +245,9 @@ var setupNodeOnClick = function (svg, vis) {
     @return: a parsed, human-readable substring of the URI
 */
 var stripNameFromURI = function(uri) {
+    if (uri.indexOf('CE_') <= -1) {
+        return uri.substring(uri.lastIndexOf('/'), uri.length).toLowerCase();
+    }
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
 }
 
