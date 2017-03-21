@@ -56,18 +56,20 @@
         </table>
     </div>
 
-    <ul class="nav nav-tabs">
-        <li class="active">
-            <a href="#">
-                Workflow
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                Execution
-            </a>
-        </li>
-    </ul>
+    <div class="switchTabs">
+        <ul class="nav nav-tabs">
+            <li class="active workflowTab">
+                <a href="#workflow">
+                    Workflow
+                </a>
+            </li>
+            <li class="executionTab">
+                <a href="#execution">
+                    Execution
+                </a>
+            </li>
+        </ul>
+    </div>
     
 <!--    expand and collapse legend-->
     
@@ -90,11 +92,9 @@
       </div>
     </div>
     
-    <span>
     <div class="visualization-container">
         <svg></svg>
     </div>
-    </span>
 
 <!--       THIS IS TIFF"S PART    -->
 
@@ -183,6 +183,8 @@
     <script src="../js/visualization.js">
     </script>
     <script src="../js/workflow-searchbar.js">
+    </script>
+    <script src="../js/change-tabs.js">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
     </script>
