@@ -36,10 +36,10 @@ function getSuggestionValue(suggestion) {
   return suggestion.label;
 }
 
-function renderSuggestion(suggestion) {
-  return (
-    <span>{suggestion.label}</span>
-  );
+function renderSuggestion(suggestion, { query }) {
+  var re = new RegExp(query, "i") ;
+  var t = suggestion.label.replace(re,"<strong>" + "$&" + "</strong>");
+  return (<span dangerouslySetInnerHTML={{__html: t}} />);
 }
 
 /**

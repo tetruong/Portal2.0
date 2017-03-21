@@ -21619,12 +21619,12 @@
 	  return suggestion.label;
 	}
 
-	function renderSuggestion(suggestion) {
-	  return _react2.default.createElement(
-	    'span',
-	    null,
-	    suggestion.label
-	  );
+	function renderSuggestion(suggestion, _ref) {
+	  var query = _ref.query;
+
+	  var re = new RegExp(query, "i");
+	  var t = suggestion.label.replace(re, "<strong>" + "$&" + "</strong>");
+	  return _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: t } });
 	}
 
 	/**
@@ -21680,9 +21680,9 @@
 	    }
 	  }, {
 	    key: 'onChange',
-	    value: function onChange(event, _ref) {
-	      var newValue = _ref.newValue,
-	          method = _ref.method;
+	    value: function onChange(event, _ref2) {
+	      var newValue = _ref2.newValue,
+	          method = _ref2.method;
 
 	      this.setState({
 	        value: newValue
@@ -21690,8 +21690,8 @@
 	    }
 	  }, {
 	    key: 'onSuggestionsFetchRequested',
-	    value: function onSuggestionsFetchRequested(_ref2) {
-	      var value = _ref2.value;
+	    value: function onSuggestionsFetchRequested(_ref3) {
+	      var value = _ref3.value;
 
 	      var suggestions = getSuggestions(value);
 	      var isInputBlank = value.trim() === '';
@@ -21710,12 +21710,12 @@
 	    }
 	  }, {
 	    key: 'onSuggestionSelected',
-	    value: function onSuggestionSelected(event, _ref3) {
-	      var suggestion = _ref3.suggestion,
-	          suggestionValue = _ref3.suggestionValue,
-	          suggestionIndex = _ref3.suggestionIndex,
-	          sectionIndex = _ref3.sectionIndex,
-	          method = _ref3.method;
+	    value: function onSuggestionSelected(event, _ref4) {
+	      var suggestion = _ref4.suggestion,
+	          suggestionValue = _ref4.suggestionValue,
+	          suggestionIndex = _ref4.suggestionIndex,
+	          sectionIndex = _ref4.sectionIndex,
+	          method = _ref4.method;
 
 	      localStorage.setItem("workflow-uri", suggestion.uri);
 	      localStorage.setItem("workflow-suggestions", JSON.stringify(workflowSuggestions));
