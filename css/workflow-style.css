@@ -22,7 +22,10 @@ text {
   width: 100%;
   display: block;
   margin: auto;
-  background: #f2f6f7;
+}
+
+svg {
+  background-image: url('../images/grid.png');
 }
 
 .edgePath path {

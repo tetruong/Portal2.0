@@ -139,10 +139,9 @@ getGraphJSON(workflowURI, function(res) {
         var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 2 - vis.graph().width) / 2;
         var yTopMargin = screen.height * .05;
         var scale = .75;
-        zoom
-          .translate([xCenterOffset, 20])
-          .scale(scale)
-          .event(svg);
+        zoom.translate([xCenterOffset, 20])
+            .scale(scale)
+            .event(svg);
         svg.attr('height', vis.graph().height * scale + yTopMargin);
 
         setupNodeOnClick(svg, vis);
