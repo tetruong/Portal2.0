@@ -1,22 +1,18 @@
-var processInputMapping = {};
-var processOutputMapping = {};
+var svg = {};
+var vis = {};
 var workflowURI = localStorage.getItem("workflow-uri");
-var vis = null;
-var svg = null;
 getGraphJSON(workflowURI, function(res) {
     renderVisualization(res, false);
 });
 
 var renderVisualization = function (res, isArtifact) {
-    if (svg != null) {
-        while (svg.lastChild) {
-            svg.removeChild(svg.lastChild);
-        }
-        vis = null;
-    }
+    d3.select("svg").remove();
+    d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
     var processNodeIndices = {};
     var putNodeIndices = {};
+    var processInputMapping = {};
+    var processOutputMapping = {};
 
     /*
         @params: string processName, string inputName
@@ -60,8 +56,7 @@ var renderVisualization = function (res, isArtifact) {
                     labelStyle: "fill: #000",
                     style: "fill: #FFCC99;",
                     uri: step,
-                    type: 'process',
-                    dimensions: 3
+                    type: 'process'
                 });
                 j++;
             }
@@ -78,8 +73,7 @@ var renderVisualization = function (res, isArtifact) {
                         shape: 'customEllipse',
                         style: 'fill: #003366;',
                         uri: input,
-                        type: 'input',
-                        dimensions: 2
+                        type: 'input'
                     });
                     j++;
                 }
@@ -97,8 +91,7 @@ var renderVisualization = function (res, isArtifact) {
                         shape: 'customEllipse',
                         style: "fill: #003366;",
                         uri: output,
-                        type: 'output',
-                        dimensions: 6
+                        type: 'output'
                     });
                     j++;
                 }
@@ -121,6 +114,7 @@ var renderVisualization = function (res, isArtifact) {
                 });
             }
         }
+        
         for (var process in processOutputMapping) {
             for (var i = 0; i < processOutputMapping[process].length; i++) {
                 vis.setEdge(processNodeIndices[process], putNodeIndices[processOutputMapping[process][i]], {
@@ -151,8 +145,6 @@ var renderVisualization = function (res, isArtifact) {
         svg.call(zoom);
 
         // Run the renderer. This is what draws the final graph.
-        console.log(svgGroup)
-        console.log(vis)
         render(svgGroup, vis);
 
         //centers graph and calculates top margin of graph based on screen size
@@ -246,7 +238,7 @@ var setupNodeOnClick = function (svg, vis) {
 */
 var stripNameFromURI = function(uri) {
     if (uri.indexOf('CE_') <= -1) {
-        return uri.substring(uri.lastIndexOf('/'), uri.length).toLowerCase();
+        return uri.substring(uri.lastIndexOf('/')+1, uri.length-13).toLowerCase();
     }
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
 }
