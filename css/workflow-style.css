@@ -148,3 +148,39 @@ table {
     padding: 10px;
     margin-bottom: 1px;
 }
+
+
+.metadata-icon {
+    font-size: 30px;
+    padding: 5px 5px 0px 5px;
+}
+.metadata-icon:hover {
+    color:blue;
+}
+
+.metadata-value {
+    display:none;
+    font-size: 20px;
+}
+
+#status-icon:hover ~ #status-value {
+    display: block;
+}
+
+#label-icon:hover ~ #label-value {
+    display: block;
+}
+
+#start-time-icon:hover ~ #start-time-value {
+    display: block;
+}
+
+#end-time-icon:hover ~ #end-time-value {
+    display: block;
+}
+
+
+
+
+
+

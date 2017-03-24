@@ -56,19 +56,49 @@
         </table>
     </div>
 
+<!--
     <div class="switchTabs">
         <ul class="nav nav-tabs">
             <li class="active workflowTab">
-                <a href="#workflow">
+                <a data-toggle="tab" href="#workflow">
                     Workflow
                 </a>
             </li>
             <li class="executionTab">
-                <a href="#execution">
+                <a data-toggle="tab" href="#execution">
                     Execution
                 </a>
+                
+                
             </li>
         </ul>
+    </div>
+-->
+    
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#workflow">Workflow</a></li>
+        <li><a data-toggle="tab" href="#execution">Execution</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="workflow" class="tab-pane fade in active">
+
+        </div>
+        <div id="execution" class="tab-pane fade">
+            <div class="metadata">
+                    <span id="status-icon" class="metadata-icon glyphicon glyphicon-ok-sign" aria-hidden="true" title="SUCCESS"></span>
+                    <span id="label-icon" class="metadata-icon glyphicon glyphicon-tags" aria-hidden="true" title="Execution account created on 10/15/2016"></span>
+                    <span id="start-time-icon" class="metadata-icon glyphicon glyphicon-upload" aria-hidden="true" title="2012-05-24 13:52:55"></span>
+                    <span id="end-time-icon" class="metadata-icon glyphicon glyphicon-download" aria-hidden="true" title="2012-05-24 14:12:10"></span>
+                    <div class="metadata-value" id="status-value">Status: SUCCESS</div>
+                    <div class="metadata-value" id="label-value">Label: Execution account created on 10/15/2016</div>
+                    <div class="metadata-value" id="start-time-value">Start Time: 2012-05-24 13:52:55</div>
+                    <div class="metadata-value" id="end-time-value">End Time: 2012-05-24 14:12:10</div>
+            </div>
+            <div class="metadata-info">
+                
+            </div>
+        </div>
     </div>
     
 <!--    expand and collapse legend-->
