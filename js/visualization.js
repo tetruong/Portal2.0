@@ -141,7 +141,7 @@ var renderVisualization = function (res, isArtifact) {
         // Add dimensions to nodes if there are any
         addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
-        svg = d3.select("svg").attr('width','50%').attr('height','100%'), svgGroup = svg.append("g");
+        svg = d3.select("svg").attr('width','75%').attr('height','100%'), svgGroup = svg.append("g");
 
         // Set up zoom support
         var zoom = d3.behavior.zoom().on("zoom", function() {
