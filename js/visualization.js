@@ -1,5 +1,7 @@
 var svg = {};
 var vis = {};
+var processInputMapping = {};
+var processOutputMapping = {};
 var workflowURI = localStorage.getItem("workflow-uri");
 getGraphJSON(workflowURI, function(res) {
     renderVisualization(res, false);
@@ -11,8 +13,8 @@ var renderVisualization = function (res, isArtifact) {
     var results = res['results']['bindings'];
     var processNodeIndices = {};
     var putNodeIndices = {};
-    var processInputMapping = {};
-    var processOutputMapping = {};
+    processInputMapping = {};
+    processOutputMapping = {};
 
     /*
         @params: string processName, string inputName
