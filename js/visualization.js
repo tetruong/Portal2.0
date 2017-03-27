@@ -219,6 +219,9 @@ var highlightInputs = function(checked) {
 var addArtifacts = function(artifacts) {
     var select = document.getElementById("selection"); 
 
+    var first = document.createElement("option");
+    first.textContent = 'Select execution artifact';
+    select.appendChild(first);
     for(var i = 0; i < artifacts.length; i++) {
         var opt = artifacts[i];
         var el = document.createElement("option");
@@ -228,6 +231,8 @@ var addArtifacts = function(artifacts) {
     }
     
     select.addEventListener('change', function() {
+        if (select.selectedIndex == 0)
+            return;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
         getExecutionArtifacts(select.options[select.selectedIndex].value, function(res) {
             renderVisualization(res, true);

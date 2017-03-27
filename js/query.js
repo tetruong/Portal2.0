@@ -55,7 +55,7 @@ var getGraphJSON = function(workflowURI, handler) {
     })
 }
 
-var getExecutionID = function (workflowURI, handler, isFirst) {
+var getExecutionID = function (workflowURI, handler) {
     var sparql = 'select ?execution from <urn:x-arq:UnionGraph> where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
     
     var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
@@ -68,12 +68,9 @@ var getExecutionID = function (workflowURI, handler, isFirst) {
         error: function(){
         },
         success: function(res) {
-            if (isFirst)
-                getExecutionArtifacts(res.results.bindings[0].execution.value, handler);
-            else {
-                getExecutionArtifacts(res.results.bindings[0].execution.value, handler);
-                addArtifacts(res.results.bindings)
-            }
+            console.log(res)
+            getExecutionArtifacts(res.results.bindings[0].execution.value, handler);
+            addArtifacts(res.results.bindings)
         }
     })
 }
