@@ -9,7 +9,7 @@ getGraphJSON(workflowURI, function(res) {
 
 var renderVisualization = function (res, isArtifact) {
     document.getElementById('workflow-name').innerHTML
-        = localStorage.getItem('workflow-label') + ' <i class="glyphicon glyphicon-chevron-down" style="vertical-align: middle;"></i>';
+        = localStorage.getItem('workflow-label');
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];

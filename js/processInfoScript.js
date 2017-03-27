@@ -17,63 +17,85 @@ window.onload = function() {
     testCloseButton.onclick = function() {removeProcessInfo(1)};
 }
 
-
+var sectionsShowing = [];
+var sectionsShowingIds = [];
 function addProcessInfo(processURI, inputsArray, outputsArray) {
     if (processInfosCount == 4) {
-        // remove a 
+        // remove a process
     }
     // check that process div thing is not over count;
     
     // set header name
     var processName = stripNameFromURI(processURI);
     console.log(processName);
-    var nameHeader = document.getElementById("name_of_process_header");
-    nameHeader.innerHTML = processName;
-    
-    console.log(inputsArray);
-    console.log(outputsArray);
-    // Populate the table with variable data
-    var l = inputsArray.length;
-    if (outputsArray.length > l) {
-        l = outputsArray.length;
-    }
-    // adding inputs and outputs to the table
-    var tableBody = document.getElementById("process_info_table_body");
-    var newTableBody = document.createElement("tbody");
-    newTableBody.setAttribute("id", "process_info_table_body");
-    for (i = 0; i < l; i++) {
-        var row = newTableBody.insertRow(-1);
-        // add input variable name and add output variable name (if applicable)
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        if (i < inputsArray.length) {
-            cell1.innerHTML = stripNameFromURI(inputsArray[i]);
-        }
-        if (i < outputsArray.length) {
-            cell2.innerHTML = stripNameFromURI(outputsArray[i]);
-        }
-    }
-    console.log(tableBody.parentNode);
-    tableBody.parentNode.replaceChild(newTableBody, tableBody);
-    
-    var newProcessInfoDiv = document.createElement("div"); // create a new div
-    newProcessInfoDiv.setAttribute("id", processInfosIndex);
-    newProcessInfoDiv.setAttribute("class", "processInfo");
-    var layoutDiv = document.getElementById("processInfoDivLayout");
-    var layoutDivCopy = layoutDiv.cloneNode(true);
-    layoutDivCopy.style.display = "block";
-    newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
-    processInfosCount = processInfosCount + 1;
-    processInfosIndex = processInfosIndex + 1;
-    document.body.appendChild(newProcessInfoDiv);
-    console.log(processInfosCount);
-    
+	
+		var alreadyShowing = false;
+		// Check that section is not already showing
+		for (i = 0; i < sectionsShowing.length; i++) {
+				if (sectionsShowing[i] == processName) {
+					alreadyShowing = true;
+				}
+		}
+		// Section is not already displayed on the page
+		if (!alreadyShowing) {
+			var nameHeader = document.getElementById("name_of_process_header");
+			console.log(nameHeader);
+			nameHeader.innerHTML = processName;
+
+			sectionsShowing[processInfosCount] = processName;
+
+			console.log(inputsArray);
+			console.log(outputsArray);
+			// Populate the table with variable data
+			var l = inputsArray.length;
+			if (outputsArray.length > l) {
+					l = outputsArray.length;
+			}
+			// adding inputs and outputs to the table
+			var tableBody = document.getElementById("process_info_table_body");
+			var newTableBody = document.createElement("tbody");
+			newTableBody.setAttribute("id", "process_info_table_body");
+			for (i = 0; i < l; i++) {
+					var row = newTableBody.insertRow(-1);
+					// add input variable name and add output variable name (if applicable)
+					var cell1 = row.insertCell(0);
+					var cell2 = row.insertCell(1);
+					if (i < inputsArray.length) {
+							cell1.innerHTML = stripNameFromURI(inputsArray[i]);
+					}
+					if (i < outputsArray.length) {
+							cell2.innerHTML = stripNameFromURI(outputsArray[i]);
+					}
+			}
+			tableBody.parentNode.replaceChild(newTableBody, tableBody);
+
+			var newProcessInfoDiv = document.createElement("div"); // create a new div
+			newProcessInfoDiv.setAttribute("id", processInfosIndex);
+			sectionsShowingIds[processInfosCount] = processInfosIndex;
+			newProcessInfoDiv.setAttribute("class", "processInfo");
+			var layoutDiv = document.getElementById("processInfoDivLayout");
+			var layoutDivCopy = layoutDiv.cloneNode(true);
+			layoutDivCopy.style.display = "block";
+			newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
+			
+			document.body.appendChild(newProcessInfoDiv);
+			console.log(processInfosCount);
+			
+			// add button listner
+			var addedProcessInfoDiv = document.getElementById(processInfosIndex);
+			var closeButton = addedProcessInfoDiv.getElementsByClassName("buttonCloseProcessInfo")[0];
+			var index = processInfosIndex;
+			closeButton.onclick = function() {removeProcessInfo(index)};
+
+			
+			processInfosCount = processInfosCount + 1;
+			processInfosIndex = processInfosIndex + 1;
+		}
 }
     
 function removeProcessInfo(i) {
     var divToRemove = document.getElementById(i);
     divToRemove.remove();
-
 }
 
 
