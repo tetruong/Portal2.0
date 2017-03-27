@@ -19,6 +19,7 @@ var searchbarAutocomplete = function(suggestions) {
         appendTo: '.searchbar',
         select: function(event, ui) {
             localStorage.setItem('workflow-uri', ui.item.uri);
+            localStorage.setItem('workflow-label', ui.item.label);
             window.location.reload(false);
         }
     });
