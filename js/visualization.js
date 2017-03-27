@@ -128,8 +128,10 @@ var renderVisualization = function (res, isArtifact) {
         }
         if (!isArtifact)
             formatInputs(vis, renderGraph);
-        else
+        else {
+//            addArtifacts()
             renderGraph(vis);
+        }
     }
     
     var renderGraph = function(vis) {
@@ -212,6 +214,25 @@ var highlightInputs = function(checked) {
         
         // how can I know which checkbox is checked to highlight inputs?
     }
+}
+
+var addArtifacts = function(artifacts) {
+    var select = document.getElementById("selection"); 
+
+    for(var i = 0; i < artifacts.length; i++) {
+        var opt = artifacts[i];
+        var el = document.createElement("option");
+        el.textContent = stripNameFromURI(opt.execution.value);
+        el.value = opt.execution.value;
+        select.appendChild(el);
+    }
+    
+    select.addEventListener('change', function() {
+        localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
+        getExecutionArtifacts(select.options[select.selectedIndex].value, function(res) {
+            renderVisualization(res, true);
+        })
+    })
 }
 
 /*
