@@ -20,9 +20,10 @@ window.onload = function() {
 var sectionsShowing = [];
 var sectionsShowingIds = [];
 function addProcessInfo(processURI, inputsArray, outputsArray) {
-    if (processInfosCount == 4) {
+    if (processInfosCount == 5) {
         // remove a process
-    }
+				removeProcessInfo(sectionsShowingIds[0]);
+		}
     // check that process div thing is not over count;
     
     // set header name
@@ -93,9 +94,19 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 		}
 }
     
-function removeProcessInfo(i) {
-    var divToRemove = document.getElementById(i);
+function removeProcessInfo(removeId) {
+    var divToRemove = document.getElementById(removeId);
     divToRemove.remove();
+		// remove from lists that are keeping track of which processes are currently showing on page
+		processInfosCount = processInfosCount - 1;
+		for (i = 0; i < sectionsShowingIds.length; i++) {
+			if (sectionsShowingIds[i] == removeId) {
+				sectionsShowingIds.splice(i, 1);
+				sectionsShowing.splice(i, 1);
+				break;
+			}
+		}
+	
 }
 
 
