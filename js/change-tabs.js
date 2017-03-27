@@ -8,6 +8,8 @@ $(document).ready(function() {
     
     $(".workflowTab").click(function() {
         $('.nav-tabs a[href="#workflow"]').tab('show');
+        getGraphJSON(workflowURI, function(res) {
+            renderVisualization(res, false);
+        });
     });
-    
 });
