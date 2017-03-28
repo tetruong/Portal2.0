@@ -67,9 +67,15 @@ body {
 
 th {
   padding: 5px 15px;
-  text-align: left;    
+  text-align: center;    
+	border-bottom:  4px solid rgba(176,196,222, 0.5);
+  border-top:  4px solid rgba(176,196,222, 0.5);
+  border-collapse: collapse;
+	color: rgb(88,98,111);
+/*
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
   border: 2px solid dimgray;
+*/
   font-size: 14px;
 }
 
@@ -84,21 +90,31 @@ hr {
   margin-bottom: 0.5em;
   margin-left: auto;
   margin-right: auto;
-  border-style: inset;
+/*  border-style: inset;*/
   border-width: 2px;
 }
 
 td {
-  border: 2px solid dimgray;
+/*  border: 2px solid dimgray;*/
+/*
+		border-bottom:  2px solid rgba(176,196,222, 0.5);
+  border-top:  2px solid LightSteelBlue;
+*/
+  border-collapse: collapse;
   padding: 5px 15px;
-  color: #66ccff;
-  font-size: 12px;
+  color: rgb(140,156,177);
+  font-size: 14px;
+	text-align: center;
 }
 
+td:hover {background-color: #f5f5f5}
 
 table {
-  border: 2px solid LightSteelBlue;
-  width: 95%;
+/*  border: 2px solid LightSteelBlue;*/
+	border-bottom:  2px solid rgba(176,196,222, 0.5);
+  border-top:  2px solid rgba(176,196,222, 0.5);
+  border-collapse: collapse;
+  width: 100%;
   text-align: left;
   padding-left: 5%;
 }

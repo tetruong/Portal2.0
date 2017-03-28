@@ -76,7 +76,9 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			newProcessInfoDiv.setAttribute("class", "processInfo");
 			var layoutDiv = document.getElementById("processInfoDivLayout");
 			var layoutDivCopy = layoutDiv.cloneNode(true);
-			layoutDivCopy.style.display = "block";
+			layoutDivCopy.style.width = "90%";
+			layoutDivCopy.style.display = "inline-block";
+			
 			newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
 			
 			document.body.appendChild(newProcessInfoDiv);
