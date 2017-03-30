@@ -121,7 +121,7 @@ class SearchBar extends React.Component {
   render() {
     const { value, suggestions, noSuggestions } = this.state;
     const inputProps = {
-      placeholder: "Search for Workflows",
+      placeholder: "Enter Workflow Name",
       value,
       onChange: this.onChange
     };

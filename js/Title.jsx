@@ -3,9 +3,17 @@ import React from 'react';
 class Title extends React.Component {
 	render() {
 		return (
-			<div>
-				<h1> Portal 2.0 </h1>
-			</div>
+            <div>
+                <div>
+                    <h1> Workflow Explorer </h1>
+                </div>
+                <nav>
+                    <ul class="nav masthead-nav">
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Help</a></li>
+                    </ul>
+                </nav>
+            </div>
 		);
 	}
 }

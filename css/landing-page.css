@@ -1,6 +1,4 @@
-/*
- * Globals
- */
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 /* Links */
 a,
@@ -9,16 +7,11 @@ a:hover {
   color: #fff;
 }
 
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fff;
-  border: .05rem solid #fff;
+/* Title Component */
+#title li {
+    display: inline;
+    padding: 10px 10px 10px 10px;
 }
-
 
 /*
  * Base structure
@@ -27,11 +20,12 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #a7c7cc;
+  background: rgba(102,204,255, .5);
 }
 body {
   color: #fff;
   text-align: center;
+  font-family: Lato;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
 }
 
@@ -166,10 +160,6 @@ body {
 }
 
 /* Carousel starts here */ 
-img { 
-    max-width:100%; 
-}
-
 a {
 	transition: all 150ms ease; 
 }
@@ -179,18 +169,10 @@ a:hover {
 }
 
 .thumbnails li> .fff .caption { 
-    background:#fff !important; 
-    padding:10px 10px 10px 10px
+    background-color: #fff;
+    padding:10px 10px 10px 10px;
+    margin-top: 75px;
 }
-
-.thumbnails li{
-
-}
-
-ul.thumbnails { 
-    margin-bottom: 75px;
-}
-
 
 /* Thumbnail Box */
 .caption h4 {
@@ -199,8 +181,12 @@ ul.thumbnails {
 }
 
 .caption p {  
-    color: #999;
+    color: #000;
     font-size: 12px;
+}
+
+.caption a {
+    color: dimgray;
 }
 
 /* Carousel Control */
