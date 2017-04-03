@@ -234,8 +234,11 @@ var addArtifacts = function(artifacts) {
         if (select.selectedIndex == 0)
             return;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
-        getExecutionArtifacts(select.options[select.selectedIndex].value, function(res) {
+        getExecutionArtifacts(select.options[select.selectedIndex].value, function(res, executionID) {
             renderVisualization(res, true);
+            getExecutionDetails(executionID, function(res) {
+                setWorkflowMetadata(res);
+            })
         })
     })
 }

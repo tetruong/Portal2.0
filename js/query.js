@@ -88,6 +88,25 @@ var getExecutionArtifacts = function(executionID, handler) {
         error: function(){
         },
         success: function(res) {
+            handler(res, executionID);
+        }
+    })
+}
+
+var getExecutionDetails = function(executionID, handler) {
+    var sparql = 'select ?label ?status ?start ?end  from <urn:x-arq:UnionGraph> where{<'
++ executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}optional{<' + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}}'
+    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+    
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
             handler(res);
         }
     })
