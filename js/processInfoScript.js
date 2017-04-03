@@ -27,7 +27,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 	// check that process div thing is not over count
 	if (processInfosCount == 5) {
 			// remove a process
-			removeProcessInfo(sectionsShowingIds[0]);
+			removeProcessInfo(sectionsShowing[0]);
 	}
 	
 	// get name of node
@@ -40,7 +40,9 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			if (sectionsShowing[i] == processName) {
 				alreadyShowing = true;
 			}
-		console.log("process is already showing!");
+	}
+	if (alreadyShowing) {
+			console.log("process is already showing!");
 	}
 	
 	// panel isn't already displayed on page, so add it
@@ -51,10 +53,10 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 
 		$newPanel.find(".collapse").removeClass("in");
 		// set header name
-		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosCount)).text(processName);
+		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text(processName);
 		$newPanel.attr("id", processName);
 		// link clicking on process name to expand collapse
-		$newPanel.find(".panel-collapse").attr("id", processInfosCount);
+		$newPanel.find(".panel-collapse").attr("id", processInfosIndex);
 
 		// Populate the table with variable data
 		var l = inputsArray.length;
@@ -152,20 +154,23 @@ $(document).on('click', '.glyphicon-remove-circle', function () {
 			break;
 		}
 	}
+	console.log(sectionsShowing);
 });
 
-function removeProcessInfo(removeId) {
-    var divToRemove = document.getElementById(removeId);
+function removeProcessInfo(removeID) {
+    var divToRemove = document.getElementById(removeID);
+		console.log(divToRemove);
     divToRemove.remove();
 		// remove from lists that are keeping track of which processes are currently showing on page
 		processInfosCount = processInfosCount - 1;
-		for (i = 0; i < sectionsShowingIds.length; i++) {
-			if (sectionsShowingIds[i] == removeId) {
+		for (i = 0; i < sectionsShowing.length; i++) {
+			if (sectionsShowing[i] == removeID) {
 				sectionsShowingIds.splice(i, 1);
 				sectionsShowing.splice(i, 1);
 				break;
 			}
 		}
+	console.log(sectionsShowing);
 }
 
 function toggleChevron(e) {
