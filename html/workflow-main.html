@@ -83,21 +83,19 @@
     </div>
     
 <!--    expand and collapse legend-->
-    
-    
-    <div class="panel-group" id="accordion">
+    <div class="panel-group-legend" id="accordionLegend">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title" style="text-align:left">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="text-align:left">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseLegend" style="text-align:left">
                 <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 &nbsp;	&nbsp;View Legend
             </a>
           </h5>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse">
+        <div id="collapseLegend" class="panel-collapse collapse">
             <div>
-                <img src="../images/legend.png" style="width:166;height:106px;" id="legend_image" hspace="15" vspace="15"> 
+                <img src="../images/legend.png" style="width:208;height:106px;" id="legend_image" hspace="15" vspace="15"> 
             </div>
         </div>
       </div>
@@ -113,33 +111,89 @@
 <!--       THIS IS TIFF"S PART    -->
 
 
-
-    
-    
-    
-<!--
-
-    <button id="tempAdd">
-        Click here to test add
-    </button>
-    <button id="tempClose">
-        Click here to test close
-    </button>
--->
-
     <hr>
 
+<!--	TESTING-->
+<div class="panel-group-info" id="accordionInfo" style="width:95%; display:inline-block">
+
+    <div class="panel panel-default template" hidden>
+        <div class="panel-heading"> 
+					<span class="glyphicon glyphicon-remove-circle pull-right "></span>
+					
+             <h4 class="panel-title">
+								<a id="link_collapse_info" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+									Collapsible Group Item #2 (template panel)
+								</a>
+							</h4>
+
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+						
+							
+			<div class="checkRow" style="width:100%">
+            <div class="input-group" style="width:100%">
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." value="input checked" >
+                        Highlight Inputs
+                        <br>
+                    </span>
+
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." value="input checked" >
+                        Highlight Outputs
+                        <br>
+                    </span>
+            </div>
+        </div>    
+
+        <table id="process_info_table" class = "info_table">
+            <tr>
+                <th align="center">
+                    <h4>
+                        Input Variables
+                    </h4>
+                </th>
+                <th align="center">
+                    <h4>
+                        Output Variables
+                    </h4>
+                </th>
+            </tr>
+            <tbody id="process_info_table_body">
+            </tbody>
+        </table>    
+							
+							
+					</div>
+        </div>
+    </div>
+</div>	
+	
+	
+	
+	
+	
+	
+	
+	
+<!--	OLD WAY OF DOING THIS -->
+<!--
     <div id="processInfoDivLayout" hidden>
 			<div class="panel panel-default" style="width:95%; display:inline-block">
   
         <button class="buttonCloseProcessInfo" name="close_info_button" style="float:right">
             x
         </button>
+				
         <div class="panel-heading" id="name_of_process_header">
-            <a data-toggle="collapse" href="collapse-info" >Name of Process</a>
+            <a data-toggle="collapse" href="collapse-info" class="link_name_of_process">Name of Process</a>
         </div>
+				
 <div class="panel-body" id="collapse1" class="panel-collapse collapse">
-        <div class="checkRow" style="width:100%">
+        
+	
+			<div class="checkRow" style="width:100%">
             <div class="input-group" style="width:100%">
                     <span class="input-group-addon">
                         <input type="checkbox" aria-label="..." value="input checked" >
@@ -173,10 +227,11 @@
         </table>    
 	</div>
 
-<!--        <hr>-->
+        <hr>
  
 </div>
     </div>
+-->
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
     </script>
