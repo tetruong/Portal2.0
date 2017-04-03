@@ -53,7 +53,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 
 		$newPanel.find(".collapse").removeClass("in");
 		// set header name
-		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text(processName);
+		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
 		$newPanel.attr("id", processName);
 		// link clicking on process name to expand collapse
 		$newPanel.find(".panel-collapse").attr("id", processInfosIndex);
@@ -80,6 +80,8 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 				}
 			}
 		tableBody.append(newTableBody);
+		var checkboxInputs = $newPanel.find("input");
+		console.log(checkboxInputs);
 		
 		// add new panel to the page
 		$("#accordionInfo").append($newPanel.fadeIn());

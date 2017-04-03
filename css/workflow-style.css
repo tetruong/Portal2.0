@@ -196,8 +196,6 @@ table {
 }
 
 
-
-
 .input-group-addon {
     padding: 6px 12px;
     font-size: 14px;
@@ -210,3 +208,8 @@ table {
     border-radius: 4px;
 }
 
+
+.panel {
+    margin-top: 0;
+	margin-bottom: 10px;
+}
