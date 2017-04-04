@@ -22,6 +22,7 @@ var processInfosIndex = 0;
 var sectionsShowing = [];
 var sectionsShowingIds = [];
 var $template = $(".template");
+var $templateVariables = $(".templ");
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
 	// check that process div thing is not over count
@@ -49,8 +50,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 	if (!alreadyShowing) {
 		sectionsShowing[processInfosCount] = processName;
 		var $newPanel = $template.clone();
-		console.log($newPanel);
-
+		
 		$newPanel.find(".collapse").removeClass("in");
 		// set header name
 		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
@@ -80,8 +80,30 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 				}
 			}
 		tableBody.append(newTableBody);
-		var checkboxInputs = $newPanel.find("input");
-		console.log(checkboxInputs);
+		
+		// checkbox listeners for highlighting inputs and outputs
+//		var checkboxInputs = $($newPanel).find("variable_input_check");
+//		var checkboxOutputs = $newPanel.find("variable_output_check");
+
+		$(document).on("change", $newPanel.find("variable_input_check"), function (processURI) {
+			console.log("check inputs for " + inputsArray);
+			console.log($(this).attr("checked"));
+				if ($(this).is(':checked')) {
+						console.log("You should highlight: " + processURI);
+				} else {
+					console.log("unhighlight inputs");
+				}
+		});
+		
+		$(document).on("change", $newPanel.find("variable_output_check"), function (processURI) {
+			console.log("check outputs for" +  outputsArray);
+			console.log($newPanel.find("variable_output_check"));
+				if ($newPanel.find("variable_output_check").checked) {
+					console.log("You should highlight: " + outputsArray);
+				} else {
+					 console.log("unhighlight outputs");
+				}
+		});
 		
 		// add new panel to the page
 		$("#accordionInfo").append($newPanel.fadeIn());
