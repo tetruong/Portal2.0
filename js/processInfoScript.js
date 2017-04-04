@@ -90,33 +90,60 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 		tableBody.append(newTableBody);
 		
 		// checkbox listeners for highlighting inputs and outputs
-		var checkboxInputs = $($newPanel).find("variable_input_check");
-		$(checkboxInputs).attr("id", "checkboxIn"+processName);
-		console.log($(checkboxInputs).attr("id"));
-		var checkboxOutputs = $newPanel.find("variable_output_check");
-		$(checkboxOutputs).attr("id", "checkboxOut"+processName);
+		// CHECKBOX - INPUTS
+		var checkboxInputsWrapper = $newPanel.find("span")[1];
+		var newCheckIn = document.createElement("input");
+		newCheckIn.setAttribute("type", "checkbox");
+		newCheckIn.setAttribute("class", "variable_input_check");
+		newCheckIn.setAttribute("aria-label", "...");
+		newCheckIn.setAttribute("id", "checkIn"+processName);
+		var text = document.createElement("p");
+		text.setAttribute("style", "display:inline-block;padding:1px 10px");
+		text.innerHTML = "Highlight Inputs";
 	
+		checkboxInputsWrapper.append(newCheckIn);
+		checkboxInputsWrapper.append(text);
+		checkboxInputsWrapper.append(document.createElement("br"));
 
-		$(document).on("change", $newPanel.find("variable_input_check"), function (processURI) {
-			console.log("check inputs for " + inputsArray);
-			console.log($(this).attr("checked"));
-				if ($(this).is(':checked')) {
-						console.log("You should highlight: " + processURI);
-				} else {
-					console.log("unhighlight inputs");
-				}
+		console.log(checkboxInputsWrapper);
+
+		$(document).on('click','#checkIn'+processName,function(){
+			console.log(processURI);
+			console.log(inputsArray);
+			if ($(this).is(':checked')) {
+				console.log("check the inputs");
+			} else {
+				console.log("uncheck the inputs");
+			}
 		});
 		
-		$(document).on("change", $newPanel.find("variable_output_check"), function (processURI) {
-			console.log("check outputs for" +  outputsArray);
-			console.log($newPanel.find("variable_output_check"));
-				if ($newPanel.find("variable_output_check").checked) {
-					console.log("You should highlight: " + outputsArray);
-				} else {
-					 console.log("unhighlight outputs");
-				}
+		// CHECKBOX OUTPUTS
+		var checkboxOutputsWrapper = $newPanel.find("span")[2];
+		var newCheckIn = document.createElement("input");
+		newCheckIn.setAttribute("type", "checkbox");
+		newCheckIn.setAttribute("class", "variable_output_check");
+		newCheckIn.setAttribute("aria-label", "...");
+		newCheckIn.setAttribute("id", "checkOut"+processName);
+		var text = document.createElement("p");
+		text.setAttribute("style", "display:inline-block; padding:1px 10px");
+		text.innerHTML = "Highlight Outputs";
+	
+		checkboxOutputsWrapper.append(newCheckIn);
+		checkboxOutputsWrapper.append(text);
+		checkboxOutputsWrapper.append(document.createElement("br"));
+
+		console.log(checkboxOutputsWrapper);
+
+		$(document).on('click','#checkOut'+processName,function(){
+			console.log(processURI);
+			console.log(inputsArray);
+			if ($(this).is(':checked')) {
+				console.log("check the outputs");
+			} else {
+				console.log("uncheck the outputs");
+			}
 		});
-		
+
 		// add new panel to the page
 		$("#accordionInfo").append($newPanel.fadeIn());
 		
