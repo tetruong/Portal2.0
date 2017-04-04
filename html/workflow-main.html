@@ -104,7 +104,7 @@
     <select id='selection' style='display:none;'>
     </select>
     
-    <div class="visualization-container" style="width:60%;float:left">
+    <div class="visualization-container" id="viz" style="width:100%;float:left">
         <svg></svg>
     </div>
 
@@ -128,23 +128,20 @@
 
         </div>
         <div id="collapseThree" class="panel-collapse collapse">						
-							
-			<div class="checkRow" style="width:100%">
-            <div class="input-group" style="width:100%">
-                    <span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px">
-                        <input type="checkbox" aria-label="..." value="input checked" class="variable_input_check">
-                        Highlight Inputs
-                        <br>
-                    </span>
+					
 
-                    <span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px" >
-                        <input type="checkbox" aria-label="..." value="output checked" class="variable_output_check" >
-                        Highlight Outputs
-                        <br>
-                    </span>
-            </div>
-        </div>    
+				<span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px">
+						<input type="checkbox" aria-label="..." value="input checked" class="variable_input_check">
+						Highlight Inputs
+						<br>
+				</span>
 
+				<span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px" >
+						<input type="checkbox" aria-label="..." value="output checked" class="variable_output_check" >
+						Highlight Outputs
+						<br>
+				</span>
+			
         <table id="process_info_table" class = "info_table">
             <tr>
                 <th align="center">
@@ -166,8 +163,11 @@
     </div>
 </div>	
 	
+	<div style="heigh=15px">
+		
+	</div>
 	
-	
+<!--
 <div class="panel-group-info variable" id="accordionVariables"   style="width:38%;float:left">
 
     <div class="panel panel-info templ variable" >
@@ -234,6 +234,7 @@
         </div>
     </div>
 </div>	
+-->
 	
 	
 	

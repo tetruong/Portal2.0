@@ -23,8 +23,16 @@ var sectionsShowing = [];
 var sectionsShowingIds = [];
 var $template = $(".template");
 var $templateVariables = $(".templ");
+var $vis = $(".visualization-container");
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
+	if (processInfosCount == 0) {
+		// resize the visualization container
+		console.log("should reize");
+		$vis.animate({
+                "width": "60%"
+            }, "slow");
+	}
 	// check that process div thing is not over count
 	if (processInfosCount == 5) {
 			// remove a process
@@ -82,8 +90,12 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 		tableBody.append(newTableBody);
 		
 		// checkbox listeners for highlighting inputs and outputs
-//		var checkboxInputs = $($newPanel).find("variable_input_check");
-//		var checkboxOutputs = $newPanel.find("variable_output_check");
+		var checkboxInputs = $($newPanel).find("variable_input_check");
+		$(checkboxInputs).attr("id", "checkboxIn"+processName);
+		console.log($(checkboxInputs).attr("id"));
+		var checkboxOutputs = $newPanel.find("variable_output_check");
+		$(checkboxOutputs).attr("id", "checkboxOut"+processName);
+	
 
 		$(document).on("change", $newPanel.find("variable_input_check"), function (processURI) {
 			console.log("check inputs for " + inputsArray);
@@ -178,6 +190,14 @@ $(document).on('click', '.glyphicon-remove-circle', function () {
 			break;
 		}
 	}
+	if (processInfosCount == 0) {
+		// resize the visualization container
+		console.log("should reize");
+		$vis.animate({
+                "width": "100%"
+            }, "slow");
+	}
+	
 	console.log(sectionsShowing);
 });
 
@@ -194,6 +214,14 @@ function removeProcessInfo(removeID) {
 				break;
 			}
 		}
+	
+	if (processInfosCount == 0) {
+		// resize the visualization container
+		console.log("should reize");
+		$vis.animate({
+                "width": "100%"
+            }, "slow");
+	}
 	console.log(sectionsShowing);
 }
 
