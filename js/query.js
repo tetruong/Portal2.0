@@ -41,6 +41,9 @@ var getGraphJSON = function(workflowURI, handler) {
     
     var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
     
+    $('svg').hide();
+    $('#spinner').show();
+    
     $.ajax({
         url: endpointURI,
         type: 'GET',
@@ -50,6 +53,8 @@ var getGraphJSON = function(workflowURI, handler) {
             handler({});
         },
         success: function(res) {
+            $('svg').show();
+            $('#spinner').hide();
             handler(res);
         }
     })
@@ -79,7 +84,8 @@ var getExecutionArtifacts = function(executionID, handler) {
     var sparql = 'select ?step ?input ?output  from <urn:x-arq:UnionGraph> where{{?step <http://openprovenance.org/model/opmo#account> <' + executionID + '>.?step <http://purl.org/net/opmv/ns#used> ?input.}UNION{?step <http://openprovenance.org/model/opmo#account> <' + executionID +'>.?output <http://purl.org/net/opmv/ns#wasGeneratedBy> ?step.}}';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
-    
+    $('svg').hide();
+    $('#spinner').show();
     $.ajax({
         url: endpointURI,
         type: 'GET',
@@ -88,6 +94,8 @@ var getExecutionArtifacts = function(executionID, handler) {
         error: function(){
         },
         success: function(res) {
+            $('svg').show();
+            $('#spinner').hide();
             handler(res, executionID);
         }
     })

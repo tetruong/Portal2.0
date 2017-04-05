@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $(".executionTab").click(function() {
         $('.nav-tabs a[href="#execution"]').tab('show');
-			// remove any panels showing on page 
-			clearAllPanels();
+        // remove any panels showing on page 
+        clearAllPanels();
         getExecutionID(localStorage.getItem('workflow-uri'), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionDetails(executionID, function(res) {
@@ -15,8 +15,8 @@ $(document).ready(function() {
     });
     
     $(".workflowTab").click(function() {
-				// remove any panels showing on page 
-				clearAllPanels();
+        // remove any panels showing on page 
+        clearAllPanels();
         $('.nav-tabs a[href="#workflow"]').tab('show');  
         getGraphJSON(workflowURI, function(res) {
             renderVisualization(res, false);

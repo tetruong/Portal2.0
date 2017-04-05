@@ -149,7 +149,6 @@ var renderVisualization = function (res, isArtifact) {
         if (!isArtifact)
             formatInputs(vis, renderGraph);
         else {
-//            addArtifacts()
             renderGraph(vis);
         }
     }
@@ -246,7 +245,9 @@ var addArtifacts = function(artifacts) {
                 setWorkflowMetadata(res);
             })
         })
-    })
+    });
+    
+    select.selectedIndex = 1;
 }
 
 var highlightPuts = function(putsArray) {
@@ -283,21 +284,12 @@ var setupNodeOnClick = function (svg, vis) {
     //setup on click listeners for every node
     svg.selectAll('g.node').on('click', function(id) {
         var node = vis.node(id);
-        if(d3.select(this).style('opacity') == 0.7) {
-            d3.select(this).style('opacity','1.0');
-            // TODO: remove chart of info for node, since it is being 'unselected'
-        }
-        else {
-            d3.select(this).style('opacity', '0.7');
-            // TODO: add chart of info for input/output nodes, since they are being 'selected'
-            if (node.type == 'process') {
-                addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
-            } else if (node.type == 'input') {
-                addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
-                
-            } else if (node.type == 'output') {
-                addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
-            }
+        if (node.type == 'process') {
+            addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
+        } else if (node.type == 'input') {
+            addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
+        } else if (node.type == 'output') {
+            addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
         }
     });
 }
