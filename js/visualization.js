@@ -279,9 +279,10 @@ var setupNodeOnClick = function (svg, vis) {
             if (node.type == 'process') {
                 addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
             } else if (node.type == 'input') {
+                addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri]);
                 
             } else if (node.type == 'output') {
-                
+                addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri]);
             }
         }
     });
