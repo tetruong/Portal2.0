@@ -217,3 +217,14 @@ table {
   margin-top: 0;
 	margin-bottom: 6px;
 }
+
+
+.bottom-spacing-2 {
+  margin-bottom: 16px;
+	margin-left: 8px;
+}
+
+.bottom-spacing-1 {
+  margin-bottom: 8px;
+	margin-left: 16px;
+}

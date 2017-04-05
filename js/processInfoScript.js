@@ -1,24 +1,11 @@
 var processInfosCount = 0; // keep track of how many process info divs are shown
 var processInfosIndex = 0;
-
-//var closeProcessButton = document.getElementById("closeProcessButton");
-//function closeProcessInfo() {
-//    processInfosCount = processInfosCount - 1;    
-//} 
-//
-//closeProcessButton.onclick = function() {closeProcessInfo()};o
+var variableInfosCount = 0;
+var variableInfosIndex = 0;
 
 
-
-//window.onload = function() {
-//    var testShowButton = document.getElementById("tempAdd");
-//    var testCloseButton = document.getElementById("tempClose");
-//
-//    // For testing
-//    testShowButton.onclick = function() {addProcessInfo()};
-//    testCloseButton.onclick = function() {removeProcessInfo(1)};
-//}
-
+var variableSectionsShowing = [];
+var variableSectionsShowingIds = [];
 var sectionsShowing = [];
 var sectionsShowingIds = [];
 var $template = $(".template");
@@ -26,7 +13,8 @@ var $templateVariables = $(".templ");
 var $vis = $(".visualization-container");
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
-	if (processInfosCount == 0) {
+	addVariableInfo("asjdfkl", "ashkdjf", "asjhdkf");
+	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		$vis.animate({
@@ -145,66 +133,100 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 		});
 
 		// add new panel to the page
-		$("#accordionInfo").append($newPanel.fadeIn());
+		$("#accordionInfo").append($newPanel.fadeIn("slow"));
 		
 		processInfosCount = processInfosCount + 1;
 		processInfosIndex = processInfosIndex + 1;
 	}
-
-
-//		// Section is not already displayed on the page
-//		if (!alreadyShowing) {
-//			// set the name of the node
-//			var nameHeader = document.getElementById("link_collapse_info");
-//			console.log(nameHeader);
-//			nameHeader.innerHTML = processName;
-//
-//			
-//
-//			console.log(inputsArray);
-//			console.log(outputsArray);
-
-//			// adding inputs and outputs to the table
-//			var tableBody = document.getElementById("process_info_table_body");
-//			var newTableBody = document.createElement("tbody");
-//			newTableBody.setAttribute("id", "process_info_table_body");
-//			for (i = 0; i < l; i++) {
-//					var row = newTableBody.insertRow(-1);
-//					// add input variable name and add output variable name (if applicable)
-//					var cell1 = row.insertCell(0);
-//					var cell2 = row.insertCell(1);
-//					if (i < inputsArray.length) {
-//							cell1.innerHTML = stripNameFromURI(inputsArray[i]);
-//					}
-//					if (i < outputsArray.length) {
-//							cell2.innerHTML = stripNameFromURI(outputsArray[i]);
-//					}
-//			}
-//			tableBody.parentNode.replaceChild(newTableBody, tableBody);
-//
-//			var newProcessInfoDiv = document.createElement("div"); // create a new div
-//			newProcessInfoDiv.setAttribute("id", processInfosIndex);
-//			sectionsShowingIds[processInfosCount] = processInfosIndex;
-//			newProcessInfoDiv.setAttribute("class", "processInfo");
-//			var layoutDiv = document.getElementById("accordionInfo");
-//			var layoutDivCopy = layoutDiv.cloneNode(true);
-//			layoutDivCopy.style.width = "90%";
-//			layoutDivCopy.style.display = "inline-block";
-//			
-//			newProcessInfoDiv.innerHTML = layoutDivCopy.innerHTML;
-//			
-//			document.body.appendChild(newProcessInfoDiv);
-//			console.log(processInfosCount);
-//			
-//			// add button listner
-////			var addedProcessInfoDiv = document.getElementById(processInfosIndex);
-////			var closeButton = addedProcessInfoDiv.getElementsByClassName("buttonCloseProcessInfo")[0];
-////			var index = processInfosIndex;
-////			closeButton.onclick = function() {removeProcessInfo(index)};
-//
-//		}
 }
     
+
+// FUNCTION TO ADD NEW VARIABLE INFORMATION SECTIONS
+function addVariableInfo(variableURI, inputsArray, outputsArray) {
+	if (processInfosCount == 0 && variableInfosCount == 0) {
+		// resize the visualization container
+		console.log("should reize");
+		$vis.animate({
+                "width": "60%"
+            }, "slow");
+	}
+	// check that variable div thing is not over count
+	if (variableInfosCount == 5) {
+			// remove a variable
+			removeVariableInfo(variableSectionsShowing[0]);
+	}
+	
+	// get name of node
+//	var variableName = stripNameFromURI(variableURI);
+	var variableName="sjfakldfjs"; //TODO REMOVE THIS, UNCOMMENT ABOVE
+	console.log(variableName);
+		
+	var alreadyShowing = false;
+	// Check that section is not already showing
+	for (i = 0; i < variableSectionsShowing.length; i++) {
+			if (variableSectionsShowing[i] == variableName) {
+				alreadyShowing = true;
+			}
+	}
+	if (alreadyShowing) {
+			console.log("variable is already showing!");
+	}
+	
+	// panel isn't already displayed on page, so add it
+	if (!alreadyShowing) {
+		variableSectionsShowing[variableInfosCount] = variableName;
+		var $newPanel = $templateVariables.clone();
+		
+		$newPanel.find(".collapse").removeClass("in");
+		// set header name
+		$newPanel.find(".accordion-toggle").attr("href", "#" + (variableInfosIndex)).text("Variable: " + variableName);
+		$newPanel.attr("id", variableName);
+		// link clicking on process name to expand collapse
+		$newPanel.find(".panel-collapse").attr("id", variableInfosIndex);
+
+		// show variable type and generated by info
+		var textVarType = $newPanel.find("div")[6];
+		var newName = document.createElement("strong");
+		newName.innerHTML = "this is the variable name";
+		textVarType.append(newName);
+		
+		var textGeneratedBy = $newPanel.find("div")[7];
+		console.log(textGeneratedBy);
+		var newGeneratedBy = document.createElement("strong");
+		newGeneratedBy.innerHTML = "this is the process it was generated by  name";
+		textGeneratedBy.append(newGeneratedBy);
+		
+		// show list of used by processes
+		var listUsedBy = $newPanel.find("ul")[0];
+		// TODO PUT SOME FOR LOOP HERE
+		var newListItem = document.createElement("li");
+		newListItem.innerHTML = "some process name here";
+		listUsedBy.append(newListItem)
+		
+		// show list of files in dropdown and w/ handler to update link
+		var fileSelector = $newPanel.find("select")[0];
+		$($newPanel).find("#file-selector").attr("id","file-selector-"+variableName);
+		for (var i = 0; i < 5; i++) {
+			var newFile = document.createElement("option");
+			newFile.innerHTML = "new file #" + i;
+			fileSelector.append(newFile);
+		}
+		// file download link
+		var downloadLink = $newPanel.find("a")[1];
+		console.log(downloadLink);
+		
+		$newPanel.on('change','#file-selector-'+variableName,function(){
+			console.log("this is a test");
+		});
+		
+		// add new panel to the page
+		$("#accordionVariables").append($newPanel.fadeIn("slow"));
+		
+		variableInfosCount = variableInfosCount + 1;
+		variableInfosIndex = variableInfosIndex + 1;
+	}
+}
+
 
 $(document).on('click', '.glyphicon-remove-circle', function () {
 	var processName = $(this).parent().parent().attr("id");
@@ -217,7 +239,7 @@ $(document).on('click', '.glyphicon-remove-circle', function () {
 			break;
 		}
 	}
-	if (processInfosCount == 0) {
+	if (processInfosCount == 0 &&  variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		$vis.animate({
@@ -242,7 +264,7 @@ function removeProcessInfo(removeID) {
 			}
 		}
 	
-	if (processInfosCount == 0) {
+	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		$vis.animate({
@@ -261,4 +283,3 @@ function toggleChevron(e) {
 $('#accordion').on('hidden.bs.collapse', toggleChevron);
 $('#accordion').on('shown.bs.collapse', toggleChevron);
 
-//$('.collapse').collapse("show")
