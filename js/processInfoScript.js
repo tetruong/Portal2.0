@@ -99,9 +99,9 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			console.log(processURI);
 			console.log(inputsArray);
 			if ($(this).is(':checked')) {
-				console.log("check the inputs");
+				highlightPuts(inputsArray);
 			} else {
-				console.log("uncheck the inputs");
+				unhighlightPuts( inputsArray);
 			}
 		});
 		
@@ -126,9 +126,9 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			console.log(processURI);
 			console.log(inputsArray);
 			if ($(this).is(':checked')) {
-				console.log("check the outputs");
+				highlightPuts(outputsArray);
 			} else {
-				console.log("uncheck the outputs");
+				unhighlightPuts(outputsArray);
 			}
 		});
 

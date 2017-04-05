@@ -4,6 +4,8 @@ var processInputMapping = {};
 var processOutputMapping = {};
 var isVariableOfMapping = {};
 var outputByMapping = {};
+var processNodeIndices = {};
+var putNodeIndices = {};
 var workflowURI = localStorage.getItem("workflow-uri");
 getGraphJSON(workflowURI, function(res) {
     renderVisualization(res, false);
@@ -15,8 +17,8 @@ var renderVisualization = function (res, isArtifact) {
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
-    var processNodeIndices = {};
-    var putNodeIndices = {};
+    processNodeIndices = {};
+    putNodeIndices = {};
     processInputMapping = {};
     processOutputMapping = {};
     isVariableOfMapping = {};
@@ -220,22 +222,8 @@ var renderVisualization = function (res, isArtifact) {
     mapNodesEdges(vis);
 }
 
-var highlightHandler = function (checkbox) {
-    console.log(checkbox.checked);
-    highlightInputs(checkbox.checked);
-}
-
-var highlightInputs = function(checked) {
-    if (checked) {
-    } else {
-        // make an array of objects- the objects contain a process URI
-        
-        // how can I know which checkbox is checked to highlight inputs?
-    }
-}
-
 var addArtifacts = function(artifacts) {
-    var select = document.getElementById("selection"); 
+    var select = document.getElementById("selection");
 
     var first = document.createElement("option");
     first.textContent = 'Select execution artifact';
@@ -261,13 +249,39 @@ var addArtifacts = function(artifacts) {
     })
 }
 
+var highlightPuts = function(putsArray) {
+    svg.selectAll('g.node ellipse').each( function(id) {
+        var node = vis.node(id);
+        for (var i = 0; i < putsArray.length; i++) {
+            if (putsArray[i] == node.uri) {
+                d3.select(this)
+                    .attr('stroke', 'red')
+                    .attr('stroke-width', '4px');
+            }
+        }
+    });
+}
+
+var unhighlightPuts = function(putsArray) {
+    svg.selectAll('g.node ellipse').each( function(id) {
+        var node = vis.node(id);
+        for (var i = 0; i < putsArray.length; i++) {
+            if (putsArray[i] == node.uri) {
+                d3.select(this)
+                    .attr('stroke', null)
+                    .attr('stroke-width', null);
+            }
+        }
+    });
+}
+
 /*
     @params: d3 svg
     - setup on click process for each node
 */
 var setupNodeOnClick = function (svg, vis) {
     //setup on click listeners for every node
-    svg.selectAll("g.node").on('click', function(id) {
+    svg.selectAll('g.node').on('click', function(id) {
         var node = vis.node(id);
         if(d3.select(this).style('opacity') == 0.7) {
             d3.select(this).style('opacity','1.0');
