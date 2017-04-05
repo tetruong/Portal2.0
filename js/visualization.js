@@ -2,6 +2,8 @@ var svg = {};
 var vis = {};
 var processInputMapping = {};
 var processOutputMapping = {};
+var isVariableOfMapping = {};
+var outputByMapping = {};
 var workflowURI = localStorage.getItem("workflow-uri");
 getGraphJSON(workflowURI, function(res) {
     renderVisualization(res, false);
@@ -17,6 +19,8 @@ var renderVisualization = function (res, isArtifact) {
     var putNodeIndices = {};
     processInputMapping = {};
     processOutputMapping = {};
+    isVariableOfMapping = {};
+    outputByMapping = {};
 
     /*
         @params: string processName, string inputName
@@ -36,6 +40,18 @@ var renderVisualization = function (res, isArtifact) {
     var addOutputProcess = function(processName, outputName) {
         processOutputMapping[processName] = processOutputMapping[processName] || [];
         processOutputMapping[processName].push(outputName);
+    }
+    
+    var mapInputToProcess = function(inputName, processName) {
+        isVariableOfMapping[inputName] = isVariableOfMapping[inputName] || [];
+        
+        isVariableOfMapping[inputName].push(processName);
+    }
+    
+    var mapOutputFromProcess = function(outputName, processName) {
+        outputByMapping[outputName] = outputByMapping[outputName] || [];
+        
+        outputByMapping[outputName].push(processName);
     }
 
     /*
@@ -82,6 +98,7 @@ var renderVisualization = function (res, isArtifact) {
                     j++;
                 }
                 addInputProcess(step, input);
+                mapInputToProcess(input, step);
             } else if (results[i].hasOwnProperty('output')) {
                 //get URI of output from JSON
                 var output = results[i]['output']['value'];
@@ -100,6 +117,7 @@ var renderVisualization = function (res, isArtifact) {
                     j++;
                 }
                 addOutputProcess(step, output);
+                mapOutputFromProcess(output, step);
             }
         }
         setGraphEdges(vis);
@@ -179,7 +197,7 @@ var renderVisualization = function (res, isArtifact) {
                     labelStyle: "fill: #FFF",
                     shape: 'customInputEllipse',
                     style: "fill: #336633;",
-                    uri: newLabel,
+                    uri: newURI,
                     type: 'input'
                 });
             }
@@ -260,6 +278,10 @@ var setupNodeOnClick = function (svg, vis) {
             // TODO: add chart of info for input/output nodes, since they are being 'selected'
             if (node.type == 'process') {
                 addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
+            } else if (node.type == 'input') {
+                
+            } else if (node.type == 'output') {
+                
             }
         }
     });
