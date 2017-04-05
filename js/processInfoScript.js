@@ -15,6 +15,7 @@ var $vis = $(".visualization-container");
 function addProcessInfo(processURI, inputsArray, outputsArray) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
+        translateVisualization();
 		console.log("should reize");
 		$vis.animate({
                 "width": "63%"
@@ -147,6 +148,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
+        translateVisualization();
 		$vis.animate({
                 "width": "63%"
             }, "slow");

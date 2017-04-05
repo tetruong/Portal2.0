@@ -1,5 +1,6 @@
 var svg = {};
 var vis = {};
+var zoom = null;
 var processInputMapping = {};
 var processOutputMapping = {};
 var isVariableOfMapping = {};
@@ -163,7 +164,7 @@ var renderVisualization = function (res, isArtifact) {
         svg = d3.select("svg").attr('width','75%').attr('height','100%'), svgGroup = svg.append("g");
 
         // Set up zoom support
-        var zoom = d3.behavior.zoom().on("zoom", function() {
+        zoom = d3.behavior.zoom().on("zoom", function() {
             svgGroup.attr("transform", "translate(" + d3.event.translate + ")" +
                                         "scale(" + d3.event.scale + ")");
         });
@@ -173,7 +174,8 @@ var renderVisualization = function (res, isArtifact) {
         render(svgGroup, vis);
 
         //centers graph and calculates top margin of graph based on screen size
-        var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 2 - vis.graph().width) / 2;
+
+        var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 1.25 - vis.graph().width) / 2;
         var yTopMargin = screen.height * .05;
         var scale = .75;
         zoom.translate([xCenterOffset, 20])
@@ -219,6 +221,21 @@ var renderVisualization = function (res, isArtifact) {
         });
 
     mapNodesEdges(vis);
+}
+
+var translateVisualization = function() {
+    var trans = d3.transform(d3.select('svg g').attr('transform'));
+    
+    var x = trans.translate[0];
+    if (x < 300) return;
+    
+    x -= document.getElementsByClassName('visualization-container')[0].clientWidth/6;
+    
+    var y = trans.translate[1];
+    var scale = 0.75;
+    
+    d3.select('svg g').attr('transform', 'translate(' + x + ',' + y + ')scale(' + scale + ')');
+    zoom.translate([x,y]).scale(scale);
 }
 
 var addArtifacts = function(artifacts) {
