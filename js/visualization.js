@@ -227,9 +227,9 @@ var translateVisualization = function() {
     var trans = d3.transform(d3.select('svg g').attr('transform'));
     
     var x = trans.translate[0];
-    if (x < 300) return;
+    if (x < 150) return;
     
-    x -= document.getElementsByClassName('visualization-container')[0].clientWidth/6;
+    x -= document.getElementsByClassName('visualization-container')[0].clientWidth/7;
     
     var y = trans.translate[1];
     var scale = 0.75;
