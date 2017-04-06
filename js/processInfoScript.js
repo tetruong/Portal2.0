@@ -50,6 +50,14 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 		
 //		$newPanel.find(".collapse").removeClass("in");
 		// set header name
+        var accordionToggle = $newPanel.find(".accordion-toggle");
+        
+        accordionToggle.click(function() {
+            unhighlightPuts();
+            highlightPuts(inputsArray);
+            highlightPuts(outputsArray);
+        });
+        
 		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
 		$newPanel.attr("id", processName);
 		// link clicking on process name to expand collapse
@@ -78,60 +86,60 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			}
 		tableBody.append(newTableBody);
 		
-		// checkbox listeners for highlighting inputs and outputs
-		// CHECKBOX - INPUTS
-		var checkboxInputsWrapper = $newPanel.find("span")[1];
-		var newCheckIn = document.createElement("input");
-		newCheckIn.setAttribute("type", "checkbox");
-		newCheckIn.setAttribute("class", "variable_input_check");
-		newCheckIn.setAttribute("aria-label", "...");
-		newCheckIn.setAttribute("id", "checkIn"+processName);
-		var text = document.createElement("p");
-		text.setAttribute("style", "display:inline-block;padding:1px 10px");
-		text.innerHTML = "Highlight Inputs";
-	
-		checkboxInputsWrapper.append(newCheckIn);
-		checkboxInputsWrapper.append(text);
-		checkboxInputsWrapper.append(document.createElement("br"));
-
-		console.log(checkboxInputsWrapper);
-
-		$(document).on('click','#checkIn'+processName,function(){
-			console.log(processURI);
-			console.log(inputsArray);
-			if ($(this).is(':checked')) {
-				highlightPuts(inputsArray);
-			} else {
-				unhighlightPuts( inputsArray);
-			}
-		});
-		
-		// CHECKBOX OUTPUTS
-		var checkboxOutputsWrapper = $newPanel.find("span")[2];
-		var newCheckIn = document.createElement("input");
-		newCheckIn.setAttribute("type", "checkbox");
-		newCheckIn.setAttribute("class", "variable_output_check");
-		newCheckIn.setAttribute("aria-label", "...");
-		newCheckIn.setAttribute("id", "checkOut"+processName);
-		var text = document.createElement("p");
-		text.setAttribute("style", "display:inline-block; padding:1px 10px");
-		text.innerHTML = "Highlight Outputs";
-	
-		checkboxOutputsWrapper.append(newCheckIn);
-		checkboxOutputsWrapper.append(text);
-		checkboxOutputsWrapper.append(document.createElement("br"));
-
-		console.log(checkboxOutputsWrapper);
-
-		$(document).on('click','#checkOut'+processName,function(){
-			console.log(processURI);
-			console.log(inputsArray);
-			if ($(this).is(':checked')) {
-				highlightPuts(outputsArray);
-			} else {
-				unhighlightPuts(outputsArray);
-			}
-		});
+//		// checkbox listeners for highlighting inputs and outputs
+//		// CHECKBOX - INPUTS
+//		var checkboxInputsWrapper = $newPanel.find("span")[1];
+//		var newCheckIn = document.createElement("input");
+//		newCheckIn.setAttribute("type", "checkbox");
+//		newCheckIn.setAttribute("class", "variable_input_check");
+//		newCheckIn.setAttribute("aria-label", "...");
+//		newCheckIn.setAttribute("id", "checkIn"+processName);
+//		var text = document.createElement("p");
+//		text.setAttribute("style", "display:inline-block;padding:1px 10px");
+//		text.innerHTML = "Highlight Inputs";
+//	
+//		checkboxInputsWrapper.append(newCheckIn);
+//		checkboxInputsWrapper.append(text);
+//		checkboxInputsWrapper.append(document.createElement("br"));
+//
+//		console.log(checkboxInputsWrapper);
+//
+//		$(document).on('click','#checkIn'+processName,function(){
+//			console.log(processURI);
+//			console.log(inputsArray);
+//			if ($(this).is(':checked')) {
+//				highlightPuts(inputsArray);
+//			} else {
+//				unhighlightPuts( inputsArray);
+//			}
+//		});
+//		
+//		// CHECKBOX OUTPUTS
+//		var checkboxOutputsWrapper = $newPanel.find("span")[2];
+//		var newCheckIn = document.createElement("input");
+//		newCheckIn.setAttribute("type", "checkbox");
+//		newCheckIn.setAttribute("class", "variable_output_check");
+//		newCheckIn.setAttribute("aria-label", "...");
+//		newCheckIn.setAttribute("id", "checkOut"+processName);
+//		var text = document.createElement("p");
+//		text.setAttribute("style", "display:inline-block; padding:1px 10px");
+//		text.innerHTML = "Highlight Outputs";
+//	
+//		checkboxOutputsWrapper.append(newCheckIn);
+//		checkboxOutputsWrapper.append(text);
+//		checkboxOutputsWrapper.append(document.createElement("br"));
+//
+//		console.log(checkboxOutputsWrapper);
+//
+//		$(document).on('click','#checkOut'+processName,function(){
+//			console.log(processURI);
+//			console.log(inputsArray);
+//			if ($(this).is(':checked')) {
+//				highlightPuts(outputsArray);
+//			} else {
+//				unhighlightPuts(outputsArray);
+//			}
+//		});
 
 		// add new panel to the page
 		$("#accordionInfo").append($newPanel.fadeIn("slow"));
