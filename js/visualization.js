@@ -282,12 +282,25 @@ var highlightPuts = function(putsArray) {
     });
 }
 
-var unhighlightPuts = function() {
+var unhighlightAllPuts = function() {
     svg.selectAll('g.node ellipse').each( function(id) {
         var node = vis.node(id);
         d3.select(this)
             .attr('stroke', null)
             .attr('stroke-width', null);
+    });
+}
+
+var unhighlightPuts = function(putsArray) {
+    svg.selectAll('g.node ellipse').each( function(id) {
+        var node = vis.node(id);
+        for (var i = 0; i < putsArray.length; i++) {
+            if (putsArray[i] == node.uri) {
+                d3.select(this)
+                    .attr('stroke', null)
+                    .attr('stroke-width', null);
+            }
+        }
     });
 }
 
@@ -305,16 +318,17 @@ var setupNodeOnClick = function (svg, vis) {
                 .attr('stroke', null)
                 .attr('stroke-width', null);
         });
-        
-        highlightPuts(processInputMapping[node.uri]);
-        highlightPuts(processOutputMapping[node.uri]);
             
         if (node.type == 'process') {
             addProcessInfo(node.uri, processInputMapping[node.uri], processOutputMapping[node.uri]);
+            highlightPuts(processInputMapping[node.uri]);
+            highlightPuts(processOutputMapping[node.uri]);
         } else if (node.type == 'input') {
             addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
+            highlightPuts(isVariableOfMapping[node.uri]);
         } else if (node.type == 'output') {
             addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
+            highlightPuts(outputByMapping[node.uri]);
         }
     });
 }

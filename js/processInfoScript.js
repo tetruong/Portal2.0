@@ -53,7 +53,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
         var accordionToggle = $newPanel.find(".accordion-toggle");
         
         accordionToggle.click(function() {
-            unhighlightPuts();
+            unhighlightAllPuts();
             highlightPuts(inputsArray);
             highlightPuts(outputsArray);
         });
