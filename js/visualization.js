@@ -45,12 +45,20 @@ var renderVisualization = function (res, isArtifact) {
         processOutputMapping[processName].push(outputName);
     }
     
+    /*
+        @params: string inputName, string processName
+        - inserts the process URI to a list of processes in order to map what processes are associated with a given input
+    */
     var mapInputToProcess = function(inputName, processName) {
         isVariableOfMapping[inputName] = isVariableOfMapping[inputName] || [];
         
         isVariableOfMapping[inputName].push(processName);
     }
     
+    /*
+        @params: string outputName, string processName
+        - inserts the process URI to a list of processes in order to map what processes are associated with a given output
+    */
     var mapOutputFromProcess = function(outputName, processName) {
         outputByMapping[outputName] = outputByMapping[outputName] || [];
         
@@ -224,14 +232,8 @@ var renderVisualization = function (res, isArtifact) {
 }
 
 var translateVisualization = function() {
-    var trans = d3.transform(d3.select('svg g').attr('transform'));
-    
-    var x = trans.translate[0];
-    if (x < 150) return;
-    
-    x -= document.getElementsByClassName('visualization-container')[0].clientWidth/7;
-    
-    var y = trans.translate[1];
+    var x = 50;
+    var y = 20;
     var scale = 0.75;
     
     d3.select('svg g').attr('transform', 'translate(' + x + ',' + y + ')scale(' + scale + ')');
