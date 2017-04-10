@@ -74,13 +74,13 @@ var getExecutionID = function (workflowURI, handler) {
         },
         success: function(res) {
             console.log(res)
-            getExecutionArtifacts(res.results.bindings[0].execution.value, handler);
-            addArtifacts(res.results.bindings)
+            getExecutionTraces(res.results.bindings[0].execution.value, handler);
+            addTraces(res.results.bindings)
         }
     })
 }
 
-var getExecutionArtifacts = function(executionID, handler) {
+var getExecutionTraces = function(executionID, handler) {
     var sparql = 'select ?step ?input ?output  from <urn:x-arq:UnionGraph> where{{?step <http://openprovenance.org/model/opmo#account> <' + executionID + '>.?step <http://purl.org/net/opmv/ns#used> ?input.}UNION{?step <http://openprovenance.org/model/opmo#account> <' + executionID +'>.?output <http://purl.org/net/opmv/ns#wasGeneratedBy> ?step.}}';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';

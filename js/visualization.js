@@ -12,7 +12,7 @@ getGraphJSON(workflowURI, function(res) {
     renderVisualization(res, false);
 });
 
-var renderVisualization = function (res, isArtifact) {
+var renderVisualization = function (res, isTrace) {
     document.getElementById('workflow-name').innerHTML
         = localStorage.getItem('workflow-label');
     d3.select("svg").remove();
@@ -155,7 +155,7 @@ var renderVisualization = function (res, isArtifact) {
                 });
             }
         }
-        if (!isArtifact)
+        if (!isTrace)
             formatInputs(vis, renderGraph);
         else {
             renderGraph(vis);
@@ -229,7 +229,9 @@ var renderVisualization = function (res, isArtifact) {
         });
 
     mapNodesEdges(vis);
-}
+    console.log(processNodeIndices);
+    console.log(putNodeIndices);
+}   
 
 var translateVisualization = function() {
     var x = 50;
@@ -240,14 +242,14 @@ var translateVisualization = function() {
     zoom.translate([x,y]).scale(scale);
 }
 
-var addArtifacts = function(artifacts) {
+var addTraces = function(traces) {
     var select = document.getElementById("selection");
 
     var first = document.createElement("option");
-    first.textContent = 'Select execution artifact';
+    first.textContent = 'Select execution trace';
     select.appendChild(first);
-    for(var i = 0; i < artifacts.length; i++) {
-        var opt = artifacts[i];
+    for(var i = 0; i < traces.length; i++) {
+        var opt = traces[i];
         var el = document.createElement("option");
         el.textContent = stripNameFromURI(opt.execution.value);
         el.value = opt.execution.value;
@@ -258,7 +260,7 @@ var addArtifacts = function(artifacts) {
         if (select.selectedIndex == 0)
             return;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
-        getExecutionArtifacts(select.options[select.selectedIndex].value, function(res, executionID) {
+        getExecutionTraces(select.options[select.selectedIndex].value, function(res, executionID) {
             renderVisualization(res, true);
             getExecutionDetails(executionID, function(res) {
                 setWorkflowMetadata(res);

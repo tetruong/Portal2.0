@@ -10,8 +10,8 @@ $(document).ready(function() {
             })
         })
         
-        var artifactSelect = document.getElementById('selection');
-        artifactSelect.style.display = 'inline';
+        var traceSelect = document.getElementById('selection');
+        traceSelect.style.display = 'inline';
     });
     
     $(".workflowTab").click(function() {
@@ -24,11 +24,11 @@ $(document).ready(function() {
         
         localStorage.setItem('workflow-uri', workflowURI);
         
-        var artifactSelect = document.getElementById('selection');
-        artifactSelect.style.display = 'none';
+        var traceSelect = document.getElementById('selection');
+        traceSelect.style.display = 'none';
         
-        for (var i = artifactSelect.options.length-1; i >= 0; i--) {
-            artifactSelect.remove(i);
+        for (var i = traceSelect.options.length-1; i >= 0; i--) {
+            traceSelect.remove(i);
         }
     });
 });
