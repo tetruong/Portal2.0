@@ -297,6 +297,7 @@ $(document).on('click', '.glyphicon-remove-circle', function () {
 	if (processInfosCount == 0 &&  variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
+		unhighlightAllPuts();
 		$vis.animate({
                 "width": "100%"
             }, "slow");
@@ -318,6 +319,7 @@ $(document).on('click', '.glyphicon-remove-sign', function () {
 	if (processInfosCount == 0 &&  variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
+		unhighlightAllPuts();
 		$vis.animate({
                 "width": "100%"
             }, "slow");
@@ -341,6 +343,7 @@ function removeVariableInfo(removeID) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
+		unhighlightAllPuts();
 		$vis.animate({
 							"width": "100%"
 					}, "slow");
@@ -365,6 +368,7 @@ function removeProcessInfo(removeID) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
+		unhighlightAllPuts();
 		$vis.animate({
                 "width": "100%"
             }, "slow");
