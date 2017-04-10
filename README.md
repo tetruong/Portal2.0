@@ -9,4 +9,4 @@ The goal of this project is to develop a web interface for helping navigating an
 
 ___
 
-###[View Portal](https://tetruong.github.io/Portal2.0/html/index.html)
+[View Portal](https://tetruong.github.io/Portal2.0/html/index.html)
