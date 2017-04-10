@@ -266,6 +266,7 @@ function clearAllPanels() {
 	// remove all panels from the page
 	var sectionsShowingCopy = sectionsShowing.slice();
 	var variableSectionsShowingCopy = variableSectionsShowing.slice();
+	unhighlightAllPuts();
 	for (var i = 0; i < sectionsShowingCopy.length; i++) {
 		removeProcessInfo(sectionsShowingCopy[i]);	
 	}
