@@ -40,14 +40,15 @@
         </div>
         <div id="execution" class="tab-pane fade">
             <div class="metadata">
-                    <button type="button" class="metadata-icon btn glyphicon glyphicon-ok-sign" data-toggle="collapse" data-target="#status-value"></button>
-                    <button type="button" class="metadata-icon btn glyphicon glyphicon-tags" data-toggle="collapse" data-target="#label-value"></button>
-                    <button type="button" class="metadata-icon btn glyphicon glyphicon-play" data-toggle="collapse" data-target="#start-time-value"></button>
-                    <button type="button" class="metadata-icon btn glyphicon glyphicon-stop" data-toggle="collapse" data-target="#end-time-value"></button>
-                    <div class="metadata-value collapse" id="status-value"></div>
-                    <div class="metadata-value collapse" id="label-value"></div>
-                    <div class="metadata-value collapse" id="start-time-value"></div>
-                    <div class="metadata-value collapse" id="end-time-value"></div>
+                <span id="status-icon" class="metadata-icon glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                <span id="label-icon" class="metadata-icon glyphicon glyphicon-tags" aria-hidden="true"></span>
+                <span id="start-time-icon" class="metadata-icon glyphicon glyphicon-upload" aria-hidden="true"></span>
+                <span id="end-time-icon" class="metadata-icon glyphicon glyphicon-download" aria-hidden="true"></span>
+                <div class="placeholder">a</div>
+                <div class="metadata-value" id="status-value"></div>
+                <div class="metadata-value" id="label-value"></div>
+                <div class="metadata-value" id="start-time-value"></div>
+                <div class="metadata-value" id="end-time-value"></div>
             </div>
         </div>
     </div>

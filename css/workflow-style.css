@@ -177,8 +177,34 @@ table {
     color:blue;
 }
 
+.metadata-icon:hover ~ .placeholder {
+    display: none;
+}
+
 .metadata-value {
     font-size: 20px;
+    display: none;
+}
+
+.placeholder {
+    font-size: 20px;
+    opacity: 0;
+}
+
+#status-icon:hover ~ #status-value {
+    display: block;
+}
+
+#label-icon:hover ~ #label-value {
+    display: block;
+}
+
+#start-time-icon:hover ~ #start-time-value {
+    display: block;
+}
+
+#end-time-icon:hover ~ #end-time-value {
+    display: block;
 }
 
 .highlight-variables {
