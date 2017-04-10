@@ -267,6 +267,7 @@ var addTraces = function(traces) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
                 setWorkflowMetadata(res);
+								clearAllPanels();
             })
         })
     });
