@@ -3,9 +3,9 @@ $(document).ready(function() {
         $('.nav-tabs a[href="#execution"]').tab('show');
         // remove any panels showing on page 
         clearAllPanels();
-        getExecutionID(localStorage.getItem('workflow-uri'), function(res, executionID) {
+        getExecutionIDs(localStorage.getItem('workflow-uri'), function(res, executionID) {
             renderVisualization(res, true);
-            getExecutionDetails(executionID, function(res) {
+            getExecutionMetadata(executionID, function(res) {
                 setWorkflowMetadata(res);
             })
         })
@@ -17,8 +17,9 @@ $(document).ready(function() {
     $(".workflowTab").click(function() {
         // remove any panels showing on page 
         clearAllPanels();
+        
         $('.nav-tabs a[href="#workflow"]').tab('show');  
-        getGraphJSON(workflowURI, function(res) {
+        getWorkflowData(workflowURI, function(res) {
             renderVisualization(res, false);
         });
         
@@ -34,10 +35,16 @@ $(document).ready(function() {
 });
 
 var setWorkflowMetadata = function(res) {
-    //TODO: add error checking for null values
-    //TODO: change time to human readable format
-    document.getElementById('status-value').textContent = res.results.bindings[0].status.value;
-    document.getElementById('label-value').textContent = res.results.bindings[0].label.value;
-    document.getElementById('start-time-value').textContent = new Date(res.results.bindings[0].start.value).toString();
-    document.getElementById('end-time-value').textContent = new Date(res.results.bindings[0].end.value).toString();
+    if (res.results.hasOwnProperty('bindings')) {
+        document.getElementById('status-value').textContent = res.results.bindings[0].status.value;
+        //TODO: change time to human readable format
+        document.getElementById('label-value').textContent = res.results.bindings[0].label.value;
+        document.getElementById('start-time-value').textContent = new Date(res.results.bindings[0].start.value).toString();
+        document.getElementById('end-time-value').textContent = new Date(res.results.bindings[0].end.value).toString();
+    } else {
+        document.getElementById('status-value').textContent = 'N/A';
+        document.getElementById('label-value').textContent = 'N/A';
+        document.getElementById('start-time-value').textContent = 'N/A';
+        document.getElementById('end-time-value').textContent = 'N/A';
+    }
 }

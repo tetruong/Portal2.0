@@ -2,6 +2,8 @@ var endpoint = 'http://seagull.isi.edu:3030/ds/';
 
 /*
     @params: function "handler" that can be called when ajax call finishes
+    
+    -populates workflow label suggestions for autocomplete search
 */
 var populateSearchBar = function(handler) {
     $.ajax({
@@ -19,6 +21,11 @@ var populateSearchBar = function(handler) {
     });
 }
 
+
+/*
+    @params: workflow URI as identifier of a workflow, function 'handler' that can be called when ajax call finishes
+    -gets the inputs of a given workflow
+*/
 var getInputs = function(workflow, handler) {
     var sparql = 'select ?input from <urn:x-arq:UnionGraph> where{?input <http://www.opmw.org/ontology/isVariableOfTemplate> <' + workflow + '>.?p <http://www.opmw.org/ontology/uses> ?input.FILTER NOT EXISTS {?input<http://www.opmw.org/ontology/isGeneratedBy> ?p2.}}';
     
@@ -36,7 +43,11 @@ var getInputs = function(workflow, handler) {
     });
 }
 
-var getGraphJSON = function(workflowURI, handler) {
+/*
+    @params: workflow URI as identifier of a workflow, function 'handler' that can be called when ajax call finishes
+    -gets the necessary data to represent each node/edge in visualization
+*/
+var getWorkflowData = function(workflowURI, handler) {
     var sparql = 'select ?step ?input ?output from <urn:x-arq:UnionGraph> where{{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' + workflowURI + '>.?step <http://www.opmw.org/ontology/uses> ?input.}UNION{?step <http://www.opmw.org/ontology/isStepOfTemplate> <' + workflowURI +'>.?output <http://www.opmw.org/ontology/isGeneratedBy> ?step.}}';
     
     var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
@@ -60,7 +71,11 @@ var getGraphJSON = function(workflowURI, handler) {
     })
 }
 
-var getExecutionID = function (workflowURI, handler) {
+/*
+    @params: workflow URI as identifier of a workflow, function 'handler' that can be called when ajax call finishes
+    -gets the execution IDs for a workflow 
+*/
+var getExecutionIDs = function (workflowURI, handler) {
     var sparql = 'select ?execution from <urn:x-arq:UnionGraph> where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
     
     var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
@@ -74,13 +89,17 @@ var getExecutionID = function (workflowURI, handler) {
         },
         success: function(res) {
             console.log(res)
-            getExecutionTraces(res.results.bindings[0].execution.value, handler);
+            getExecutionData(res.results.bindings[0].execution.value, handler);
             addTraces(res.results.bindings)
         }
     })
 }
 
-var getExecutionTraces = function(executionID, handler) {
+/*
+    @params: execution ID as identifier of an execution trace, function 'handler' that can be called when ajax call finishes
+    -gets the necessary data to represent each node/edge in visualization of execution trace
+*/
+var getExecutionData = function(executionID, handler) {
     var sparql = 'select ?step ?input ?output  from <urn:x-arq:UnionGraph> where{{?step <http://openprovenance.org/model/opmo#account> <' + executionID + '>.?step <http://purl.org/net/opmv/ns#used> ?input.}UNION{?step <http://openprovenance.org/model/opmo#account> <' + executionID +'>.?output <http://purl.org/net/opmv/ns#wasGeneratedBy> ?step.}}';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
@@ -101,7 +120,11 @@ var getExecutionTraces = function(executionID, handler) {
     })
 }
 
-var getExecutionDetails = function(executionID, handler) {
+/*
+    @params: execution ID as identifier of an execution trace, function 'handler' that can be called when ajax call finishes
+    -gets metadata for an execution ID (status, time started, time ended, time of execution account creation)
+*/
+var getExecutionMetadata = function(executionID, handler) {
     var sparql = 'select ?label ?status ?start ?end  from <urn:x-arq:UnionGraph> where{<'
 + executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}optional{<' + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}}'
     

@@ -8,7 +8,7 @@ var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
 var workflowURI = localStorage.getItem("workflow-uri");
-getGraphJSON(workflowURI, function(res) {
+getWorkflowData(workflowURI, function(res) {
     renderVisualization(res, false);
 });
 
@@ -182,7 +182,6 @@ var renderVisualization = function (res, isTrace) {
         render(svgGroup, vis);
 
         //centers graph and calculates top margin of graph based on screen size
-
         var xCenterOffset = (document.getElementsByClassName('visualization-container')[0].clientWidth / 1.25 - vis.graph().width) / 2;
         var yTopMargin = screen.height * .05;
         var scale = .75;
@@ -195,7 +194,8 @@ var renderVisualization = function (res, isTrace) {
     }
     
     /*
-        
+        @params: Graph 'vis', function 'callback' to execute when AJAX operation complete
+        - styles input of workflow after querying endpoint
     */
     var formatInputs = function(vis, callback) {
         getInputs(workflowURI, function (inputs) {
@@ -217,20 +217,18 @@ var renderVisualization = function (res, isTrace) {
     }
 
     /*
-        renders graph
+        creates new graph and executes steps to render it
     */
     vis = new dagreD3.graphlib.Graph()
         .setGraph({
-            nodesep: 10,
-            ranksep: 20,
+            nodesep: 10, //distance between nodes
+            ranksep: 20, //distance between node hierarchy
         })
         .setDefaultEdgeLabel(function() { 
             return {} 
         });
 
     mapNodesEdges(vis);
-    console.log(processNodeIndices);
-    console.log(putNodeIndices);
 }   
 
 var translateVisualization = function() {
@@ -246,8 +244,12 @@ var addTraces = function(traces) {
     var select = document.getElementById("selection");
 
     var first = document.createElement("option");
+    
+    //text to display on selection box when nothing is selected
     first.textContent = 'Select execution trace';
     select.appendChild(first);
+    
+    //populates selection box options
     for(var i = 0; i < traces.length; i++) {
         var opt = traces[i];
         var el = document.createElement("option");
@@ -257,12 +259,13 @@ var addTraces = function(traces) {
     }
     
     select.addEventListener('change', function() {
+        //if selected index is the string 'Select execution trace'
         if (select.selectedIndex == 0)
             return;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
-        getExecutionTraces(select.options[select.selectedIndex].value, function(res, executionID) {
+        getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
             renderVisualization(res, true);
-            getExecutionDetails(executionID, function(res) {
+            getExecutionMetadata(executionID, function(res) {
                 setWorkflowMetadata(res);
             })
         })
@@ -346,6 +349,11 @@ var stripNameFromURI = function(uri) {
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
 }
 
+
+/*
+    @params: d3 render object
+    - adds dimensions look for nodes which have dimensionality
+*/
 var addDimensions = function(render) {
     render.shapes().customEllipse = function(parent, bbox, node) {
         var rx = bbox.width/2,
