@@ -6,3 +6,6 @@ The goal of this project is to develop a web interface for helping navigating an
 * Text-based search, so users can easily access the contents of the repository. 
 * Compare results belonging to several executions of an experiment (for instance, several visualizations of the execution of a simulation) 
 * Explore the intermediate steps and results of an experiment to see how the data evolved (for example, how the data was filtered to produce a table) 
+
+
+[View Portal](https://tetruong.github.io/Portal2.0/html/index.html)
