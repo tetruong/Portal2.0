@@ -58,13 +58,14 @@
 
 	var _Title2 = _interopRequireDefault(_Title);
 
-	var _landingPage = __webpack_require__(179);
+	var _searchBar = __webpack_require__(192);
 
-	var _landingPage2 = _interopRequireDefault(_landingPage);
+	var _searchBar2 = _interopRequireDefault(_searchBar);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(_Title2.default, null), document.getElementById("title"));
+	_reactDom2.default.render(_react2.default.createElement(_searchBar2.default, null), document.getElementById('search-bar'));
 
 /***/ },
 /* 1 */
@@ -21558,213 +21559,7 @@
 	exports.default = Title;
 
 /***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactAutosuggest = __webpack_require__(180);
-
-	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var workflowSuggestions = [];
-	var workflowURI = "../html/workflow-main.html";
-
-	// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-	function escapeRegexCharacters(str) {
-	  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	}
-
-	function getSuggestions(value) {
-	  function removeDuplicates(value, index, self) {
-	    return self.indexOf(value) === index;
-	  }
-
-	  var escapedValue = escapeRegexCharacters(value.trim());
-
-	  if (escapedValue === '') {
-	    return [];
-	  }
-
-	  // This regex returns suggestions that start with the input
-	  var regexStartsWith = new RegExp('^' + escapedValue, 'i');
-	  // This regex returns suggestions that contain the input anywhere in the suggestion string
-	  var regexContains = new RegExp(escapedValue, 'i');
-
-	  var suggestionsStartWith = workflowSuggestions.filter(function (workflowLabel) {
-	    return regexStartsWith.test(workflowLabel.label);
-	  });
-	  var suggestionsContains = workflowSuggestions.filter(function (workflowLabel) {
-	    return regexContains.test(workflowLabel.label);
-	  });
-	  var suggestions = suggestionsStartWith.concat(suggestionsContains);
-	  return suggestions.filter(removeDuplicates);
-	}
-
-	function getSuggestionValue(suggestion) {
-	  return suggestion.label;
-	}
-
-	function renderSuggestion(suggestion, _ref) {
-	  var query = _ref.query;
-
-	  var re = new RegExp(query, "i");
-	  var t = suggestion.label.replace(re, "<strong>" + "$&" + "</strong>");
-	  return _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: t } });
-	}
-
-	/**
-	* Method for parsing the names and URIs of the templates			 
-	*/
-	function parseAutocompleteData(res) {
-	  if (res.results && res.results.bindings) {
-	    var bindings = res.results.bindings;
-	    for (var i = 0; i < bindings.length; i++) {
-	      var binding = bindings[i];
-	      if (binding.label && binding.wf) {
-	        if (binding.wf.value.toLowerCase().indexOf("list_of") == -1) {
-	          var label = binding.label.value;
-	          label = label.replace(/\-d.*/g, "");
-	          if (label.toLowerCase().indexOf(".jpg") == -1 && label.toLowerCase().indexOf(".png") == -1 && label.toLowerCase().indexOf(".gif") == -1) {
-	            var newElement = { label: label, uri: binding.wf.value };
-	            workflowSuggestions.push(newElement);
-	          }
-	        }
-	      }
-	    }
-	  }
-	}
-
-	var SearchBar = function (_React$Component) {
-	  _inherits(SearchBar, _React$Component);
-
-	  function SearchBar() {
-	    _classCallCheck(this, SearchBar);
-
-	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
-
-	    _this.state = {
-	      value: '',
-	      suggestions: [],
-	      noSuggestions: false
-	    };
-	    _this.onChange = _this.onChange.bind(_this);
-	    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
-	    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
-	    _this.onSuggestionSelected = _this.onSuggestionSelected.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(SearchBar, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // call function to execute ajax call from query.js, passing into it, a function that takes in an input "res" which we define to execute when the ajax call returns successfully
-	      populateSearchBar(function (res) {
-	        //executes after ajax call returns
-	        parseAutocompleteData(res);
-	      });
-	    }
-	  }, {
-	    key: 'onChange',
-	    value: function onChange(event, _ref2) {
-	      var newValue = _ref2.newValue,
-	          method = _ref2.method;
-
-	      this.setState({
-	        value: newValue
-	      });
-	    }
-	  }, {
-	    key: 'onSuggestionsFetchRequested',
-	    value: function onSuggestionsFetchRequested(_ref3) {
-	      var value = _ref3.value;
-
-	      var suggestions = getSuggestions(value);
-	      var isInputBlank = value.trim() === '';
-	      var noSuggestions = !isInputBlank && suggestions.length === 0;
-	      this.setState({
-	        suggestions: suggestions,
-	        noSuggestions: noSuggestions
-	      });
-	    }
-	  }, {
-	    key: 'onSuggestionsClearRequested',
-	    value: function onSuggestionsClearRequested() {
-	      this.setState({
-	        suggestions: []
-	      });
-	    }
-	  }, {
-	    key: 'onSuggestionSelected',
-	    value: function onSuggestionSelected(event, _ref4) {
-	      var suggestion = _ref4.suggestion,
-	          suggestionValue = _ref4.suggestionValue,
-	          suggestionIndex = _ref4.suggestionIndex,
-	          sectionIndex = _ref4.sectionIndex,
-	          method = _ref4.method;
-
-	      localStorage.setItem("workflow-uri", suggestion.uri);
-	      localStorage.setItem("workflow-label", suggestion.label);
-	      localStorage.setItem("workflow-suggestions", JSON.stringify(workflowSuggestions));
-	      window.location = "../html/workflow-main.html";
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _state = this.state,
-	          value = _state.value,
-	          suggestions = _state.suggestions,
-	          noSuggestions = _state.noSuggestions;
-
-	      var inputProps = {
-	        placeholder: "Enter Workflow Name",
-	        value: value,
-	        onChange: this.onChange
-	      };
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_reactAutosuggest2.default, {
-	          suggestions: suggestions,
-	          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
-	          onSuggestionsClearRequested: this.onSuggestionsClearRequested,
-	          onSuggestionSelected: this.onSuggestionSelected,
-	          getSuggestionValue: getSuggestionValue,
-	          renderSuggestion: renderSuggestion,
-	          inputProps: inputProps }),
-	        noSuggestions && _react2.default.createElement(
-	          'div',
-	          { className: 'no-suggestions' },
-	          'No suggestions'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SearchBar;
-	}(_react2.default.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(SearchBar, null), document.getElementById('search-bar'));
-
-/***/ },
+/* 179 */,
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23575,6 +23370,217 @@
 	  onClick: _react.PropTypes.func
 	};
 	exports.default = Item;
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactAutosuggest = __webpack_require__(180);
+
+	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var workflowSuggestions = [];
+	var workflowURI = "../html/workflow-main.html";
+
+	// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
+	function escapeRegexCharacters(str) {
+	  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	function getSuggestions(value) {
+	  function removeDuplicates(value, index, self) {
+	    return self.indexOf(value) === index;
+	  }
+
+	  var escapedValue = escapeRegexCharacters(value.trim());
+
+	  if (escapedValue === '') {
+	    return [];
+	  }
+
+	  // This regex returns suggestions that start with the input
+	  var regexStartsWith = new RegExp('^' + escapedValue, 'i');
+	  // This regex returns suggestions that contain the input anywhere in the suggestion string
+	  var regexContains = new RegExp(escapedValue, 'i');
+
+	  var suggestionsStartWith = workflowSuggestions.filter(function (workflowLabel) {
+	    return regexStartsWith.test(workflowLabel.label);
+	  });
+	  var suggestionsContains = workflowSuggestions.filter(function (workflowLabel) {
+	    return regexContains.test(workflowLabel.label);
+	  });
+	  var suggestions = suggestionsStartWith.concat(suggestionsContains);
+	  return suggestions.filter(removeDuplicates);
+	}
+
+	function getSuggestionValue(suggestion) {
+	  return suggestion.label;
+	}
+
+	function renderSuggestion(suggestion, _ref) {
+	  var query = _ref.query;
+
+	  var re = new RegExp(query, "i");
+	  var t = suggestion.label.replace(re, "<strong>" + "$&" + "</strong>");
+	  return _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: t } });
+	}
+
+	/**
+	* Method for parsing the names and URIs of the templates			 
+	*/
+	function parseAutocompleteData(res) {
+	  if (res.results && res.results.bindings) {
+	    var bindings = res.results.bindings;
+	    for (var i = 0; i < bindings.length; i++) {
+	      var binding = bindings[i];
+	      if (binding.label && binding.wf) {
+	        if (binding.wf.value.toLowerCase().indexOf("list_of") == -1) {
+	          var label = binding.label.value;
+	          label = label.replace(/\-d.*/g, "");
+	          if (label.toLowerCase().indexOf(".jpg") == -1 && label.toLowerCase().indexOf(".png") == -1 && label.toLowerCase().indexOf(".gif") == -1) {
+	            var newElement = { label: label, uri: binding.wf.value };
+	            workflowSuggestions.push(newElement);
+	          }
+	        }
+	      }
+	    }
+	  }
+	}
+
+	var SearchBar = function (_React$Component) {
+	  _inherits(SearchBar, _React$Component);
+
+	  function SearchBar() {
+	    _classCallCheck(this, SearchBar);
+
+	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
+
+	    _this.state = {
+	      value: '',
+	      suggestions: [],
+	      noSuggestions: false
+	    };
+	    _this.onChange = _this.onChange.bind(_this);
+	    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+	    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+	    _this.onSuggestionSelected = _this.onSuggestionSelected.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(SearchBar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // call function to execute ajax call from query.js, passing into it, a function that takes in an input "res" which we define to execute when the ajax call returns successfully
+	      populateSearchBar(function (res) {
+	        //executes after ajax call returns
+	        parseAutocompleteData(res);
+	      });
+	    }
+	  }, {
+	    key: 'onChange',
+	    value: function onChange(event, _ref2) {
+	      var newValue = _ref2.newValue,
+	          method = _ref2.method;
+
+	      this.setState({
+	        value: newValue
+	      });
+	    }
+	  }, {
+	    key: 'onSuggestionsFetchRequested',
+	    value: function onSuggestionsFetchRequested(_ref3) {
+	      var value = _ref3.value;
+
+	      var suggestions = getSuggestions(value);
+	      var isInputBlank = value.trim() === '';
+	      var noSuggestions = !isInputBlank && suggestions.length === 0;
+	      this.setState({
+	        suggestions: suggestions,
+	        noSuggestions: noSuggestions
+	      });
+	    }
+	  }, {
+	    key: 'onSuggestionsClearRequested',
+	    value: function onSuggestionsClearRequested() {
+	      this.setState({
+	        suggestions: []
+	      });
+	    }
+	  }, {
+	    key: 'onSuggestionSelected',
+	    value: function onSuggestionSelected(event, _ref4) {
+	      var suggestion = _ref4.suggestion,
+	          suggestionValue = _ref4.suggestionValue,
+	          suggestionIndex = _ref4.suggestionIndex,
+	          sectionIndex = _ref4.sectionIndex,
+	          method = _ref4.method;
+
+	      localStorage.setItem("workflow-uri", suggestion.uri);
+	      localStorage.setItem("workflow-label", suggestion.label);
+	      localStorage.setItem("workflow-suggestions", JSON.stringify(workflowSuggestions));
+	      window.location = "../html/workflow-main.html";
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _state = this.state,
+	          value = _state.value,
+	          suggestions = _state.suggestions,
+	          noSuggestions = _state.noSuggestions;
+
+	      var inputProps = {
+	        placeholder: "Enter Workflow Name",
+	        value: value,
+	        onChange: this.onChange
+	      };
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_reactAutosuggest2.default, {
+	          suggestions: suggestions,
+	          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+	          onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+	          onSuggestionSelected: this.onSuggestionSelected,
+	          getSuggestionValue: getSuggestionValue,
+	          renderSuggestion: renderSuggestion,
+	          inputProps: inputProps }),
+	        noSuggestions && _react2.default.createElement(
+	          'div',
+	          { className: 'no-suggestions' },
+	          'No suggestions'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SearchBar;
+	}(_react2.default.Component);
+
+	exports.default = SearchBar;
 
 /***/ }
 /******/ ]);
