@@ -236,7 +236,10 @@ var translateVisualization = function() {
     var y = 20;
     var scale = 0.75;
     
-    d3.select('svg g').attr('transform', 'translate(' + x + ',' + y + ')scale(' + scale + ')');
+    d3.select('svg g')
+    .transition()
+    .duration(1000)
+    .attr('transform', 'translate(' + x + ',' + y + ')scale(' + scale + ')');
     zoom.translate([x,y]).scale(scale);
 }
 
