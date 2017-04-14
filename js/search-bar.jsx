@@ -28,6 +28,7 @@ function getSuggestions(value) {
     
   var suggestionsStartWith = workflowSuggestions.filter(workflowLabel => regexStartsWith.test(workflowLabel.label));
   var suggestionsContains = workflowSuggestions.filter(workflowLabel => regexContains.test(workflowLabel.label));
+  // suggestions contains first the suggestions that begin with the input, then the suggestions that contain the input. There may still be duplicates.
   var suggestions = suggestionsStartWith.concat(suggestionsContains);
   return suggestions.filter(removeDuplicates);
 }
