@@ -7,7 +7,12 @@ var isVariableOfMapping = {};
 var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
-var workflowURI = localStorage.getItem("workflow-uri");
+var querystring = window.location.search;
+// Matches everything after the first '='
+var regex = /=(.*)/;
+var encryptedURI = regex.exec(querystring);
+// Decrypting the URI with key "csci401-2017"
+var workflowURI = CryptoJS.AES.decrypt(encryptedURI[1], "csci401-Spring-2017").toString(CryptoJS.enc.Utf8);
 getWorkflowData(workflowURI, function(res) {
     renderVisualization(res, false);
 });

@@ -21727,10 +21727,11 @@
 	          sectionIndex = _ref4.sectionIndex,
 	          method = _ref4.method;
 
-	      localStorage.setItem("workflow-uri", suggestion.uri);
 	      localStorage.setItem("workflow-label", suggestion.label);
 	      localStorage.setItem("workflow-suggestions", JSON.stringify(workflowSuggestions));
-	      window.location = "../html/workflow-main.html";
+	      // Encrypt the workflow-uri and append it to the url as a querystring parameter
+	      var encryptedURI = CryptoJS.AES.encrypt(suggestion.uri, "csci401-Spring-2017");
+	      window.location = "../html/workflow-main.html" + "?uri=" + encryptedURI;
 	    }
 	  }, {
 	    key: 'render',
