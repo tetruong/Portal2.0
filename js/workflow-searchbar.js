@@ -20,7 +20,13 @@ var searchbarAutocomplete = function(suggestions) {
         select: function(event, ui) {
             localStorage.setItem('workflow-uri', ui.item.uri);
             localStorage.setItem('workflow-label', ui.item.label);
-            window.location.reload(false);
+            var encryptedURI = CryptoJS.AES.encrypt(ui.item.uri, "csci401-Spring-2017");
+            // Replace the old querystring 'uri' value with the new one
+            if (history.pushState) {
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?uri=" + encryptedURI;
+                window.history.pushState({path:newurl},'',newurl);
+            }
+            window.location.reload(true);
         }
     });
     
