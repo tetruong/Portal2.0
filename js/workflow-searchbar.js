@@ -18,7 +18,6 @@ var searchbarAutocomplete = function(suggestions) {
         source:suggestions,
         appendTo: '.searchbar',
         select: function(event, ui) {
-            localStorage.setItem('workflow-uri', ui.item.uri);
             localStorage.setItem('workflow-label', ui.item.label);
             var encryptedURI = CryptoJS.AES.encrypt(ui.item.uri, "csci401-Spring-2017");
             // Replace the old querystring 'uri' value with the new one
