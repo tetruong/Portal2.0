@@ -7,15 +7,20 @@ var isVariableOfMapping = {};
 var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
-var querystring = window.location.search;
-// Matches everything after the first '='
-var regex = /=(.*)/;
-var encryptedURI = regex.exec(querystring);
-// Decrypting the URI with key "csci401-2017"
-var workflowURI = CryptoJS.AES.decrypt(encryptedURI[1], "csci401-Spring-2017").toString(CryptoJS.enc.Utf8);
+var workflowURI = getWorkflowURI();
 getWorkflowData(workflowURI, function(res) {
     renderVisualization(res, false);
 });
+
+function getWorkflowURI() {
+    var querystring = window.location.search;
+    // Matches everything after the first '='
+    var regex = /=(.*)/;
+    var encryptedURI = regex.exec(querystring);
+    var workflowURI = CryptoJS.AES.decrypt(encryptedURI[1], "csci401-Spring-2017").toString(CryptoJS.enc.Utf8);
+    localStorage.setItem('workflow-uri', workflowURI);
+    return workflowURI;
+}
 
 var renderVisualization = function (res, isTrace) {
     document.getElementById('workflow-name').innerHTML

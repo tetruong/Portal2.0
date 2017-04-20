@@ -3,7 +3,7 @@ $(document).ready(function() {
         $('.nav-tabs a[href="#execution"]').tab('show');
         // remove any panels showing on page 
         clearAllPanels();
-        getExecutionIDs(localStorage.getItem('workflow-uri'), function(res, executionID) {
+        getExecutionIDs(getWorkflowURI(), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
                 setWorkflowMetadata(res);
@@ -22,9 +22,7 @@ $(document).ready(function() {
         getWorkflowData(workflowURI, function(res) {
             renderVisualization(res, false);
         });
-        
-        localStorage.setItem('workflow-uri', workflowURI);
-        
+                
         var traceSelect = document.getElementById('selection');
         traceSelect.style.display = 'none';
         
