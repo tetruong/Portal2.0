@@ -24,7 +24,7 @@ function getWorkflowURI() {
 
 var renderVisualization = function (res, isTrace) {
     document.getElementById('workflow-name').innerHTML
-        = localStorage.getItem('workflow-label');
+        = stripNameFromURI(workflowURI).replace(/\-d.*/g,"").toUpperCase();
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
