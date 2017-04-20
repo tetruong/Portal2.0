@@ -88,7 +88,6 @@ var getExecutionIDs = function (workflowURI, handler) {
         error: function(){
         },
         success: function(res) {
-            console.log(res)
             getExecutionData(res.results.bindings[0].execution.value, handler);
             addTraces(res.results.bindings)
         }
@@ -141,4 +140,27 @@ var getExecutionMetadata = function(executionID, handler) {
             handler(res);
         }
     })
+}
+
+var parseAutocomplete = function(res) {
+    var suggestions = [];
+    if(res.results && res.results.bindings) {
+        var bindings = res.results.bindings;
+        for(var i =0; i < bindings.length; i++) {
+          var binding = bindings[i];
+          if(binding.label && binding.wf) {
+            if(binding.wf.value.toLowerCase().indexOf("list_of") == -1) {
+              var label = binding.label.value;
+              label = label.replace(/\-d.*/g,"");
+              if(label.toLowerCase().indexOf(".jpg") == -1 && 
+                 label.toLowerCase().indexOf(".png") == -1 &&
+                 label.toLowerCase().indexOf(".gif") == -1) {
+                   var newElement = {label:label, uri:binding.wf.value};
+                   suggestions.push(newElement);
+              }
+            }
+          }
+        }
+        return suggestions;
+    }
 }

@@ -8,6 +8,12 @@ var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
 var workflowURI = getWorkflowURI();
+
+populateSearchBar(function(res) { 
+    //executes after ajax call returns
+    searchbarAutocomplete(parseAutocomplete(res));
+});
+
 getWorkflowData(workflowURI, function(res) {
     renderVisualization(res, false);
 });

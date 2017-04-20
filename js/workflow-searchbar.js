@@ -13,7 +13,6 @@ function monkeyPatchAutocomplete() {
 var searchbarAutocomplete = function(suggestions) {
     
     monkeyPatchAutocomplete();
-        
     $( "#workflow-searchbar" ).autocomplete({
         source:suggestions,
         appendTo: '.searchbar',
@@ -44,8 +43,4 @@ var searchbarAutocomplete = function(suggestions) {
         var suggestions = suggestionsStartWith.concat(suggestionsContains);
         return suggestions.filter(removeDuplicates);
     };
-}
-
-window.onload = function() { 
-    searchbarAutocomplete(JSON.parse(localStorage.getItem('workflow-suggestions')));
 }

@@ -43,30 +43,6 @@ function renderSuggestion(suggestion, { query }) {
   return (<span dangerouslySetInnerHTML={{__html: t}} />);
 }
 
-/**
-* Method for parsing the names and URIs of the templates			 
-*/
-function parseAutocompleteData(res) {
-  if(res.results && res.results.bindings) {
-    var bindings = res.results.bindings;
-    for(var i =0; i < bindings.length; i++) {
-      var binding = bindings[i];
-      if(binding.label && binding.wf) {
-        if(binding.wf.value.toLowerCase().indexOf("list_of") == -1) {
-          var label = binding.label.value;
-          label = label.replace(/\-d.*/g,"");
-          if(label.toLowerCase().indexOf(".jpg") == -1 && 
-             label.toLowerCase().indexOf(".png") == -1 &&
-             label.toLowerCase().indexOf(".gif") == -1) {
-               var newElement = {label:label, uri:binding.wf.value};
-               workflowSuggestions.push(newElement);
-          }
-        }
-      }
-    }
-  }
-}
-
 class SearchBar extends React.Component {
   constructor() {
     super();
@@ -86,7 +62,7 @@ class SearchBar extends React.Component {
       // call function to execute ajax call from query.js, passing into it, a function that takes in an input "res" which we define to execute when the ajax call returns successfully
       populateSearchBar(function(res) { 
           //executes after ajax call returns
-          parseAutocompleteData(res);
+          workflowSuggestions = parseAutocomplete(res);
       });
   }
 
