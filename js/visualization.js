@@ -349,10 +349,10 @@ var setupNodeOnClick = function (svg, vis) {
             highlightPuts(processInputMapping[node.uri]);
             highlightPuts(processOutputMapping[node.uri]);
         } else if (node.type == 'input') {
-            addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
+            getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
             highlightPuts(isVariableOfMapping[node.uri]);
         } else if (node.type == 'output') {
-            addVariableInfo(node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
+            getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
             highlightPuts(outputByMapping[node.uri]);
         }
     });

@@ -142,6 +142,24 @@ var getExecutionMetadata = function(executionID, handler) {
     })
 }
 
+var getExecutionArtifactValues = function(handler, variableURI, usedBy, generatedBy, variableType) {
+    var sparql = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+    + variableURI +'><http://www.opmw.org/ontology/hasLocation> ?file}';
+    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            handler(variableURI, usedBy, generatedBy, variableType, res.results);
+        }
+    })
+}
+
 var parseAutocomplete = function(res) {
     var suggestions = [];
     if(res.results && res.results.bindings) {
@@ -164,3 +182,4 @@ var parseAutocomplete = function(res) {
         return suggestions;
     }
 }
+

@@ -151,8 +151,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
     
 
 // FUNCTION TO ADD NEW VARIABLE INFORMATION SECTIONS
-function addVariableInfo(variableURI, usedBy, generatedBy, variableType) {
-	console.log(variableSectionsShowing);
+function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifactValues) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
