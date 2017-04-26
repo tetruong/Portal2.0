@@ -41,17 +41,6 @@ body {
   display: table-cell;
   vertical-align: top;
 }
-.cover-container {
-  margin-right: auto;
-  margin-left: auto;
-    padding-top: 5rem;
-}
-
-/* Padding for spacing */
-.inner {
-  color: #66ccff;
-  padding: 1rem;
-}
 
 
 /*
@@ -117,6 +106,7 @@ body {
 
 .nav-bar {
   clear: both;
+  padding: 2rem 2rem 5rem;
 }
 
 
@@ -130,15 +120,6 @@ body {
 .cover .btn-lg {
   padding: .75rem 1.25rem;
   font-weight: bold;
-}
-
-
-/*
- * Footer
- */
-
-.mastfoot {
-  color: rgba(255,255,255,.5);
 }
 
 
@@ -176,64 +157,6 @@ body {
     width: 42rem;
   }
 }
-
-.container {
-    margin:auto;
-}
-
-/* Carousel starts here */ 
-a {
-	transition: all 150ms ease; 
-}
-    
-a:hover {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; 
-}
-
-.thumbnails li> .fff .caption { 
-    background: rgba(102,204,255, .8);
-    padding:10px 10px 10px 10px;
-    margin-top: 75px;
-}
-
-/* Thumbnail Box */
-.caption h4 {
-    color: #444;
-    font-size: 12px;
-}
-
-.caption p {  
-    color: #000;
-    font-size: 12px;
-}
-
-.caption a {
-    color: dimgray;
-}
-
-/* Carousel Control */
-.control-box {
-    text-align: center;
-    width: 100%;
-}
-.carousel-control{
-    background: #666;
-    border: 0px;
-    border-radius: 0px;
-    display: inline-block;
-    font-size: 34px;
-    font-weight: 200;
-    line-height: 18px;
-    opacity: 0.5;
-    padding: 4px 10px 0px;
-    position: static;
-    height: 30px;
-    width: 15px;
-}
-
-li { list-style-type:none;}
-
-
 
 
 /* Autocomplete Search */
