@@ -106,7 +106,7 @@ body {
 
 .nav-bar {
   clear: both;
-  padding: 2rem 2rem 5rem;
+  padding: 2rem 2rem 1rem;
 }
 
 
@@ -140,7 +140,7 @@ body {
   /* Start the vertical centering */
   .site-wrapper-inner {
     vertical-align: top;
-    padding-top: 5rem;
+    padding-top: 1rem;
   }
   /* Handle the widths */
   .masthead,
