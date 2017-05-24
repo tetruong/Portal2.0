@@ -145,13 +145,18 @@ table {
 .table-responsive {
     border: 1px solid #66ccff;
 }
-
-
 .navbar-nav>li, .navbar-nav {
   float: left !important;
   background-color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
 }
+
+.panel-group-legend {
+  display: block;
+  float: right;
+}
+
+
 
 .navbar {
  background-color: #fff;   

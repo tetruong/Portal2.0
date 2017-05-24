@@ -15,7 +15,8 @@
             	<input type="text" class="form-control" placeholder="Search Workflows" name="search-workflow-name" id="workflow-searchbar">
         	</form>
     	</div>
-    	<div id="workflow-name" data-toggle="collapse" data-target="#collapseMetadata" aria-expanded="false" aria-controls="collapseExample">
+    	<div id="workflow-name" data-toggle="collapse" data-target="#collapseMetadata" 
+    	aria-expanded="false" aria-controls="collapseExample">
     	</div>
     	<!-- Navigation Bar-->
     	<div class="workflow-nav">
@@ -29,11 +30,13 @@
 	</div>
     
 
-    
+
     <ul class="nav nav-tabs">
         <li class="active workflowTab"><a data-toggle="tab" href="#workflow">Workflow</a></li>
         <li class="executionTab"><a data-toggle="tab" href="#execution">Execution</a></li>
     </ul>
+   
+
 
     <div class="tab-content">
         <div id="workflow" class="tab-pane fade in active">
@@ -54,8 +57,24 @@
         </div>
     </div>
     
-<!--    expand and collapse legend-->
-    <div class="panel-group-legend" id="accordionLegend">
+    
+     <!-- div id="workflowName" onload="this.innerhtml += document.getElementById('workflow-name').innerhtml"> This is a sentence</div>-->
+
+
+	
+   
+ <div class="bigCanvas">  
+ 
+    <div class="visualization-container" id="viz" style="width:85%;float:left">
+				<select id='selection' style='display:none;'>
+				</select>
+				<svg>
+        </svg>
+        <img id='spinner' src="../images/spin.gif"/ style="display:none">
+    </div>
+	
+	<!--    expand and collapse legend-->
+    <div class="panel-group-legend" id="accordionLegend" style="width:15%;float:right">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title" style="text-align:left">
@@ -73,17 +92,8 @@
       </div>
     </div>
     
-	
-   
     
-    <div class="visualization-container" id="viz" style="width:100%;float:left">
-				<select id='selection' style='display:none;'>
-				</select>
-				<svg>
-        </svg>
-        <img id='spinner' src="../images/spin.gif"/ style="display:none">
-    </div>
-
+ </div> 
 <!--       THIS IS TIFF"S PART    -->
 
 
