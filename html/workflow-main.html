@@ -36,9 +36,29 @@
         <li class="executionTab"><a data-toggle="tab" href="#execution">Execution</a></li>
     </ul>
    
+    
+    
+    
+     <!-- div id="workflowName" onload="this.innerhtml += document.getElementById('workflow-name').innerhtml"> This is a sentence</div>-->
 
 
-    <div class="tab-content" style="width: 35%; float: right">
+	
+   
+ <div class="bigCanvas">  
+ 
+    <div class="visualization-container" id="viz" style="width:65%;float:left">
+        <svg>
+        </svg>
+        <img id='spinner' src="../images/spin.gif"/ style="display:none">
+    </div>
+	
+     
+  <div class="rightCanvas" style="width:35%;float:right">
+	<!--    expand and collapse legend-->
+      <select id='selection' style='display:none'>
+				</select>
+
+    <div class="tab-content">
         <div id="workflow" class="tab-pane fade in active">
 
         </div>
@@ -56,28 +76,12 @@
             </div>
         </div>
     </div>
-    
-    
-     <!-- div id="workflowName" onload="this.innerhtml += document.getElementById('workflow-name').innerhtml"> This is a sentence</div>-->
-
-
-	
-   
- <div class="bigCanvas">  
- 
-    <div class="visualization-container" id="viz" style="width:65%;float:left">
-				<select id='selection' style='display:none;'>
-				</select>
-				<svg>
-        </svg>
-        <img id='spinner' src="../images/spin.gif"/ style="display:none">
-    </div>
-	
-	<!--    expand and collapse legend-->
-    <div class="panel-group-legend" id="accordionLegend" style="width:35%;float:left">
+      
+      
+    <div class="panel-group-legend" id="accordionLegend">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h5 class="panel-title" style="text-align:left">
+          <h5 class="panel-title" style="text-align:center">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseLegend" style="text-align:left">
                 <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 &nbsp;	&nbsp;View Legend
@@ -86,12 +90,12 @@
         </div>
         <div id="collapseLegend" class="panel-collapse collapse">
             <div>
-                <img src="../images/legend.png" style="width:208;height:106px;" id="legend_image" hspace="15" vspace="15"> 
+                <img src="../images/new-legend.png" style="width:208;height:66px;" id="legend_image" hspace="15" vspace="15"> 
             </div>
         </div>
       </div>
     </div>
-    
+  </div>
     
  </div> 
 <!--       THIS IS TIFF"S PART    -->

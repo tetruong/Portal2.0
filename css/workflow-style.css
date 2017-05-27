@@ -52,6 +52,13 @@ body {
   float: left;
   display: inline-block;
   padding: 14px 16px;
+  width: 30%;
+}
+.nav.navbar-form  {
+  margin-top: 3%
+}
+#workflow-searchbar  {
+  width: 100%
 }
 #workflow-name {
   float: middle;
@@ -61,18 +68,22 @@ body {
   text-align: center;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
   padding: 14px 16px;
+  width: auto;
 }
 .workflow-nav {
   margin-top: 1.2%;
   float: right;
   display: inline-block;
   padding: 14px 16px;
+  width: 30%
 }
 .nav-link {
-  /*margin: 10px;*/
-  padding: 1em;
-  border: 1px solid #66ccff;
+  float: right;
+  margin-right: 8%;
+  /*padding: 1em;
+  border: 1px solid #66ccff;*/
   color: white;
+  font-size: 17px;
 }
 #metadata-label { 
   font-size: 14px;
@@ -153,7 +164,7 @@ table {
 
 .panel-group-legend {
   display: block;
-  float: right;
+  /*float: right;*/
 }
 
 
