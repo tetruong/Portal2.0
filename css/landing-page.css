@@ -97,16 +97,29 @@ body {
  background-color: #fff;   
 }
 
+#title
+{
+    width: 85%;
+    float: left;
+}
+h1
+{
+    margin-left: 18%;
+}
 .nav-link {
-  margin: 10px;
-  padding: 1em;
-  border: 1px solid #66ccff;
-  color: dimgray;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 1em;
+    /* border: 1px solid #66ccff; */
+    color: dimgray;
+    width: 5%;
+    float: right;
+    font-size: 16px;
 }
 
 .nav-bar {
   clear: both;
-  padding: 2rem 2rem 1rem;
+  /*padding: 2rem 2rem 1rem;*/
 }
 
 
