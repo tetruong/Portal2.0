@@ -46,13 +46,14 @@ body {
 }
 .topnav {
   background-color: #333;
-  overflow: hidden;
+  overflow: visible;
 }
 .searchbar {
   float: left;
   display: inline-block;
   padding: 14px 16px;
   width: 30%;
+  position: relative;
 }
 .nav.navbar-form  {
   margin-top: 3%
@@ -61,13 +62,12 @@ body {
   width: 100%
 }
 #workflow-name {
-  float: middle;
   display: inline-block;
   /*margin-top: 3%;*/
   font-size: 40px;
   text-align: center;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
-  padding: 14px 16px;
+  padding: 14px 0px;
   width: auto;
 }
 .workflow-nav {
@@ -174,18 +174,22 @@ table {
 }
 
 .ui-autocomplete {
-    max-height: 100px;
+    max-height: 150px;
     overflow-y: auto;
     list-style: none;
-    display: inline-block;
+    position: absolute;
     background: #f2f6f7;
-    display: block;
     text-align: center;
+    top: 75% !important;
+    left: 8% !important;
+    width: 85%;
 }
 
 .ui-autocomplete li {
     padding: 10px;
     margin-bottom: 1px;
+    margin-left: 5%;
+    float: left;
 }
 
 /* Metadata Icons and Values */
