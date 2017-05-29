@@ -30,7 +30,7 @@ function getWorkflowURI() {
 
 var renderVisualization = function (res, isTrace) {
     document.getElementById('workflow-name').innerHTML
-        = stripNameFromURI(workflowURI).replace(/\-d.*/g,"").toUpperCase();
+        = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,"");
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
@@ -265,7 +265,7 @@ var addTraces = function(traces) {
     var first = document.createElement("option");
     
     //text to display on selection box when nothing is selected
-    first.textContent = 'Select execution trace';
+    first.textContent = 'Selected execution trace on the side';
     select.appendChild(first);
     
     //populates selection box options
@@ -280,7 +280,11 @@ var addTraces = function(traces) {
     select.addEventListener('change', function() {
         //if selected index is the string 'Select execution trace'
         if (select.selectedIndex == 0)
+        {
+            /*document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[1].text;*/
             return;
+        }
+        document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[select.selectedIndex].text;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
         getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
             renderVisualization(res, true);
@@ -291,7 +295,9 @@ var addTraces = function(traces) {
         })
     });
     
-    select.selectedIndex = 1;
+    
+    select.selectedIndex = 0;
+    document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[1].text;
 }
 
 var highlightPuts = function(putsArray) {

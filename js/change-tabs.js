@@ -12,6 +12,10 @@ $(document).ready(function() {
         
         var traceSelect = document.getElementById('selection');
         traceSelect.style.display = 'inline';
+        /*traceSelect.options[0].setAttribute("selected","selected");*/
+        document.getElementById('workflow-name').style.display = "none";
+        document.getElementById('execution-name').style.display = "inline-block";
+        /*document.getElementById('execution-name').innerHTML = "Selected execution: ";*/
     });
     
     $(".workflowTab").click(function() {
@@ -29,6 +33,9 @@ $(document).ready(function() {
         for (var i = traceSelect.options.length-1; i >= 0; i--) {
             traceSelect.remove(i);
         }
+        document.getElementById('execution-name').style.display = "none";
+        document.getElementById('workflow-name').style.display = "inline-block";
+        document.getElementById('execution-name').innerHTML = "";
     });
 });
 
