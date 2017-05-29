@@ -20,6 +20,7 @@ a:hover {
 html,
 body {
   height: 100%;
+  overflow: hidden;
   background: #333;
   color: #66ccff;
   text-align: center;
