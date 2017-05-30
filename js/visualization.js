@@ -262,11 +262,11 @@ var translateVisualization = function() {
 var addTraces = function(traces) {
     var select = document.getElementById("selection");
 
-    var first = document.createElement("option");
+    //var first = document.createElement("option");
     
     //text to display on selection box when nothing is selected
-    first.textContent = 'Selected execution trace on the side';
-    select.appendChild(first);
+    //first.textContent = 'Selected execution trace on the side';
+    //select.appendChild(first);
     
     //populates selection box options
     for(var i = 0; i < traces.length; i++) {
@@ -279,11 +279,10 @@ var addTraces = function(traces) {
     
     select.addEventListener('change', function() {
         //if selected index is the string 'Select execution trace'
-        if (select.selectedIndex == 0)
+        /*if (select.selectedIndex == 0)
         {
-            /*document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[1].text;*/
             return;
-        }
+        }*/
         document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[select.selectedIndex].text;
         localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
         getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
@@ -297,7 +296,7 @@ var addTraces = function(traces) {
     
     
     select.selectedIndex = 0;
-    document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[1].text;
+    document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[0].text;
 }
 
 var highlightPuts = function(putsArray) {

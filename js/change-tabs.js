@@ -16,6 +16,7 @@ $(document).ready(function() {
         document.getElementById('workflow-name').style.display = "none";
         document.getElementById('execution-name').style.display = "inline-block";
         /*document.getElementById('execution-name').innerHTML = "Selected execution: ";*/
+        document.getElementById('selection-explanation').style.display = "inline-block";
     });
     
     $(".workflowTab").click(function() {
@@ -36,6 +37,7 @@ $(document).ready(function() {
         document.getElementById('execution-name').style.display = "none";
         document.getElementById('workflow-name').style.display = "inline-block";
         document.getElementById('execution-name').innerHTML = "";
+        document.getElementById('selection-explanation').style.display = "none";
     });
 });
 
