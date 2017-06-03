@@ -1,30 +1,7 @@
-var endpoint;
 
-/*function myOnloadFunc() {
-    var fileDisplayArea = document.getElementById('dropdown-content');
-    var reader = new FileReader();
-    reader.onload = function() {
-        var allText = reader.result;
-        var a = '<a href="#">' + allText + '</a>';
-        fileDisplayArea.innerHTML = a;
-        console.log(1);
-    };
-    reader.readAsText("../txt/endpoints.txt");
-}*/
 
-function readTextFile(file) {
-        $.get(file, function(data) {
-            var endpoints = data.split("\n");
-            for(var i=0;i<endpoints.length;++i)
-            {
-                var a = '<a href="#">' + endpoints[i] + '</a>';
-                document.getElementById("dropdown-content").innerHTML += a;        
-            }
-            endpoint = endpoints[0];
-        });
-    }
 
-window.onload = readTextFile("../txt/endpoints.txt");
+
 
 /*
     @params: function "handler" that can be called when ajax call finishes
