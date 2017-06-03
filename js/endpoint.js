@@ -24,3 +24,4 @@ function readTextFile(file) {
 
 
 readTextFile("../txt/endpoints.txt");
+document.getElementById("chosenendpoint").innerHTML += localStorage.getItem("endpoint");

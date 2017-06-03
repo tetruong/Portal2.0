@@ -191,7 +191,10 @@ table {
   background-color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
 }
-
+.visualization-container>svg
+{
+    min-height: 400px;
+}
 .panel-group-legend {
   display: block;
   /*float: right;*/
