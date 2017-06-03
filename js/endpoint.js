@@ -8,7 +8,7 @@ function endpointonclick(event)  {
 }
 function readTextFile(file) {
         $.get(file, function(data) {
-            endpoints = data.split(";");
+            endpoints = data.split(/\r?\n/);
             for(var i=0;i<endpoints.length;++i)
             {
                 var a = '<a href="#" class="endpointurl" onclick="endpointonclick.call(this,event)">' + endpoints[i] + '</a>';
