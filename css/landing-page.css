@@ -261,6 +261,7 @@ h1
     margin-top: 10%;
     position: relative;
     display: inline-block;
+    width: 80%;
 }
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
