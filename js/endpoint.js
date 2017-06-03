@@ -3,9 +3,8 @@ var endpoints;
 
 function endpointonclick(event)  {
     var me = event.target;
-    window.name = me.innerHTML;
-    console.log(window.name);
-    location.reload();
+    localStorage.setItem("endpoint", me.innerHTML);
+    location.reload(true);
 }
 function readTextFile(file) {
         $.get(file, function(data) {
@@ -15,8 +14,11 @@ function readTextFile(file) {
                 var a = '<a href="#" class="endpointurl" onclick="endpointonclick.call(this,event)">' + endpoints[i] + '</a>';
                 document.getElementById("dropdown-content").innerHTML += a;        
             }
-            if(window.name != "") endpoint = window.name;
-            else endpoint = endpoints[0];
+            if(localStorage.getItem("endpoint")!=null) endpoint = localStorage.getItem("endpoint");
+            else {
+                endpoint = endpoints[0];
+                localStorage.setItem("endpoint", endpoint);
+            }
         });
     }
 

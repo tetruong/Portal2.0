@@ -1,7 +1,4 @@
-
-
-
-
+endpoint = localStorage.getItem("endpoint");
 
 /*
     @params: function "handler" that can be called when ajax call finishes
