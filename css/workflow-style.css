@@ -69,7 +69,8 @@ h1  {
 #workflow-name {
   display: inline-block;
   margin-bottom: -2%;
-  margin-right: 14%;
+  float: left;
+  margin-left: 28%;
   text-align: center;
   /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
   padding: 14px 0px;
@@ -77,10 +78,25 @@ h1  {
   font-size: 14px;
   color:black;
 }
+#RTFImage-bar  {
+    float: left;
+    width: 20px;
+    margin-top: 0.8em;
+    margin-left: 0.2em;
+    cursor: pointer;
+}
+.RTFImage-variable  {
+    float: left;
+    width: 20px;
+    margin-top: 0.65em;
+    margin-left: 0.2em;
+    cursor: pointer;
+}
 #execution-name {
   display: none;
   margin-bottom: -2%;
-  margin-right: 5%;
+    float: left;
+  margin-left: 18%;
   text-align: center;
   /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
   padding: 14px 0px;
@@ -196,7 +212,8 @@ table {
 }
 .visualization-container>svg
 {
-    min-height: 400px;
+    min-height: 450px;
+    max-height: 600px;
 }
 .panel-group-legend {
   display: block;
