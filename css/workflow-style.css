@@ -47,13 +47,16 @@ body {
 .topnav {
   background-color: #333;
   overflow: visible;
-  height: 12%;
+}
+h1  {
+    margin-top: 14px;
+    line-height: 1.1;
 }
 .searchbar {
   float: left;
   display: inline-block;
   padding: 0px 16px;
-    margin-top: 12px;
+  margin-top: 6px;
   width: 30%;
   position: relative;
 }
@@ -66,7 +69,7 @@ body {
 #workflow-name {
   display: inline-block;
   margin-bottom: -2%;
-  margin-right: 5%;
+  margin-right: 14%;
   text-align: center;
   /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
   padding: 14px 0px;
@@ -86,21 +89,21 @@ body {
   color:black;
 }
 .title {
-  display: inline-block;
-  margin-top: -1%;
-  margin-left: -4%;
-  font-size: 40px;
-  text-align: center;
-  text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
-  padding: 14px 0px;
-  width: auto;
-  color: #66ccff;
+    display: inline-block;
+    /* margin-top: -1%; */
+    margin-left: -14%;
+    font-size: 40px;
+    text-align: center;
+    text-shadow: 0 0.05rem 0.1rem rgba(0,0,0,.5);
+    /* padding: 14px 0px; */
+    width: auto;
+    color: #66ccff;
 }
 .workflow-nav {
-  margin-top: 1.2%;
+  margin-top: 1.5%;
   float: right;
   display: inline-block;
-  padding: 14px 16px;
+  /*padding: 14px 16px;*/
   width: 15%
 }
 .nav-link {
