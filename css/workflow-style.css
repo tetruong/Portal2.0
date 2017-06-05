@@ -78,7 +78,7 @@ h1  {
   font-size: 14px;
   color:black;
 }
-#RTFImage-bar  {
+#RTFImage-bar1, #RTFImage-bar2  {
     float: left;
     width: 20px;
     margin-top: 0.8em;

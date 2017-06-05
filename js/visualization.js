@@ -29,8 +29,12 @@ function getWorkflowURI() {
 }
 
 var renderVisualization = function (res, isTrace) {
+    document.getElementById("RTFImage-bar1").onclick = null;
+    document.getElementById("RTFImage-bar1").onclick = function()  {
+        window.open(workflowURI, '_blank');
+    };
     document.getElementById('workflow-name').innerHTML
-        = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,"");
+        = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,""); 
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
@@ -291,12 +295,20 @@ var addTraces = function(traces) {
                 setWorkflowMetadata(res);
 								clearAllPanels();
             })
-        })
+        });
+        document.getElementById("RTFImage-bar2").onclick = null;
+        document.getElementById("RTFImage-bar2").onclick = function()  {
+            window.open(select.options[select.selectedIndex].value, '_blank');
+        };
     });
     
     
     select.selectedIndex = 0;
     document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[0].text;
+    document.getElementById("RTFImage-bar2").onclick = null;
+    document.getElementById("RTFImage-bar2").onclick = function()  {
+        window.open(select.options[select.selectedIndex].value, '_blank');
+    };
 }
 
 var highlightPuts = function(putsArray) {
