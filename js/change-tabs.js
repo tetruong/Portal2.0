@@ -17,8 +17,8 @@ $(document).ready(function() {
         document.getElementById('execution-name').style.display = "inline-block";
         /*document.getElementById('execution-name').innerHTML = "Selected execution: ";*/
         document.getElementById('selection-explanation').style.display = "inline-block";
-        document.getElementById('RTFImage-bar1').style.display = "none";
-        document.getElementById('RTFImage-bar2').style.display = "inline-block";
+        document.getElementById('RDFImage-bar1').style.display = "none";
+        document.getElementById('RDFImage-bar2').style.display = "inline-block";
     });
     
     $(".workflowTab").click(function() {
@@ -40,8 +40,8 @@ $(document).ready(function() {
         document.getElementById('workflow-name').style.display = "inline-block";
         document.getElementById('execution-name').innerHTML = "";
         document.getElementById('selection-explanation').style.display = "none";
-        document.getElementById('RTFImage-bar1').style.display = "inline-block";
-        document.getElementById('RTFImage-bar2').style.display = "none";
+        document.getElementById('RDFImage-bar1').style.display = "inline-block";
+        document.getElementById('RDFImage-bar2').style.display = "none";
     });
 });
 
