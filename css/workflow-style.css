@@ -324,3 +324,38 @@ table {
   margin-bottom: 8px;
 	margin-left: 16px;
 }
+
+#RDFImage-link1, #RDFImage-link2, #RDFImage-variable-link  {
+    float: left;
+    position: relative;
+}
+
+#RDFLink1, #RDFLink2  {
+    display: none;
+    position: absolute;
+    margin-top: 150%;
+    margin-left: -12em;
+}
+
+#RDFVariableLink  {
+    display: none;
+    position: absolute;
+    margin-top: 150%;
+    margin-left: -20em;
+}
+
+#RDFImage-link1:hover #RDFLink1  {
+    display: block;
+}
+
+#RDFImage-link2:hover #RDFLink2  {
+    display: block;
+}
+
+.panel.panel-info.templ.variable #RDFImage-variable-link:hover #RDFVariableLink  {
+    display: block;
+}
+
+.panel.panel-warning.template #RDFImage-variable-link:hover #RDFVariableLink  {
+    display: block;
+}

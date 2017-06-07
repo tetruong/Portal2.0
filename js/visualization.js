@@ -29,10 +29,8 @@ function getWorkflowURI() {
 }
 
 var renderVisualization = function (res, isTrace) {
-    document.getElementById("RDFImage-bar1").onclick = null;
-    document.getElementById("RDFImage-bar1").onclick = function()  {
-        window.open(workflowURI, '_blank');
-    };
+    document.getElementById("RDFImage-link1").href = workflowURI;
+    document.getElementById("RDFLink1").innerHTML = workflowURI;
     document.getElementById('workflow-name').innerHTML
         = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,""); 
     d3.select("svg").remove();
@@ -296,19 +294,15 @@ var addTraces = function(traces) {
 								clearAllPanels();
             })
         });
-        document.getElementById("RDFImage-bar2").onclick = null;
-        document.getElementById("RDFImage-bar2").onclick = function()  {
-            window.open(select.options[select.selectedIndex].value, '_blank');
-        };
+        document.getElementById("RDFImage-link2").href = select.options[select.selectedIndex].value;
+        document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
     });
     
     
     select.selectedIndex = 0;
     document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[0].text;
-    document.getElementById("RDFImage-bar2").onclick = null;
-    document.getElementById("RDFImage-bar2").onclick = function()  {
-        window.open(select.options[select.selectedIndex].value, '_blank');
-    };
+    document.getElementById("RDFImage-link2").href = select.options[select.selectedIndex].value;
+    document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
 }
 
 var highlightPuts = function(putsArray) {
