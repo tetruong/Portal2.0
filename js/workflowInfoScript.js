@@ -12,6 +12,53 @@ var $template = $(".template");
 var $templateVariables = $(".templ");
 var $vis = $(".visualization-container");
 
+function closeLegend()  {
+    var legend = document.getElementById("collapseLegend");
+    if (legend.getAttribute("class")=="panel-collapse collapse in")  {
+        $('#collapseLegend').collapse('hide');
+    }
+}
+
+function checkOversize()  {
+    var process = document.getElementById("accordionInfo");
+    var variable = document.getElementById("accordionVariables");
+    var toplegend = document.getElementsByClassName("rightCanvas")[0];
+    var left = document.getElementById("viz");
+    if(process.clientHeight + variable.clientHeight + toplegend.clientHeight + 270> left.clientHeight)  {
+        console.log(process.clientHeight, variable.clientHeight, toplegend.clientHeight);
+        console.log(left.clientHeight);
+        return true;
+    }
+    console.log(process.clientHeight, variable.clientHeight, toplegend.clientHeight);
+    console.log(left.clientHeight);
+    console.log("false");
+    return false;
+}
+
+function fitinScreen(currentelement)  {
+    if(checkOversize())  {
+        closeLegend();
+        console.log(0);
+    }
+    console.log(1);
+    for(var i=processInfosIndex-processInfosCount;i<processInfosIndex;i++)  {
+        console.log(2);
+        if(!checkOversize()) return;
+        if($('#'+sectionsShowing[i]).find(".accordion-toggle")!=currentelement)  {
+            var thisid = '#' + i.toString();
+            $(thisid).collapse('hide');
+        }
+    }
+    for(var i=variableInfosIndex-variableInfosCount;i<variableInfosIndex;i++)  {
+        console.log(3);
+        if(!checkOversize()) return;
+        if($('#'+variableSectionsShowing[i]).find(".accordion-toggle")!=currentelement)  {
+            var thisid = '#v' + i.toString();
+            $(thisid).collapse('hide');
+        }
+    }
+}
+
 function addProcessInfo(processURI, inputsArray, outputsArray) {
 	if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
@@ -22,7 +69,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             }, "slow");
 	}
 	// check that process div thing is not over count
-	if (processInfosCount == 4) {
+	if (processInfosCount == 3) {
 		console.log(sectionsShowing);
 			// remove a process
 			removeProcessInfo(sectionsShowing[0]);
@@ -56,6 +103,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             unhighlightAllPuts();
             highlightPuts(inputsArray);
             highlightPuts(outputsArray);
+            fitinScreen(this);
         });
         
 		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
@@ -165,7 +213,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 	}
 	console.log(artifactValues);
 	// check that variable div thing is not over count
-	if (variableInfosCount == 4) {
+	if (variableInfosCount == 3) {
 			// remove a variable
 			removeVariableInfo(variableSectionsShowing[0]);
 	}
@@ -193,6 +241,9 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 //		$newPanel.find(".collapse").removeClass("in");
 		// set header name
 		$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text("Variable: " + variableName);
+        $newPanel.find(".accordion-toggle").click(function()  {
+            fitinScreen(this);
+        })
 		$newPanel.attr("id", variableName);
 		// link clicking on process name to expand collapse
 		$newPanel.find(".panel-collapse").attr("id", "v" + variableInfosIndex);

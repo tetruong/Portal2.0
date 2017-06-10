@@ -25,7 +25,8 @@ text {
 }
 
 svg {
-  background-image: url('../images/grid.png');
+  /*background-image: url('../images/grid.png');*/
+    background-color: lightgrey;
 }
 
 .edgePath path {
@@ -212,8 +213,8 @@ table {
 }
 .visualization-container>svg
 {
-    min-height: 450px;
-    max-height: 600px;
+    min-height: 500px;
+    max-height: 610px;
 }
 .panel-group-legend {
   display: block;
@@ -343,7 +344,7 @@ table {
     margin-top: 150%;
     margin-left: -20em;
 }
-
+/*
 #RDFImage-link1:hover #RDFLink1  {
     display: block;
 }
@@ -358,4 +359,4 @@ table {
 
 .panel.panel-warning.template #RDFImage-variable-link:hover #RDFVariableLink  {
     display: block;
-}
+}*/
