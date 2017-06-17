@@ -1,2 +1,0 @@
-http://seagull.isi.edu:3030/ds/
-http://disk.isi.edu:3030/ds/
