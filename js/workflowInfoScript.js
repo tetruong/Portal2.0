@@ -19,12 +19,28 @@ function closeLegend()  {
     }
 }
 
-function checkOversize()  {
+function checkOversize(currentelement)  {
     var process = document.getElementById("accordionInfo");
     var variable = document.getElementById("accordionVariables");
     var toplegend = document.getElementsByClassName("rightCanvas")[0];
     var left = document.getElementById("viz");
-    if(process.clientHeight + variable.clientHeight + toplegend.clientHeight + 250> left.clientHeight)  {
+
+    var optionHeight = 0;
+    if(currentelement.find("div:hidden").length)  {
+    	var hiddenelement = currentelement.find("div:hidden")[0];
+    	var previousCss  = $(hiddenelement).attr("style");
+		$(hiddenelement).css({
+    	    position:   'absolute', // Optional if #myDiv is already absolute
+    	    visibility: 'hidden',
+    	    display:    'block'
+    	});
+		optionHeight = $(hiddenelement).height();
+		$(hiddenelement).attr("style", previousCss ? previousCss : "");
+	}
+	if(currentelement.attr("id") == "togglelegendlink")  optionHeight = 96;
+	if(optionHeight == 0)  optionHeight=150;
+	console.log(optionHeight);
+    if(process.clientHeight + variable.clientHeight + toplegend.clientHeight + optionHeight> left.clientHeight)  {
         //console.log(process.clientHeight, variable.clientHeight, toplegend.clientHeight);
         //console.log(left.clientHeight);
         return true;
@@ -36,23 +52,23 @@ function checkOversize()  {
 }
 
 function fitinScreen(currentelement)  {
-    if(checkOversize())  {
+    if(checkOversize(currentelement) && currentelement.attr("id") != "togglelegendlink")  {
         closeLegend();
         //console.log(0);
     }
     //console.log(1);
     for(var i=processInfosIndex-processInfosCount;i<processInfosIndex;i++)  {
         //console.log(2);
-        if(!checkOversize()) return;
-        if($('#'+sectionsShowing[i]).find(".accordion-toggle")!=currentelement)  {
+        if(!checkOversize(currentelement)) return;
+        if($('#'+sectionsShowing[i])!=currentelement)  {
             var thisid = '#' + i.toString();
             $(thisid).collapse('hide');
         }
     }
     for(var i=variableInfosIndex-variableInfosCount;i<variableInfosIndex;i++)  {
         //console.log(3);
-        if(!checkOversize()) return;
-        if($('#'+variableSectionsShowing[i]).find(".accordion-toggle")!=currentelement)  {
+        if(!checkOversize(currentelement)) return;
+        if($('#'+variableSectionsShowing[i])!=currentelement)  {
             var thisid = '#v' + i.toString();
             $(thisid).collapse('hide');
         }
@@ -93,10 +109,11 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			removeProcessInfo(sectionsShowing[0]);
 		}
 
-		fitinScreen(this);
+		
 		
 		sectionsShowing[processInfosCount] = processName;
 		var $newPanel = $template.clone();
+		
 		
 //		$newPanel.find(".collapse").removeClass("in");
 		// set header name
@@ -106,7 +123,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             unhighlightAllPuts();
             highlightPuts(inputsArray);
             highlightPuts(outputsArray);
-            fitinScreen(this);
+            fitinScreen($newPanel);
         });
         
 		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
@@ -196,10 +213,10 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 //		});
 
 		// add new panel to the page
-		$("#accordionInfo").append($newPanel.fadeIn("slow"));
-		
 		processInfosCount = processInfosCount + 1;
 		processInfosIndex = processInfosIndex + 1;
+		fitinScreen($newPanel);
+		$("#accordionInfo").append($newPanel.fadeIn("slow"));
 	}
 }
     
@@ -240,7 +257,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			removeVariableInfo(variableSectionsShowing[0]);
 		}
 
-		fitinScreen(this);
+		
 
 		variableSectionsShowing[variableInfosCount] = variableName;
 		var $newPanel = $templateVariables.clone();
@@ -250,7 +267,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 		var variableTypeHeading = variableType.charAt(0).toUpperCase() + variableType.slice(1);
 		$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + " Variable: " + variableName);
         $newPanel.find(".accordion-toggle").click(function()  {
-            fitinScreen(this);
+            fitinScreen($newPanel);
         });
 
 		$newPanel.attr("id", variableName);
@@ -347,10 +364,12 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 		}
 				
 		// add new panel to the page
-		$("#accordionVariables").append($newPanel.fadeIn("slow"));
+		
 
 		variableInfosCount = variableInfosCount + 1;
 		variableInfosIndex = variableInfosIndex + 1;
+		fitinScreen($newPanel);
+		$("#accordionVariables").append($newPanel.fadeIn("slow"));
 	}
 }
 
