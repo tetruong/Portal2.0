@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 .nav-bar {
-    /*padding: 2em;*/
-    padding-bottom: 3.5em;
+    /*padding: 2em; */
+    /* padding-bottom: 3.5em; */
+    background-color: #333;
+    padding-bottom: 0.3em;
+    padding-top: 0.1em;
 }
 
 .nav-link {
 	float: right;
+	display: inline-block;
   margin: 10px;
   padding: 1em;
   /*border: 1px solid #66ccff;*/
+  color: white;
 }
 
 #title  {
-	float: left;
-    margin-left: 39%;
+	display:inline-block;
+    margin-left: 13%;
     margin-top: -0.5%;
 }
 
