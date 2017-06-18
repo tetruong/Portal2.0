@@ -339,12 +339,6 @@ table {
     margin-left: -12em;
 }
 
-#RDFVariableLink  {
-    display: none;
-    position: absolute;
-    margin-top: 150%;
-    margin-left: -20em;
-}
 /*
 #RDFImage-link1:hover #RDFLink1  {
     display: block;
