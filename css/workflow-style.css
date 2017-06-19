@@ -87,13 +87,6 @@ h1  {
     margin-left: 0.2em;
     cursor: pointer;
 }
-.RDFImage-variable  {
-    float: left;
-    width: 20px;
-    margin-top: 0.65em;
-    margin-left: 0.2em;
-    cursor: pointer;
-}
 #execution-name {
   display: none;
   margin-bottom: -2%;
@@ -327,19 +320,37 @@ table {
 	margin-left: 16px;
 }
 
-#RDFImage-link1, #RDFImage-link2, #RDFImage-variable-link  {
+#RDFImage-link1, #RDFImage-link2, #RDFImage-variable-link, #DownloadImage-variable-link {
     float: left;
     position: relative;
 }
 
-#RDFLink1, #RDFLink2  {
+.RDFImage-variable  {
+    float: left;
+    width: 20px;
+    margin-top: 0.65em;
+    margin-left: 0.2em;
+    cursor: pointer;
+}
+
+.DownloadImage-variable  {
+    float: left;
+    width: 34px;
+    margin-top: 0.2em;
+    margin-left: 0.45em;
+    cursor: pointer;
+}
+
+
+
+/*#RDFLink1, #RDFLink2  {
     display: none;
     position: absolute;
     margin-top: 150%;
     margin-left: -12em;
 }
 
-/*
+
 #RDFImage-link1:hover #RDFLink1  {
     display: block;
 }

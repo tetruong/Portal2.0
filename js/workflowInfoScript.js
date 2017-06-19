@@ -284,6 +284,8 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			newGeneratedBy.innerHTML = stripNameFromURI(generatedBy[0]);
 		} else {
 			newGeneratedBy.innerHTML = "-";
+			$($newPanel.find(".row.variable_row")[0]).hide();
+			$($newPanel.find(".col-md-9.col-md-offset-3")[0]).hide();
 		}
 		textGeneratedBy.append(newGeneratedBy);
 		
@@ -297,9 +299,11 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			}
 		}
 		else {
-			var newListItem = document.createElement("li");
+			/*var newListItem = document.createElement("li");
 			newListItem.innerHTML = "-";
-			listUsedBy.append(newListItem);
+			listUsedBy.append(newListItem);*/
+			$($newPanel.find(".row.variable_row")[1]).hide();
+			$($newPanel.find(".col-md-9.col-md-offset-3")[0]).hide();
 		}
 		
 		// Check which tab is showing based on the selected/active index
@@ -309,8 +313,9 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 		var fileInfo = $newPanel.find("div")[11];
 		if ($("ul.nav li.active").index() == 0) {
 			fileInfo.setAttribute("style", "display:none");
+			$($newPanel.find("#DownloadImage-variable-link")).hide();
 		} else {
-				fileInfo.setAttribute("style", "display:block");
+				fileInfo.setAttribute("style", "display:none");
 				// show list of files in dropdown and w/ handler to update link
 				/*var fileSelector = $newPanel.find("select")[0];
 
@@ -337,8 +342,12 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 					downloadLink.innerHTML = artifactValues.bindings[0].file.type;
 					downloadLink.setAttribute("target", "_blank");
 					downloadLink.setAttribute("href", artifactValues.bindings[0].file.value);
+					$newPanel.find("#DownloadImage-variable-link")[0].setAttribute("href", artifactValues.bindings[0].file.value);
 				}
-				else downloadLink.innerHTML = "No download available";
+				else  {
+					downloadLink.innerHTML = "No download available";
+					$($newPanel.find("#DownloadImage-variable-link")).hide();
+				}
 				downloadSpan.append(downloadLink);
 
 				/*$newPanel.on('change','#file-selector-'+variableName,function(){
