@@ -69,14 +69,14 @@ function fitinScreen(currentelement)  {
 }
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
-	if (processInfosCount == 0 && variableInfosCount == 0) {
+	/*if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
         translateVisualization();
 		console.log("should reize");
 		$vis.animate({
                 "width": "65%"
             }, "slow");
-	}	
+	}*/	
 	
 	// get name of node
 	var processName = stripNameFromURI(processURI);
@@ -215,14 +215,14 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 
 // FUNCTION TO ADD NEW VARIABLE INFORMATION SECTIONS
 function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifactValues) {
-	if (processInfosCount == 0 && variableInfosCount == 0) {
+	/*if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
-        translateVisualization();
+        //translateVisualization();
 		$vis.animate({
                 "width": "65%"
             }, "slow");
-	}
+	}*/
 	console.log(artifactValues);
 	
 	
@@ -407,14 +407,14 @@ $(document).on('click', '.glyphicon-remove-circle', function () {
 			break;
 		}
 	}
-	if (processInfosCount == 0 &&  variableInfosCount == 0) {
+	/*if (processInfosCount == 0 &&  variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		unhighlightAllPuts();
 		$vis.animate({
                 "width": "65%"
             }, "slow");
-	}
+	}*/
 });
 
 
@@ -429,14 +429,14 @@ $(document).on('click', '.glyphicon-remove-sign', function () {
 			break;
 		}
 	}
-	if (processInfosCount == 0 &&  variableInfosCount == 0) {
+	/*if (processInfosCount == 0 &&  variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		unhighlightAllPuts();
 		$vis.animate({
                 "width": "65%"
             }, "slow");
-	}
+	}*/
 });
 
 function removeVariableInfo(removeID) {
@@ -453,14 +453,14 @@ function removeVariableInfo(removeID) {
 		}
 	}
 
-	if (processInfosCount == 0 && variableInfosCount == 0) {
+	/*if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		unhighlightAllPuts();
 		$vis.animate({
 						"width": "65%"
 					}, "slow");
-	}
+	}*/
 }
 
 
@@ -478,14 +478,14 @@ function removeProcessInfo(removeID) {
 			}
 		}
 	
-	if (processInfosCount == 0 && variableInfosCount == 0) {
+	/*if (processInfosCount == 0 && variableInfosCount == 0) {
 		// resize the visualization container
 		console.log("should reize");
 		unhighlightAllPuts();
 		$vis.animate({
                 "width": "65%"
             }, "slow");
-	}
+	}*/
 }
 
 function toggleChevron(e) {

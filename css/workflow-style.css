@@ -333,22 +333,33 @@ table {
     cursor: pointer;
 }
 
-.DownloadImage-variable  {
+#fileDownload  {
+    position: relative;
     float: left;
-    width: 34px;
-    margin-top: 0.2em;
-    margin-left: 0.45em;
-    cursor: pointer;
+    margin-top: 0.28em;
+    margin-left: 0.3em;
+    /* cursor: pointer; */
+    font-size: 25px;
 }
 
 
 
-/*#RDFLink1, #RDFLink2  {
+#RDFLink1, #RDFLink2, #RDFVariableLink  {
     display: none;
     position: absolute;
-    margin-top: 150%;
-    margin-left: -12em;
+    margin-top: 200%;
+    /* margin-left: -12em; */
+    width: 300%;
 }
+
+#DownloadLink  {
+    display: none;
+    position: absolute;
+    margin-top: 140%;
+    /* margin-left: -12em; */
+    width: 300%;
+}
+
 
 
 #RDFImage-link1:hover #RDFLink1  {
@@ -365,4 +376,8 @@ table {
 
 .panel.panel-warning.template #RDFImage-variable-link:hover #RDFVariableLink  {
     display: block;
-}*/
+}
+
+.panel.panel-info.templ.variable #DownloadImage-variable-link:hover #DownloadLink  {
+  display: block;
+}
