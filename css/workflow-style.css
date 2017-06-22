@@ -344,23 +344,31 @@ table {
 
 
 
-#RDFLink1, #RDFLink2, #RDFVariableLink  {
+#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink  {
     display: none;
+    width: 120px;
+    background-color: #8FBC8F;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
     position: absolute;
-    margin-top: 200%;
-    /* margin-left: -12em; */
-    width: 300%;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
 }
 
-#DownloadLink  {
-    display: none;
+#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after {
+    content: " ";
     position: absolute;
-    margin-top: 140%;
-    /* margin-left: -12em; */
-    width: 300%;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #8FBC8F transparent;
 }
-
-
 
 #RDFImage-link1:hover #RDFLink1  {
     display: block;
