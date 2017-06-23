@@ -146,6 +146,10 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
     var sparql = 'select ?file from <urn:x-arq:UnionGraph> where {<'
     + variableURI +'><http://www.opmw.org/ontology/hasLocation> ?file}';
     
+    var nodevalue = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+    + variableURI +'><http://www.opmw.org/ontology/hasValue> ?file}';
+    var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
+
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     $.ajax({
         url: endpointURI,
@@ -155,7 +159,18 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
         error: function(){
         },
         success: function(res) {
-            handler(variableURI, usedBy, generatedBy, variableType, res.results);
+            $.ajax({
+                url: nodevalueURI,
+                type: 'GET',
+                cache: false,
+                timeout: 30000,
+                error: function() {
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, null);
+                },
+                success: function(res2) {
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, res2.results);
+                }
+            })
         }
     })
 }
