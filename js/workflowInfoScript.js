@@ -246,7 +246,12 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 //		$newPanel.find(".collapse").removeClass("in");
 		// set header name
 		var variableTypeHeading = variableType.charAt(0).toUpperCase() + variableType.slice(1);
-		$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + " Variable: " + variableName);
+		if ($("ul.nav li.active").index() == 0) {
+			$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + " Variable: " + variableName);
+		}
+		else  {
+			$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + ": " + variableName);
+		}
         $newPanel.find(".accordion-toggle").click(function()  {
             fitinScreen($newPanel);
         });
