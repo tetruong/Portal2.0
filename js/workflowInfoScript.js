@@ -69,15 +69,6 @@ function fitinScreen(currentelement)  {
 }
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
-	/*if (processInfosCount == 0 && variableInfosCount == 0) {
-		// resize the visualization container
-        translateVisualization();
-		console.log("should reize");
-		$vis.animate({
-                "width": "65%"
-            }, "slow");
-	}*/	
-	
 	// get name of node
 	var processName = stripNameFromURI(processURI);
 	console.log(processName);
@@ -148,62 +139,14 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 				}
 			}
 		tableBody.append(newTableBody);
-		
-//		// checkbox listeners for highlighting inputs and outputs
-//		// CHECKBOX - INPUTS
-//		var checkboxInputsWrapper = $newPanel.find("span")[1];
-//		var newCheckIn = document.createElement("input");
-//		newCheckIn.setAttribute("type", "checkbox");
-//		newCheckIn.setAttribute("class", "variable_input_check");
-//		newCheckIn.setAttribute("aria-label", "...");
-//		newCheckIn.setAttribute("id", "checkIn"+processName);
-//		var text = document.createElement("p");
-//		text.setAttribute("style", "display:inline-block;padding:1px 10px");
-//		text.innerHTML = "Highlight Inputs";
-//	
-//		checkboxInputsWrapper.append(newCheckIn);
-//		checkboxInputsWrapper.append(text);
-//		checkboxInputsWrapper.append(document.createElement("br"));
-//
-//		console.log(checkboxInputsWrapper);
-//
-//		$(document).on('click','#checkIn'+processName,function(){
-//			console.log(processURI);
-//			console.log(inputsArray);
-//			if ($(this).is(':checked')) {
-//				highlightPuts(inputsArray);
-//			} else {
-//				unhighlightPuts( inputsArray);
-//			}
-//		});
-//		
-//		// CHECKBOX OUTPUTS
-//		var checkboxOutputsWrapper = $newPanel.find("span")[2];
-//		var newCheckIn = document.createElement("input");
-//		newCheckIn.setAttribute("type", "checkbox");
-//		newCheckIn.setAttribute("class", "variable_output_check");
-//		newCheckIn.setAttribute("aria-label", "...");
-//		newCheckIn.setAttribute("id", "checkOut"+processName);
-//		var text = document.createElement("p");
-//		text.setAttribute("style", "display:inline-block; padding:1px 10px");
-//		text.innerHTML = "Highlight Outputs";
-//	
-//		checkboxOutputsWrapper.append(newCheckIn);
-//		checkboxOutputsWrapper.append(text);
-//		checkboxOutputsWrapper.append(document.createElement("br"));
-//
-//		console.log(checkboxOutputsWrapper);
-//
-//		$(document).on('click','#checkOut'+processName,function(){
-//			console.log(processURI);
-//			console.log(inputsArray);
-//			if ($(this).is(':checked')) {
-//				highlightPuts(outputsArray);
-//			} else {
-//				unhighlightPuts(outputsArray);
-//			}
-//		});
 
+		var code = 'select ?software from <urn:x-arq:UnionGraph> where {<'
+    			+ processURI +'> <http://www.opmw.org/ontology/hasExecutableComponent> ?e. ?e <http://www.opmw.org/ontology/hasLocation> ?software }'
+		var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
+		$.get(codeURI, function(data,status)  {
+			console.log(data);
+			$newPanel.find("#DownloadImage-variable-link").attr("href", data.results.bindings[0].software.value);
+		});
 		// add new panel to the page
 		processInfosCount = processInfosCount + 1;
 		processInfosIndex = processInfosIndex + 1;
