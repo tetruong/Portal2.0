@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+* {
+    box-sizing: border-box;
+}
+
 a,
 a:focus,
 a:hover {
@@ -386,6 +390,6 @@ table {
     display: block;
 }
 
-.panel.panel-info.templ.variable #DownloadImage-variable-link:hover #DownloadLink  {
+.panel-group-info #DownloadImage-variable-link:hover #DownloadLink  {
   display: block;
 }

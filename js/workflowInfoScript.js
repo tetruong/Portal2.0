@@ -140,13 +140,18 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			}
 		tableBody.append(newTableBody);
 
-		var code = 'select ?software from <urn:x-arq:UnionGraph> where {<'
-    			+ processURI +'> <http://www.opmw.org/ontology/hasExecutableComponent> ?e. ?e <http://www.opmw.org/ontology/hasLocation> ?software }'
-		var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
-		$.get(codeURI, function(data,status)  {
-			console.log(data);
-			$newPanel.find("#DownloadImage-variable-link").attr("href", data.results.bindings[0].software.value);
-		});
+		if ($("ul.nav li.active").index() == 0) {
+			$($newPanel.find("#DownloadImage-variable-link")).hide();
+		}
+		else {
+			var code = 'select ?software from <urn:x-arq:UnionGraph> where {<'
+    				+ processURI +'> <http://www.opmw.org/ontology/hasExecutableComponent> ?e. ?e <http://www.opmw.org/ontology/hasLocation> ?software }'
+			var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
+			$.get(codeURI, function(data,status)  {
+				console.log(data);
+				$newPanel.find("#DownloadImage-variable-link").attr("href", data.results.bindings[0].software.value);
+			});
+		}
 		// add new panel to the page
 		processInfosCount = processInfosCount + 1;
 		processInfosIndex = processInfosIndex + 1;
