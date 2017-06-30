@@ -291,6 +291,22 @@ table {
     display: block;
 }
 
+#contributer-icon:hover ~ #contributer-value {
+    display: block;
+}
+
+#modified-icon:hover ~ #modified-value {
+    display: block;
+}
+
+#system-icon:hover ~ #system-value {
+    display: block;
+}
+
+#version-icon:hover ~ #version-value {
+    display: block;
+}
+
 .highlight-variables {
 /*    padding: 6px 12px;*/
     font-size: 14px;

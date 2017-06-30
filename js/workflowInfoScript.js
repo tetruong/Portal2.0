@@ -163,8 +163,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 
 // FUNCTION TO ADD NEW VARIABLE INFORMATION SECTIONS
 function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifactValues, variablehasvalue) {
-	console.log(artifactValues);
-	
+	//console.log(artifactValues);
 	// get name of node
 	var variableName = stripNameFromURI(variableURI);
 	console.log(variableName);

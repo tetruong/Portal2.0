@@ -6,7 +6,7 @@ $(document).ready(function() {
         getExecutionIDs(getWorkflowURI(), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
-                setWorkflowMetadata(res);
+                setExecutionMetadata(res);
             })
         })
         
@@ -29,6 +29,9 @@ $(document).ready(function() {
         getWorkflowData(workflowURI, function(res) {
             renderVisualization(res, false);
         });
+        getWorkflowMetadata(workflowURI, function(res)  {
+            setWorkflowMetadata(res);
+        });
                 
         var traceSelect = document.getElementById('selection');
         traceSelect.style.display = 'none';
@@ -45,7 +48,7 @@ $(document).ready(function() {
     });
 });
 
-var setWorkflowMetadata = function(res) {
+var setExecutionMetadata = function(res) {
     if (res.results.hasOwnProperty('bindings')) {
         document.getElementById('status-value').textContent = res.results.bindings[0].status.value;
         //TODO: change time to human readable format
@@ -57,5 +60,33 @@ var setWorkflowMetadata = function(res) {
         document.getElementById('label-value').textContent = 'N/A';
         document.getElementById('start-time-value').textContent = 'N/A';
         document.getElementById('end-time-value').textContent = 'N/A';
+    }
+}
+
+var setWorkflowMetadata = function(res) {
+    //console.log(res);
+    if(res.results.bindings[0].contributer.value != null)  {
+        document.getElementById('contributer-value').textContent = 'Contributer: ' + res.results.bindings[0].contributer.value;
+    }
+    else {
+        document.getElementById('contributer-value').textContent = 'N/A';
+    }
+    if(res.results.bindings[0].modified.value != null)  {
+        document.getElementById('modified-value').textContent = 'Modified on: ' + new Date(res.results.bindings[0].modified.value).toString();
+    }
+    else {
+        document.getElementById('modified-value').textContent = 'N/A';
+    }
+    if(res.results.bindings[0].system.value != null)  {
+        document.getElementById('system-value').textContent = 'System used: ' + res.results.bindings[0].system.value;
+    }
+    else {
+        document.getElementById('system-value').textContent = 'N/A';
+    }
+    if(res.results.bindings[0].version.value != null)  {
+        document.getElementById('version-value').textContent = 'Version Number: ' + res.results.bindings[0].version.value;
+    }
+    else {
+        document.getElementById('version-value').textContent = 'N/A';
     }
 }

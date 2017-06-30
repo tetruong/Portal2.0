@@ -18,6 +18,10 @@ getWorkflowData(workflowURI, function(res) {
     renderVisualization(res, false);
 });
 
+getWorkflowMetadata(workflowURI, function(res)  {
+    setWorkflowMetadata(res);
+});
+
 function getWorkflowURI() {
     var querystring = window.location.search;
     // Matches everything after the first '='
@@ -290,8 +294,8 @@ var addTraces = function(traces) {
         getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
-                setWorkflowMetadata(res);
-								clearAllPanels();
+                setExecutionMetadata(res);
+				clearAllPanels();
             })
         });
         document.getElementById("RDFImage-link2").href = select.options[select.selectedIndex].value;

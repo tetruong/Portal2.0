@@ -125,7 +125,26 @@ var getExecutionData = function(executionID, handler) {
 */
 var getExecutionMetadata = function(executionID, handler) {
     var sparql = 'select ?label ?status ?start ?end  from <urn:x-arq:UnionGraph> where{<'
-+ executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}optional{<' + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}}'
++ executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}}'
+    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+    
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            handler(res);
+        }
+    })
+}
+
+var getWorkflowMetadata = function(workflowURI, handler)  {
+    var sparql = 'select ?contributer ?version ?modified ?system  from <urn:x-arq:UnionGraph> where{<'
++ workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?system}}'
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
@@ -166,7 +185,7 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
             if(res.results.bindings[0]!=null)  {
                 variableType = 'parameter';
             }
-            console.log(res);
+            //console.log(res);
         }
     })
 

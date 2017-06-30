@@ -68,13 +68,23 @@
 	
      
   <div class="rightCanvas" style="width:35%;float:right">
-	<!--    expand and collapse legend-->
       <div id="selection-explanation" style='display:none; font-size:17px'>Selected execution trace below:</div>
       <select id='selection' style='display:none'>
 				</select>
 
     <div class="tab-content">
         <div id="workflow" class="tab-pane fade in active">
+            <div class="metadata">
+                <span id="contributer-icon" class="metadata-icon glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span id="modified-icon" class="metadata-icon glyphicon glyphicon-time" aria-hidden="true"></span>
+                <span id="system-icon" class="metadata-icon glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                <span id="version-icon" class="metadata-icon glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <!--div class="placeholder">a</div-->
+                <div class="metadata-value" id="contributer-value"></div>
+                <div class="metadata-value" id="modified-value"></div>
+                <div class="metadata-value" id="system-value"></div>
+                <div class="metadata-value" id="version-value"></div>
+            </div>
 
         </div>
         <div id="execution" class="tab-pane fade">
