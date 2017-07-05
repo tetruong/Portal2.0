@@ -66,7 +66,7 @@ var setExecutionMetadata = function(res) {
 var setWorkflowMetadata = function(res) {
     //console.log(res);
     if(res.results.bindings[0].contributer.value != null)  {
-        document.getElementById('contributer-value').textContent = 'Contributer: ' + res.results.bindings[0].contributer.value;
+        document.getElementById('contributer-value').textContent = 'contributer: ' + res.results.bindings[0].contributer.value.substring(6);
     }
     else {
         document.getElementById('contributer-value').textContent = 'N/A';
