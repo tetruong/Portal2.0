@@ -129,6 +129,9 @@ h1  {
   color: white;
   font-size: 17px;
 }
+.nav-tabs>li {
+  margin-bottom: 0px;
+}
 #metadata-label { 
   font-size: 14px;
   text-align: left;
@@ -340,7 +343,7 @@ table {
 	margin-left: 16px;
 }
 
-#RDFImage-link1, #RDFImage-link2, #RDFImage-variable-link, #DownloadImage-variable-link {
+#RDFImage-link1, #RDFImage-link2, #DownloadTemplate-link, #RDFImage-variable-link, #DownloadImage-variable-link {
     float: left;
     position: relative;
 }
@@ -356,15 +359,24 @@ table {
 #fileDownload  {
     position: relative;
     float: left;
-    margin-top: 0.28em;
+    margin-top: 0.2em;
     margin-left: 0.3em;
     /* cursor: pointer; */
     font-size: 25px;
+    color: #66ccff;
 }
 
+#TemplateDownload {
+    position: relative;
+    float: left;
+    margin-top: 0.22em;
+    margin-left: 0.3em;
+    /* cursor: pointer; */
+    font-size: 25px;
+    color: #66ccff;
+}
 
-
-#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink  {
+#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #DownloadTemplateLink {
     display: none;
     width: 120px;
     background-color: #8FBC8F;
@@ -379,7 +391,7 @@ table {
     margin-left: -60px;
 }
 
-#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after {
+#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after, #DownloadTemplateLink::after {
     content: " ";
     position: absolute;
     bottom: 100%; /* At the top of the tooltip */
@@ -391,6 +403,10 @@ table {
 }
 
 #RDFImage-link1:hover #RDFLink1  {
+    display: block;
+}
+
+#DownloadTemplate-link:hover #DownloadTemplateLink  {
     display: block;
 }
 

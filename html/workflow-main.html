@@ -33,7 +33,7 @@
     
 
 
-    <ul class="nav nav-tabs" style="overflow:hidden">
+    <ul class="nav nav-tabs">
         <li class="active workflowTab"><a data-toggle="tab" href="#workflow">Workflow</a></li>
         <li class="executionTab"><a data-toggle="tab" href="#execution">Execution</a></li>
         <div id="workflow-name" data-toggle="collapse" data-target="#collapseMetadata" 
@@ -43,6 +43,10 @@
         <a id="RDFImage-link1" target="_blank">
             <img id="RDFImage-bar1" src="../images/RDFLink.png">
             <p id="RDFLink1">See RDF</p>
+        </a>
+        <a id="DownloadTemplate-link" target="_blank">
+            <span id="TemplateDownload" class="glyphicon glyphicon-cloud-download"></span>
+            <p id="DownloadTemplateLink">Download Template</p>
         </a>
         <a id="RDFImage-link2" target="_blank">
             <img id="RDFImage-bar2" src="../images/RDFLink.png" style="display: none">
@@ -91,8 +95,8 @@
             <div class="metadata">
                 <span id="status-icon" class="metadata-icon glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                 <span id="label-icon" class="metadata-icon glyphicon glyphicon-tags" aria-hidden="true"></span>
-                <span id="start-time-icon" class="metadata-icon glyphicon glyphicon-upload" aria-hidden="true"></span>
-                <span id="end-time-icon" class="metadata-icon glyphicon glyphicon-download" aria-hidden="true"></span>
+                <span id="start-time-icon" class="metadata-icon glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                <span id="end-time-icon" class="metadata-icon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                 <!--div class="placeholder">a</div-->
                 <div class="metadata-value" id="status-value"></div>
                 <div class="metadata-value" id="label-value"></div>
@@ -134,7 +138,7 @@
                         <img class="RDFImage-variable" src="../images/RDFLink.png">
                     </a>
                     <a id="DownloadImage-variable-link" target="_blank">
-                        <span id="fileDownload" class="glyphicon glyphicon-download"></span>
+                        <span id="fileDownload" class="glyphicon glyphicon-cloud-download"></span>
                         <p id="DownloadLink">Download</p>
                     </a>
 						<div class="panel-heading"> 
@@ -187,7 +191,7 @@
             <p id="RDFVariableLink">See RDF</p>
         </a>
         <a id="DownloadImage-variable-link" target="_blank">
-            <span id="fileDownload" class="glyphicon glyphicon-download"></span>
+            <span id="fileDownload" class="glyphicon glyphicon-cloud-download"></span>
             <p id="DownloadLink">Download</p>
         </a>
         <div class="panel-heading"> 

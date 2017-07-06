@@ -143,8 +143,8 @@ var getExecutionMetadata = function(executionID, handler) {
 }
 
 var getWorkflowMetadata = function(workflowURI, handler)  {
-    var sparql = 'select ?contributer ?version ?modified ?system  from <urn:x-arq:UnionGraph> where{<'
-+ workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?system}}'
+    var sparql = 'select ?contributer ?version ?modified ?system ?download  from <urn:x-arq:UnionGraph> where{<'
++ workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/createdInWorkflowSystem> ?system}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?download}}'
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
