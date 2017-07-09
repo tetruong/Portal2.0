@@ -222,7 +222,9 @@ table {
   /*float: right;*/
 }
 
-
+.col-md-3 {
+    width: 30%;
+}
 
 .navbar {
  background-color: #fff;   
