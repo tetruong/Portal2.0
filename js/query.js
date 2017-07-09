@@ -144,7 +144,11 @@ var getExecutionMetadata = function(executionID, handler) {
 
 var getWorkflowMetadata = function(workflowURI, handler)  {
     var sparql = 'select ?contributer ?version ?modified ?system ?download  from <urn:x-arq:UnionGraph> where{<'
-+ workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/createdInWorkflowSystem> ?system}.optional{<' + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?download}}'
+    + workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' 
+    + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/createdInWorkflowSystem> ?system}.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?download}}';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
@@ -164,15 +168,31 @@ var getWorkflowMetadata = function(workflowURI, handler)  {
 var getExecutionArtifactValues = function(handler, variableURI, usedBy, generatedBy, variableType) {
     var sparql = 'select ?file from <urn:x-arq:UnionGraph> where {<'
     + variableURI +'><http://www.opmw.org/ontology/hasLocation> ?file}';
-    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
 
-    var nodevalue = 'select ?file from <urn:x-arq:UnionGraph> where {<'
-    + variableURI +'><http://www.opmw.org/ontology/hasValue> ?file}';
+    var typequery = 'select ?type from <urn:x-arq:UnionGraph> where {<'+ variableURI +'><http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type}';   
+    var typeURI = endpoint + 'query?query=' + escape(typequery) + '&format=json';
+
+    var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+    + variableURI +'><http://www.opmw.org/ontology/hasValue> ?value}';
     var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
 
     var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
     + variableURI +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
     var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+
+    $.ajax({
+        url: typeURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            console.log("Error");
+        },
+        success: function(res) {
+            console.log(res);
+        }
+    })
 
     $.ajax({
         url: isparameterURI,

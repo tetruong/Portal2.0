@@ -10,26 +10,26 @@
 
 <body>
     <div id="root"></div>
-	<div class="topnav" id="myTopnav">
-    	<!-- Navigation Bar-->
-    	<div class="searchbar">
-        	<form class="nav navbar-form" role="search">
-            	<input type="text" class="form-control" placeholder="Search Workflows" name="search-workflow-name" id="workflow-searchbar">
-        	</form>
-    	</div>
-    	<div class="title">
+    <div class="topnav" id="myTopnav">
+        <!-- Navigation Bar-->
+        <div class="searchbar">
+            <form class="nav navbar-form" role="search">
+                <input type="text" class="form-control" placeholder="Search Workflows" name="search-workflow-name" id="workflow-searchbar">
+            </form>
+        </div>
+        <div class="title">
             <h1>Workflow Explorer</h1>
         </div>
-    	<!-- Navigation Bar-->
-    	<div class="workflow-nav">
-        	<a class="nav-link" href="about.html">
-            	About
-        	</a>
+        <!-- Navigation Bar-->
+        <div class="workflow-nav">
+            <a class="nav-link" href="about.html">
+                About
+            </a>
             <a class="nav-link" href="index.html">
-            	Home
-        	</a>
-    	</div>
-	</div>
+                Home
+            </a>
+        </div>
+    </div>
     
 
 
@@ -37,8 +37,8 @@
         <li class="active workflowTab"><a data-toggle="tab" href="#workflow">Workflow</a></li>
         <li class="executionTab"><a data-toggle="tab" href="#execution">Execution</a></li>
         <div id="workflow-name" data-toggle="collapse" data-target="#collapseMetadata" 
-    	aria-expanded="false" aria-controls="collapseExample">         
-    	</div>
+        aria-expanded="false" aria-controls="collapseExample">         
+        </div>
         <div id="execution-name"></div>
         <a id="RDFImage-link1" target="_blank">
             <img id="RDFImage-bar1" src="../images/RDFLink.png">
@@ -60,7 +60,7 @@
      <!-- div id="workflowName" onload="this.innerhtml += document.getElementById('workflow-name').innerhtml"> This is a sentence</div>-->
 
 
-	
+    
    
  <div class="bigCanvas">  
  
@@ -69,12 +69,12 @@
         </svg>
         <img id='spinner' src="../images/spin.gif"/ style="display:none">
     </div>
-	
+    
      
   <div class="rightCanvas" style="width:35%;float:right">
       <div id="selection-explanation" style='display:none; font-size:17px'>Selected execution trace below:</div>
       <select id='selection' style='display:none'>
-				</select>
+                </select>
 
     <div class="tab-content">
         <div id="workflow" class="tab-pane fade in active">
@@ -113,7 +113,7 @@
           <h5 class="panel-title" style="text-align:center">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseLegend" style="text-align:center" id="togglelegendlink" onclick="fitinScreen($(this))">
                 <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-                &nbsp;	&nbsp;Toggle Legend
+                &nbsp;  &nbsp;Toggle Legend
             </a>
           </h5>
         </div>
@@ -130,9 +130,9 @@
 <!--       THIS IS TIFF"S PART    -->
 
 
-		<div class="panel-group-info" id="accordionInfo"   style="width:35%;float:left">
+        <div class="panel-group-info" id="accordionInfo"   style="width:35%;float:left">
 
-				<div class="panel panel-warning template" hidden>
+                <div class="panel panel-warning template" hidden>
                     <a id="RDFImage-variable-link" target="_blank">
                         <p id="RDFVariableLink">See RDF</p>
                         <img class="RDFImage-variable" src="../images/RDFLink.png">
@@ -141,47 +141,47 @@
                         <span id="fileDownload" class="glyphicon glyphicon-cloud-download"></span>
                         <p id="DownloadLink">Download</p>
                     </a>
-						<div class="panel-heading"> 
-							<span class="glyphicon glyphicon-remove-circle pull-right "></span>
+                        <div class="panel-heading"> 
+                            <span class="glyphicon glyphicon-remove-circle pull-right "></span>
 
-								 <h4 class="panel-title">
-										<a id="link_collapse_info" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-											Collapsible Group Item #2 (template panel)
-										</a>
-									</h4>
+                                 <h4 class="panel-title">
+                                        <a id="link_collapse_info" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                            Collapsible Group Item #2 (template panel)
+                                        </a>
+                                    </h4>
 
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse process">						
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse process">                        
 
 
-						<span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px">
-						</span>
+                        <span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px">
+                        </span>
 
-						<span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px" >
-						</span>
+                        <span class="highlight-variables col-md-6" style="display:inline-block; padding:10px 5px" >
+                        </span>
 
-						<table id="process_info_table" class = "info_table">
-								<tr>
-										<th align="center">
-												<h5>
-														Input Variables
-												</h5>
-										</th>
-										<th align="center">
-												<h5>
-														Output Variables
-												</h5>
-										</th>
-								</tr>
-								<tbody id="process_info_table_body">
-								</tbody>
-						</table>    
+                        <table id="process_info_table" class = "info_table">
+                                <tr>
+                                        <th align="center">
+                                                <h5>
+                                                        Input Variables
+                                                </h5>
+                                        </th>
+                                        <th align="center">
+                                                <h5>
+                                                        Output Variables
+                                                </h5>
+                                        </th>
+                                </tr>
+                                <tbody id="process_info_table_body">
+                                </tbody>
+                        </table>    
 
-						</div>
-				</div>
-		</div>	
-	
-	
+                        </div>
+                </div>
+        </div>  
+    
+    
 <!--PANELS FOR VARIABLE INFORMATION-->
 <div class="panel-group-info variable" id="accordionVariables"   style="width:35%;float:left;margin-top:20px">
     
@@ -195,59 +195,71 @@
             <p id="DownloadLink">Download</p>
         </a>
         <div class="panel-heading"> 
-					<span class="glyphicon glyphicon-remove-sign pull-right "></span>
-					
+                    <span class="glyphicon glyphicon-remove-sign pull-right "></span>
+                    
              <h4 class="panel-title variable">
-								<a id="link_collapse_info" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTempl">
-									Variable: (template panel)
-								</a>
-							</h4>
+                                <a id="link_collapse_info" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTempl">
+                                    Variable: (template panel)
+                                </a>
+                            </h4>
 
         </div>
-			
-					<div id="collapseTempl" class="panel-collapse collapse variable">						  
-						<div style="margin:16px">
-<!--						row 1 basic info-->
-						<div class="row variable_row" style="width:100%">
-							<div class="col-md-3">
-									<h5 style="text-align:center" class="variable-header">Generated By:</h5>
-							</div>
-							<div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left;color:dimgrey;font-weight:700" >
-								<ul style="color:dimgrey;font-weight:700">
+            
+                    <div id="collapseTempl" class="panel-collapse collapse variable">                         
+                        <div style="margin:16px">
+<!--                        row 1 basic info-->
+                        <div class="row variable_row" style="width:100%">
+                            <div class="col-md-3">
+                                    <h5 style="text-align:center" class="variable-header">Type:</h5>
+                            </div>
+                            <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
+                                <ul style="color:dimgrey;font-weight:700">
                                 </ul>
-							</div>
-						</div>
-						
-						<hr  class="col-md-9 col-md-offset-3" style="width:70%;float:left">
-						
-						<div class="row variable_row" style="width:100%">
-							<div class="col-md-3">
-									<h5 style="text-align:center" class="variable-header">Used By:</h5>
-							</div>
-							<div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
-								<ul style="color:dimgrey;font-weight:700">
-								</ul>
-							</div>
-						</div>
-						
-						<div class="variableValue">
-						<hr class="col-md-9 col-md-offset-3" style="width:70%;float:left">
-			
-						<div class="row variable_row file_row" style="width:100%">
-							<div class="col-md-3">
-									<h5 style="text-align:center" class="variable-header">Value:</h5>
-							</div>
-							<div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left;display:inline-block;margin-top: 2.1%">
-								<span style="margin-left: 15%; color: dimgrey;font-size: 90%;font-weight:700"></span>
-							</div>
-						</div>
-						</div>
-					</div>
+                            </div>
+                        </div>
+
+                        <hr  class="col-md-9 col-md-offset-3" style="width:70%;float:left">
+
+                        <div class="row variable_row" style="width:100%">
+                            <div class="col-md-3">
+                                    <h5 style="text-align:center" class="variable-header">Generated By:</h5>
+                            </div>
+                            <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
+                                <ul style="color:dimgrey;font-weight:700">
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <hr  class="col-md-9 col-md-offset-3" style="width:70%;float:left">
+                        
+                        <div class="row variable_row" style="width:100%">
+                            <div class="col-md-3">
+                                    <h5 style="text-align:center" class="variable-header">Used By:</h5>
+                            </div>
+                            <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
+                                <ul style="color:dimgrey;font-weight:700">
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="variableValue">
+                        <hr class="col-md-9 col-md-offset-3" style="width:70%;float:left">
+            
+                        <div class="row variable_row file_row" style="width:100%">
+                            <div class="col-md-3">
+                                    <h5 style="text-align:center" class="variable-header">Value:</h5>
+                            </div>
+                            <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left;display:inline-block;margin-top: 2.1%">
+                                <span style="margin-left: 15%; color: dimgrey;font-size: 90%;font-weight:700"></span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
         </div>
     </div>
-</div>	
+</div>  
 
-	
+    
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js">
