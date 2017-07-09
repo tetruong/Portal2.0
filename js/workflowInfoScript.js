@@ -107,7 +107,9 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             unhighlightAllPuts();
             highlightPuts(inputsArray);
             highlightPuts(outputsArray);
-            fitinScreen($newPanel);
+            if($(this).attr('aria-expanded')=='false') {
+                fitinScreen($newPanel);
+            }
         });
         
 		$newPanel.find(".accordion-toggle").attr("href", "#" + (processInfosIndex)).text("Process: " + processName);
@@ -148,7 +150,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
     				+ processURI +'> <http://www.opmw.org/ontology/hasExecutableComponent> ?e. ?e <http://www.opmw.org/ontology/hasLocation> ?software }'
 			var codeURI = endpoint + 'query?query=' + escape(code) + '&format=json'; 
 			$.get(codeURI, function(data,status)  {
-				console.log(data);
+				//console.log(data);
 				$newPanel.find("#DownloadImage-variable-link").attr("href", data.results.bindings[0].software.value);
 			});
 		}
@@ -166,7 +168,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 	//console.log(artifactValues);
 	// get name of node
 	var variableName = stripNameFromURI(variableURI);
-	console.log(variableName);
+	//console.log(variableName);
 		
 	var alreadyShowing = false;
 	// Check that section is not already showing
@@ -200,7 +202,9 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + ": " + variableName);
 		}
         $newPanel.find(".accordion-toggle").click(function()  {
-            fitinScreen($newPanel);
+        	if($(this).attr('aria-expanded')=='false') {
+            	fitinScreen($newPanel);
+            }
         });
 
 		$newPanel.attr("id", variableName);
@@ -345,7 +349,7 @@ $(document).on('click', '.glyphicon-remove-sign', function () {
 
 function removeVariableInfo(removeID) {
 	var divToRemove = document.getElementById(removeID);
-	console.log(divToRemove);
+	//console.log(divToRemove);
 	divToRemove.remove();
 	// remove from lists that are keeping track of which processes are currently showing on page
 	variableInfosCount = variableInfosCount - 1;
