@@ -488,3 +488,10 @@ var addDimensions = function(render) {
         return shapeSvg;
     }
 }
+
+
+$(".metadata-icon").mouseenter(function() {
+    $(this).nextAll('.placeholder').show();
+    $(this).nextAll('.placeholder').html($("#"+$(this).attr('id').replace("icon","value")).text());
+    //console.log($("#"+$(this).attr('id').replace("icon","value")).text())
+});
