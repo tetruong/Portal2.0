@@ -25,7 +25,7 @@ function checkOversize(currentelement)  {
     var toplegend = document.getElementsByClassName("rightCanvas")[0];
     var left = document.getElementById("viz");
 
-    var optionHeight = 180;
+    var optionHeight = 250;
     if(currentelement.attr("id") == "togglelegendlink")  optionHeight = 96;
 
     /*if(currentelement.find(".panel-collapse").length)  {
@@ -164,7 +164,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
     
 
 // FUNCTION TO ADD NEW VARIABLE INFORMATION SECTIONS
-function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifactValues, variablehasvalue) {
+function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifactValues, variablehasvalue ,variabletypes) {
 	//console.log(artifactValues);
 	// get name of node
 	var variableName = stripNameFromURI(variableURI);
@@ -191,8 +191,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 
 		variableSectionsShowing[variableInfosCount] = variableName;
 		var $newPanel = $templateVariables.clone();
-		
-//		$newPanel.find(".collapse").removeClass("in");
+
 		// set header name
 		var variableTypeHeading = variableType.charAt(0).toUpperCase() + variableType.slice(1);
 		if ($("ul.nav li.active").index() == 0) {
@@ -238,9 +237,6 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			}
 		}
 		else {
-			/*var newListItem = document.createElement("li");
-			newListItem.innerHTML = "-";
-			listUsedBy.append(newListItem);*/
 			$($newPanel.find(".row.variable_row")[2]).hide();
 			$($newPanel.find(".col-md-9.col-md-offset-3")[1]).hide();
 		}
@@ -261,17 +257,45 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 				else  {
 					$($newPanel.find("#DownloadImage-variable-link")).hide();
 				}
-				if(variablehasvalue.bindings[0]!=null)  {
-					variableValue.setAttribute("style", "display:block");
-					console.log("here it is");
-					console.log(variablehasvalue.bindings[0].file.value);
-					$(variableValue).find("span").text(variablehasvalue.bindings[0].file.value);
-					$newPanel.find(".accordion-toggle").text("Parameter: "+variableName);
+				//console.log(variablehasvalue);
+				if(typeof variablehasvalue.bindings!='undefined')  {
+					if(variablehasvalue.bindings.length!=0)  {
+						variableValue.setAttribute("style", "display:block");
+						$(variableValue).find("span").text(variablehasvalue.bindings[0].value.value);
+						$newPanel.find(".accordion-toggle").text("Parameter: "+variableName);
+					}
+					else {
+						variableValue.setAttribute("style", "display:none");
+					}
 				}
 				else  {
 					variableValue.setAttribute("style", "display:none");
 				}
 		}
+
+		//add types to variable
+		
+		if(typeof variabletypes != 'undefined')  {
+			var typelist = variabletypes.results.bindings;
+			var cnt=0;
+			for (var i = 0; i < typelist.length; i++) {
+				var typetext = stripTypeFromURI(typelist[i].type.value);
+				if (typetext == -1) continue;
+				var newListItem = document.createElement("li");
+				newListItem.innerHTML = typetext;
+				$newPanel.find("ul")[0].append(newListItem);
+				cnt++;
+			}
+			if(!cnt) {
+				$($newPanel.find(".row.variable_row")[0]).hide();
+				$($newPanel.find(".col-md-9.col-md-offset-3")[0]).hide();
+			}
+		}
+		else  {
+			$($newPanel.find(".row.variable_row")[0]).hide();
+			$($newPanel.find(".col-md-9.col-md-offset-3")[0]).hide();
+		}
+		
 				
 		// add new panel to the page
 		variableInfosCount = variableInfosCount + 1;

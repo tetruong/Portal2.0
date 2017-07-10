@@ -181,16 +181,18 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
     + variableURI +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
     var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
 
+    var type;
     $.ajax({
         url: typeURI,
         type: 'GET',
         cache: false,
         timeout: 30000,
         error: function(){
-            console.log("Error");
+            type=null;
         },
         success: function(res) {
-            console.log(res);
+            type=res;
+            //console.log(res);
         }
     })
 
@@ -223,10 +225,10 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
                 cache: false,
                 timeout: 30000,
                 error: function() {
-                    handler(variableURI, usedBy, generatedBy, variableType, res.results, null);
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, null, type);
                 },
                 success: function(res2) {
-                    handler(variableURI, usedBy, generatedBy, variableType, res.results, res2.results);
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, res2.results, type);
                 }
             })
         }

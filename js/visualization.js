@@ -384,6 +384,13 @@ var stripNameFromURI = function(uri) {
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
 }
 
+var stripTypeFromURI = function(uri)  {
+    if (uri.indexOf('ontology.owl') > -1)  {
+        return uri.substring(uri.lastIndexOf('ontology.owl')+13, uri.length).replace(/_/g, " ");
+    }
+    return -1;
+}
+
 
 /*
     @params: d3 render object
