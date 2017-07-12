@@ -141,7 +141,7 @@ body {
   /* Start the vertical centering */
   .site-wrapper-inner {
     vertical-align: top;
-    padding-top: 1rem;
+    /*padding-top: 1rem;*/
   }
   /* Handle the widths */
   .masthead,
@@ -162,7 +162,7 @@ body {
 
 /* Autocomplete Search */
 #search-bar  {
-    margin-top: 8%;
+    /*margin-top: 8%;*/
 }
 .react-autosuggest__container {
   position: relative;
@@ -236,7 +236,7 @@ body {
 .dropbtn {
     background-color: white;
     color: #66ccff;
-    padding: 16px;
+    padding: 8px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -281,9 +281,22 @@ body {
 
 /*workflow examples*/
 .workflowexample  {
-  width:300px;
+  width:20%;
   height:250px;
   margin: 0 auto;
+  float: left;
+}
+
+#slideleft, #slideright  {
+  width:10%;
+  height: 100%;
+  margin: 0 auto;
+  float: left;
+  min-height: 100%;
+  line-height: 250px;
+  font-size: 4.5vw;
+  margin-top: -2%;
+  cursor: pointer;
 }
 
 .workflowexample img {
