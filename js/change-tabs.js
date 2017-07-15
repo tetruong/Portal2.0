@@ -52,15 +52,17 @@ $(document).ready(function() {
 var setExecutionMetadata = function(res) {
     if (res.results.hasOwnProperty('bindings')) {
         document.getElementById('status-value').textContent = 'status: ' + res.results.bindings[0].status.value.toLowerCase();
-        //TODO: change time to human readable format
-        document.getElementById('label-value').textContent = res.results.bindings[0].label.value;
+        document.getElementById('placeholder2').innerHTML = 'status: ' + res.results.bindings[0].status.value.toLowerCase();
+        document.getElementById('label-value').textContent = 'label: '+res.results.bindings[0].label.value;
         document.getElementById('start-time-value').textContent = 'start time: ' + new Date(res.results.bindings[0].start.value).toString();
         document.getElementById('end-time-value').textContent = 'end time: ' + new Date(res.results.bindings[0].end.value).toString();
+        document.getElementById('rights-value').textContent = 'license: ' + res.results.bindings[0].rights.value;
     } else {
         document.getElementById('status-value').textContent = 'N/A';
         document.getElementById('label-value').textContent = 'N/A';
         document.getElementById('start-time-value').textContent = 'N/A';
         document.getElementById('end-time-value').textContent = 'N/A';
+        document.getElementById('rights-value').textContent = 'N/A';
     }
 }
 
@@ -68,6 +70,7 @@ var setWorkflowMetadata = function(res) {
     //console.log(res);
     if(res.results.bindings[0].contributer.value != null)  {
         document.getElementById('contributer-value').textContent = 'contributer: ' + res.results.bindings[0].contributer.value.substring(6);
+        document.getElementById('placeholder1').innerHTML = 'contributer: ' + res.results.bindings[0].contributer.value.substring(6);
     }
     else {
         document.getElementById('contributer-value').textContent = 'N/A';

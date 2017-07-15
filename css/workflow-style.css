@@ -47,7 +47,7 @@ body {
 }
 
 body {
-  color: #66ccff;
+  color: #0ea6f3;
   text-align: center;
 }
 .topnav {
@@ -266,9 +266,13 @@ table {
     color:blue;
 }
 
-.metadata-value, .placeholder {
+.metadata-value {
     font-size: 20px;
     display: none;
+}
+
+.placeholder {
+    font-size: 20px;
 }
 
 /*#status-icon:hover ~ #status-value {
@@ -356,7 +360,7 @@ table {
     margin-left: 0.3em;
     /* cursor: pointer; */
     font-size: 25px;
-    color: #66ccff;
+    color: #0ea6f3;
 }
 
 #TemplateDownload {
@@ -366,7 +370,7 @@ table {
     margin-left: 0.3em;
     /* cursor: pointer; */
     font-size: 25px;
-    color: #66ccff;
+    color: #0ea6f3;
 }
 
 #RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #DownloadTemplateLink {
