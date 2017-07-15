@@ -13,7 +13,10 @@ var $vis = $(".visualization-container");
 
 $(".accordion-toggle").click(function(event, ui) {
 	if($(this).attr("class")=="accordion-toggle collapsed") {
-    	fitinScreen($(this));
+		setTimeout(function() {
+			console.log("timeout");
+    		fitinScreen($(this));
+    	}, 100);
     }
   });
 
@@ -24,27 +27,15 @@ function closeLegend(elementid)  {
 }
 
 function checkOversize(currentelement)  {
-    var process = document.getElementById("accordionInfo");
+    var processnodes = document.getElementById("accordionInfo");
     var variable = document.getElementById("accordionVariables");
     var toplegend = document.getElementsByClassName("rightCanvas")[0];
     var left = document.getElementById("viz");
 
-    var optionHeight = 250;
-    if(currentelement.attr("id") == "togglelegendlink")  optionHeight = 96;
-
-    /*if(currentelement.find(".panel-collapse").length)  {
-    	var hiddenelement = currentelement.find(".panel-collapse");
-    	hiddenelement.collapse('show');
-    	if(process.clientHeight + variable.clientHeight + toplegend.clientHeight + optionHeight> left.clientHeight)  {
-    		hiddenelement.collapse('hide');
-        	return true;
-    	}
-    	hiddenelement.collapse('hide');
-    	return false;
-	}*/
-    if(process.clientHeight + variable.clientHeight + toplegend.clientHeight + optionHeight> left.clientHeight)  {
+    if(processnodes.clientHeight + variable.clientHeight + toplegend.clientHeight> left.clientHeight)  {
         return true;
     }
+    //console.log(processnodes.clientHeight, variable.clientHeight,toplegend.clientHeight,left.clientHeight);
     return false;
 }
 
@@ -70,6 +61,10 @@ function fitinScreen(currentelement)  {
             $(thisid).collapse('hide');
         }
     }
+    /*if(checkOversize(currentelement))  {
+    	var temp = $("#viz").height()+100;
+    	$("#viz").height(temp);
+    }*/
 }
 
 function addProcessInfo(processURI, inputsArray, outputsArray) {
@@ -111,8 +106,11 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             unhighlightAllPuts();
             highlightPuts(inputsArray);
             highlightPuts(outputsArray);
-            if($(this).attr('aria-expanded')=='false') {
-                fitinScreen($newPanel);
+            if($(this).attr('class')=='accordion-toggle collapsed') {
+                setTimeout(function() {
+                	console.log("timeout");
+                	fitinScreen($newPanel);
+                }, 100);
             }
         });
         
@@ -205,8 +203,11 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 			$newPanel.find(".accordion-toggle").attr("href", "#v" + (variableInfosIndex)).text(variableTypeHeading + ": " + variableName);
 		}
         $newPanel.find(".accordion-toggle").click(function()  {
-        	if($(this).attr('aria-expanded')=='false') {
-            	fitinScreen($newPanel);
+        	if($(this).attr('class')=='accordion-toggle collapsed') {
+        		setTimeout(function() {
+        			console.log("timeout");
+            		fitinScreen($newPanel);
+            	}, 100);
             }
         });
 
