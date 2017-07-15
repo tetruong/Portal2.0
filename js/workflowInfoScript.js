@@ -3,7 +3,6 @@ var processInfosIndex = 0;
 var variableInfosCount = 0;
 var variableInfosIndex = 0;
 
-
 var variableSectionsShowing = [];
 var variableSectionsShowingIds = [];
 var sectionsShowing = [];
@@ -12,10 +11,15 @@ var $template = $(".template");
 var $templateVariables = $(".templ");
 var $vis = $(".visualization-container");
 
-function closeLegend()  {
-    var legend = document.getElementById("collapseLegend");
-    if (legend.getAttribute("class")=="panel-collapse collapse in")  {
-        $('#collapseLegend').collapse('hide');
+$(".accordion-toggle").click(function(event, ui) {
+	if($(this).attr("class")=="accordion-toggle collapsed") {
+    	fitinScreen($(this));
+    }
+  });
+
+function closeLegend(elementid)  {
+    if ($("#"+elementid).attr("class")=="panel-collapse collapse in")  {
+        $("#"+elementid).collapse('hide');
     }
 }
 
@@ -46,12 +50,12 @@ function checkOversize(currentelement)  {
 
 function fitinScreen(currentelement)  {
     if(checkOversize(currentelement) && currentelement.attr("id") != "togglelegendlink")  {
-        closeLegend();
-        //console.log(0);
+        closeLegend("collapseLegend");
     }
-    //console.log(1);
+    if(checkOversize(currentelement) && currentelement.attr("id") != "collapseSummaryLegend")  {
+    	closeLegend("collapseSummaryLegend");
+    }
     for(var i=processInfosIndex-processInfosCount;i<processInfosIndex;i++)  {
-        //console.log(2);
         if(!checkOversize(currentelement)) return;
         if($('#'+sectionsShowing[i])!=currentelement)  {
             var thisid = '#' + i.toString();

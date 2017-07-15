@@ -33,7 +33,7 @@
     
 
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" id="switchtabs">
         <li class="active workflowTab"><a data-toggle="tab" href="#workflow">Workflow</a></li>
         <li class="executionTab"><a data-toggle="tab" href="#execution">Execution</a></li>
         <div id="workflow-name" data-toggle="collapse" data-target="#collapseMetadata" 
@@ -62,16 +62,16 @@
 
     
    
- <div class="bigCanvas">  
+<div class="bigCanvas">  
  
     <div class="visualization-container" id="viz" style="width:65%;float:left">
-        <svg>
+        <svg id="canvas">
         </svg>
         <img id='spinner' src="../images/spin.gif"/ style="display:none">
     </div>
     
      
-  <div class="rightCanvas" style="width:35%;float:right">
+<div class="rightCanvas" style="width:35%;float:right">
       <div id="selection-explanation" style='display:none; font-size:17px'>Selected execution trace below:</div>
       <select id='selection' style='display:none'>
                 </select>
@@ -113,7 +113,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title" style="text-align:center">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseLegend" style="text-align:center" id="togglelegendlink" onclick="fitinScreen($(this))">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseLegend" style="text-align:center" id="togglelegendlink">
                 <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 &nbsp;  &nbsp;Toggle Legend
             </a>
@@ -126,6 +126,44 @@
         </div>
       </div>
     </div>
+
+    <div class="panel-group-legend" id="summaryLegend" style="display: none">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title" style="text-align:center">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSummaryLegend" style="text-align:center" id="togglesummarylegendlink">
+                <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+                &nbsp;  &nbsp;Summary
+            </a>
+          </h5>
+        </div>
+        <div id="collapseSummaryLegend" class="panel-collapse collapse">
+            <div class="input_row" style="width:100%">
+                <div class="col-md-3">
+                        <h5 style="text-align:center" class="variable-header">Inputs:</h5>
+                </div>
+                <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
+                    <ul style="color:dimgrey;font-weight:700">
+                    </ul>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <hr  class="col-md-9 col-md-offset-3" style="width:70%;float:left">
+            <div class="output_row" style="width:100%">
+                <div class="col-md-3">
+                        <h5 style="text-align:center" class="variable-header">Outputs:</h5>
+                </div>
+                <div class="col-md-9 bottom-spacing-negative-2" style="width:70%;float:left;text-align:left">
+                    <ul style="color:dimgrey;font-weight:700">
+                    </ul>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
     
  </div> 

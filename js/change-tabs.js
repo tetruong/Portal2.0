@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $(".executionTab").click(function() {
+        $("#summaryLegend").show();
         $("#DownloadTemplate-link").hide();
         $('.nav-tabs a[href="#execution"]').tab('show');
         // remove any panels showing on page 
@@ -23,6 +24,7 @@ $(document).ready(function() {
     });
     
     $(".workflowTab").click(function() {
+        $("#summaryLegend").hide();
         // remove any panels showing on page 
         clearAllPanels();
         $("#DownloadTemplate-link").show();

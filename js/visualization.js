@@ -502,3 +502,14 @@ $(".metadata-icon").mouseenter(function() {
     $(this).nextAll('.placeholder').html($("#"+$(this).attr('id').replace("icon","value")).text());
     //console.log($("#"+$(this).attr('id').replace("icon","value")).text())
 });
+
+
+$(window).ready(function() {
+    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
+    if($("#viz").height() < canvasheight)
+        $("#viz").height(canvasheight);
+}).resize(function() {
+    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
+    if($("#viz").height() < canvasheight)
+        $("#viz").height(canvasheight);
+});
