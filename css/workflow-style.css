@@ -28,13 +28,12 @@ text {
   margin: auto;
   background-color: lightgrey;
   overflow: hidden;
-  /*max-height: 600px;*/
 }
 
 svg {
   /*background-image: url('../images/grid.png');*/
     background-color: lightgrey;
-    height: 100% !important;
+    height: 100%;
 }
 
 .edgePath path {
@@ -215,11 +214,6 @@ table {
   float: left !important;
   background-color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
-}
-.visualization-container>svg
-{
-    /*min-height: 500px;
-    max-height: 610px;*/
 }
 .panel-group-legend {
   display: block;

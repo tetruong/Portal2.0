@@ -130,6 +130,9 @@ var renderVisualization = function (res, isTrace) {
                     });
                     j++;
                 }
+                if(isTrace) {
+                    $(".input_row ul").append("<li>" + stripNameFromURI(input) + "</li>");
+                }
                 addInputProcess(step, input);
                 mapInputToProcess(input, step);
             } else if (results[i].hasOwnProperty('output')) {
@@ -148,6 +151,9 @@ var renderVisualization = function (res, isTrace) {
                         type: 'output'
                     });
                     j++;
+                }
+                if(isTrace) {
+                    $(".output_row ul").append("<li>" + stripNameFromURI(output) + "</li>");
                 }
                 addOutputProcess(step, output);
                 mapOutputFromProcess(output, step);
@@ -504,10 +510,16 @@ $(".metadata-icon").mouseenter(function() {
 });
 
 
-$(window).ready(function() {
+$(window).resize(function() {
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    $("#viz").css("min-height", canvasheight);
-}).resize(function() {
+    if($("#viz svg").height()<canvasheight) {
+        $("#viz svg").css("min-height", canvasheight);
+    }
+});
+
+$("#viz").bind("DOMSubtreeModified",function(){
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    $("#viz").css("min-height", canvasheight);
+    if($("#viz svg").height()<canvasheight) {
+        $("#viz svg").css("min-height", canvasheight);
+    }
 });

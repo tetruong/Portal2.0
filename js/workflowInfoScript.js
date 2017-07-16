@@ -14,7 +14,7 @@ var $vis = $(".visualization-container");
 $(".accordion-toggle").click(function(event, ui) {
 	if($(this).attr("class")=="accordion-toggle collapsed") {
 		setTimeout(function() {
-			console.log("timeout");
+			//console.log("timeout");
     		fitinScreen($(this));
     	}, 100);
     }
@@ -122,7 +122,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
             highlightPuts(outputsArray);
             if($(this).attr('class')=='accordion-toggle collapsed') {
                 setTimeout(function() {
-                	console.log("timeout");
+                	//console.log("timeout");
                 	fitinScreen($newPanel);
                 }, 100);
             }
@@ -233,7 +233,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
         $newPanel.find(".accordion-toggle").click(function()  {
         	if($(this).attr('class')=='accordion-toggle collapsed') {
         		setTimeout(function() {
-        			console.log("timeout");
+        			//console.log("timeout");
             		fitinScreen($newPanel);
             	}, 100);
             }
