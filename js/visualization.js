@@ -506,10 +506,8 @@ $(".metadata-icon").mouseenter(function() {
 
 $(window).ready(function() {
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    if($("#viz").height() < canvasheight)
-        $("#viz").height(canvasheight);
+    $("#viz").css("min-height", canvasheight);
 }).resize(function() {
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    if($("#viz").height() < canvasheight)
-        $("#viz").height(canvasheight);
+    $("#viz").css("min-height", canvasheight);
 });

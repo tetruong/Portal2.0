@@ -32,7 +32,7 @@ function checkOversize(currentelement)  {
     var toplegend = document.getElementsByClassName("rightCanvas")[0];
     var left = document.getElementById("viz");
 
-    if(processnodes.clientHeight + variable.clientHeight + toplegend.clientHeight> left.clientHeight)  {
+    if(processnodes.clientHeight + variable.clientHeight + toplegend.clientHeight + 100> left.clientHeight)  {
         return true;
     }
     //console.log(processnodes.clientHeight, variable.clientHeight,toplegend.clientHeight,left.clientHeight);
@@ -86,11 +86,25 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 	// panel isn't already displayed on page, so add it
 	if (!alreadyShowing) {
 		// check that process div thing is not over count
-		if (processInfosCount == 3) {
-			console.log(sectionsShowing);
-			// remove a process
-			removeProcessInfo(sectionsShowing[0]);
+		if($("#viz").height() > 650)  {
+			if (processInfosCount == 3) {
+				// remove a process
+				removeProcessInfo(sectionsShowing[0]);
+			}
 		}
+		else if($("#viz").height() > 550){
+			if (processInfosCount == 2) {
+				// remove a process
+				removeProcessInfo(sectionsShowing[0]);
+			}
+		}
+		else {
+			if (processInfosCount == 1) {
+				// remove a process
+				removeProcessInfo(sectionsShowing[0]);
+			}
+		}
+		
 
 		
 		
@@ -186,9 +200,23 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 	// panel isn't already displayed on page, so add it
 	if (!alreadyShowing) {
 		// check that variable div thing is not over count
-		if (variableInfosCount == 3) {
-			// remove a variable
-			removeVariableInfo(variableSectionsShowing[0]);
+		if($("#viz").height() > 650)  {
+			if (variableInfosCount == 3) {
+				// remove a variable
+				removeVariableInfo(variableSectionsShowing[0]);
+			}
+		}
+		else if($("#viz").height() > 550)  {
+			if (variableInfosCount == 2) {
+				// remove a variable
+				removeVariableInfo(variableSectionsShowing[0]);
+			}
+		}
+		else  {
+			if (variableInfosCount == 1) {
+				// remove a variable
+				removeVariableInfo(variableSectionsShowing[0]);
+			}
 		}
 
 		variableSectionsShowing[variableInfosCount] = variableName;
