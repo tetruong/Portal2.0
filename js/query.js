@@ -181,9 +181,9 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
     + variableURI +'><http://www.opmw.org/ontology/hasValue> ?value}';
     var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
 
-    var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+    /*var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
     + variableURI +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
-    var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+    var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';*/
 
     var type;
     $.ajax({
@@ -196,11 +196,10 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
         },
         success: function(res) {
             type=res;
-            //console.log(res);
         }
     })
 
-    $.ajax({
+    /*$.ajax({
         url: isparameterURI,
         type: 'GET',
         cache: false,
@@ -210,10 +209,11 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
         success: function(res) {
             if(res.results.bindings[0]!=null)  {
                 variableType = 'parameter';
+                console.log(0);
             }
-            //console.log(res);
+            console.log(res);
         }
-    })
+    })*/
 
     $.ajax({
         url: endpointURI,

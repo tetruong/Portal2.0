@@ -130,9 +130,6 @@ var renderVisualization = function (res, isTrace) {
                     });
                     j++;
                 }
-                if(isTrace) {
-                    $(".input_row ul").append("<li>" + stripNameFromURI(input) + "</li>");
-                }
                 addInputProcess(step, input);
                 mapInputToProcess(input, step);
             } else if (results[i].hasOwnProperty('output')) {
@@ -151,9 +148,6 @@ var renderVisualization = function (res, isTrace) {
                         type: 'output'
                     });
                     j++;
-                }
-                if(isTrace) {
-                    $(".output_row ul").append("<li>" + stripNameFromURI(output) + "</li>");
                 }
                 addOutputProcess(step, output);
                 mapOutputFromProcess(output, step);
@@ -257,6 +251,10 @@ var renderVisualization = function (res, isTrace) {
         });
 
     mapNodesEdges(vis);
+
+    if(isTrace) {
+        loadSummary(svg, vis);
+    }
 }   
 
 var translateVisualization = function() {
@@ -375,6 +373,40 @@ var setupNodeOnClick = function (svg, vis) {
         } else if (node.type == 'output') {
             getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
             highlightPuts(outputByMapping[node.uri]);
+        }
+    });
+}
+
+var loadSummary = function (svg, vis) {
+    svg.selectAll('g.node').each(function(id)  {
+        var node = vis.node(id);
+        if(node.type == 'input') {
+            var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+                            + node.uri +'><http://www.opmw.org/ontology/hasValue> ?value}';
+            var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
+            $.ajax({
+                url: nodevalueURI,
+                type: 'GET',
+                cache: false,
+                timeout: 30000,
+                error: function() {
+                },
+                success: function(res) {
+                    if(typeof res.results.bindings !='undefined')  {
+                        if(res.results.bindings.length!=0)  {
+                            $(".parameter_row ul").append("<li>" + node.label + "</li>");
+                        }
+                        else  {
+                            if (typeof outputByMapping[node.uri] == 'undefined') {
+                                $(".input_row ul").append("<li>" + node.label + "</li>");
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        else if(node.type == 'output') {
+            $(".output_row ul").append("<li>" + node.label + "</li>");
         }
     });
 }

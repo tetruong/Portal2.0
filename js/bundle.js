@@ -67,8 +67,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//_reactDom2.default.render(_react2.default.createElement(_Title2.default, null), document.getElementById("title"));
-	//_reactDom2.default.render(_react2.default.createElement(_searchBar2.default, null), document.getElementById('search-bar'));
+	_reactDom2.default.render(_react2.default.createElement(_Title2.default, null), document.getElementById("title"));
+	_reactDom2.default.render(_react2.default.createElement(_searchBar2.default, null), document.getElementById('search-bar'));
 
 /***/ },
 /* 1 */
