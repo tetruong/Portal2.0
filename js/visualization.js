@@ -129,6 +129,40 @@ var renderVisualization = function (res, isTrace) {
                         uri: input,
                         type: 'input'
                     });
+                    /*var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+                            + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
+                    var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                    $.ajax({
+                        url: isparameterURI,
+                        type: 'GET',
+                        cache: false,
+                        timeout: 30000,
+                        error: function(){
+                        },
+                        success: function(res) {
+                            if(res.results.bindings[0]!=null)  {
+                                console.log(1);
+                                vis.setNode(j, { 
+                                    label: inputToDisplay,
+                                    labelStyle: 'fill: #FFF',
+                                    shape: 'customEllipse',
+                                    style: 'fill: #fddb9a;',
+                                    uri: input,
+                                    type: 'parameter'
+                                });
+                            }
+                            else {
+                                vis.setNode(j, { 
+                                    label: inputToDisplay,
+                                    labelStyle: 'fill: #FFF',
+                                    shape: 'customEllipse',
+                                    style: 'fill: #003366;',
+                                    uri: input,
+                                    type: 'input'
+                                });
+                            }
+                        }
+                    });*/
                     j++;
                 }
                 addInputProcess(step, input);
@@ -407,13 +441,37 @@ var loadSummary = function (svg, vis) {
                         }
                     }
                 }
-            })
+            });
         }
         else if(node.type == 'output') {
             $(".output_row ul").append("<li>" + node.label + "</li>");
             summaryList.push(node.uri);
         }
     });
+}
+
+var checkExecutionParameter = function(uri) {
+    var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+                            + uri +'><http://www.opmw.org/ontology/hasValue> ?value}';
+    var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
+    $.ajax({
+        url: nodevalueURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function() {
+        },
+        success: function(res) {
+            if(typeof res.results.bindings !='undefined')  {
+                console.log(2);
+                if(res.results.bindings.length!=0)  {
+                    console.log(0);
+                    return true;
+                }
+            }
+        }
+    });
+    return false;
 }
 
 /*

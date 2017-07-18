@@ -21,7 +21,7 @@ $(".accordion-toggle").click(function(event, ui) {
     	}, 100);
     }
     else if($(this).attr("id") == "togglesummarylegendlink")  {
-    	unhighlightAllPuts(summaryList);
+    	unhighlightPuts(summaryList);
     }
   });
 
