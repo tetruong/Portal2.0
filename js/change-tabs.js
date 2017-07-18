@@ -73,7 +73,7 @@ var setWorkflowMetadata = function(res) {
     if(res.results.bindings[0].contributer.value != null)  {
         document.getElementById('contributer-value').textContent = 'contributor: ' + res.results.bindings[0].contributer.value.substring(6);
         document.getElementById('placeholder1').innerHTML = 'contributor: ' + res.results.bindings[0].contributer.value.substring(6);
-    }
+    } 
     else {
         document.getElementById('contributer-value').textContent = 'N/A';
     }
