@@ -97,5 +97,6 @@ var setWorkflowMetadata = function(res) {
     }
     if(res.results.bindings[0].download.value != null)  {
         document.getElementById('DownloadTemplate-link').href = res.results.bindings[0].download.value;
+        document.getElementById('DownloadTemplate-link').download = res.results.bindings[0].download.value;
     }
 }

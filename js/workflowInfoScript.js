@@ -173,6 +173,7 @@ function addProcessInfo(processURI, inputsArray, outputsArray) {
 			$.get(codeURI, function(data,status)  {
 				//console.log(data);
 				$newPanel.find("#DownloadImage-variable-link").attr("href", data.results.bindings[0].software.value);
+				$newPanel.find("#DownloadImage-variable-link").attr("download", data.results.bindings[0].software.value);
 			});
 		}
 		// add new panel to the page
@@ -291,6 +292,7 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 		else {
 				if(artifactValues.bindings[0]!=null)  {
 					$newPanel.find("#DownloadImage-variable-link")[0].setAttribute("href", artifactValues.bindings[0].file.value);
+					$newPanel.find("#DownloadImage-variable-link")[0].setAttribute("download", artifactValues.bindings[0].file.value);
 				}
 				else  {
 					$($newPanel.find("#DownloadImage-variable-link")).hide();

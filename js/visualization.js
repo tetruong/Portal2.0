@@ -432,6 +432,7 @@ var loadSummary = function (svg, vis) {
                         if(res.results.bindings.length!=0)  {
                             $(".parameter_row ul").append("<li>" + node.label + "</li>");
                             summaryList.push(node.uri);
+                            $(".parameter_row").show();
                         }
                         else  {
                             if (typeof outputByMapping[node.uri] == 'undefined') {
@@ -448,30 +449,6 @@ var loadSummary = function (svg, vis) {
             summaryList.push(node.uri);
         }
     });
-}
-
-var checkExecutionParameter = function(uri) {
-    var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
-                            + uri +'><http://www.opmw.org/ontology/hasValue> ?value}';
-    var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
-    $.ajax({
-        url: nodevalueURI,
-        type: 'GET',
-        cache: false,
-        timeout: 30000,
-        error: function() {
-        },
-        success: function(res) {
-            if(typeof res.results.bindings !='undefined')  {
-                console.log(2);
-                if(res.results.bindings.length!=0)  {
-                    console.log(0);
-                    return true;
-                }
-            }
-        }
-    });
-    return false;
 }
 
 /*
