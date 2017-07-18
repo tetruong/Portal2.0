@@ -13,10 +13,15 @@ var $vis = $(".visualization-container");
 
 $(".accordion-toggle").click(function(event, ui) {
 	if($(this).attr("class")=="accordion-toggle collapsed") {
+		if($(this).attr("id") == "togglesummarylegendlink") {
+			highlightPuts(summaryList);
+		}
 		setTimeout(function() {
-			//console.log("timeout");
     		fitinScreen($(this));
     	}, 100);
+    }
+    else if($(this).attr("id") == "togglesummarylegendlink")  {
+    	unhighlightAllPuts(summaryList);
     }
   });
 

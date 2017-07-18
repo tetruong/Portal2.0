@@ -7,6 +7,7 @@ var isVariableOfMapping = {};
 var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
+var summaryList = [];
 var workflowURI = getWorkflowURI();
 
 populateSearchBar(function(res) { 
@@ -378,6 +379,7 @@ var setupNodeOnClick = function (svg, vis) {
 }
 
 var loadSummary = function (svg, vis) {
+    summaryList = [];
     svg.selectAll('g.node').each(function(id)  {
         var node = vis.node(id);
         if(node.type == 'input') {
@@ -395,10 +397,12 @@ var loadSummary = function (svg, vis) {
                     if(typeof res.results.bindings !='undefined')  {
                         if(res.results.bindings.length!=0)  {
                             $(".parameter_row ul").append("<li>" + node.label + "</li>");
+                            summaryList.push(node.uri);
                         }
                         else  {
                             if (typeof outputByMapping[node.uri] == 'undefined') {
                                 $(".input_row ul").append("<li>" + node.label + "</li>");
+                                summaryList.push(node.uri);
                             }
                         }
                     }
@@ -407,6 +411,7 @@ var loadSummary = function (svg, vis) {
         }
         else if(node.type == 'output') {
             $(".output_row ul").append("<li>" + node.label + "</li>");
+            summaryList.push(node.uri);
         }
     });
 }
