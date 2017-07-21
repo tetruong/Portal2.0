@@ -234,7 +234,7 @@ body {
 /*dropdown menu*/
 /* Dropdown Button */
 .dropbtn {
-    background-color: white;
+    background-color: #f1f1f1;
     color: #0ea6f3;
     padding: 8px;
     font-size: 16px;
@@ -243,19 +243,21 @@ body {
 }
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-    /*margin-top: 10%;*/
+        /* margin-top: 10%; */
     position: relative;
     display: inline-block;
-    width: 80%;
+    width: 40%;
+    float: left;
 }
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    width: 100%;
+    width: 120%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    margin-left: -10%;
 }
 /* Links inside the dropdown */
 .dropdown-content a {
@@ -276,7 +278,9 @@ body {
 }
 
 #chosenendpoint  {
-    /*margin-top: 15%;*/
+    margin-top: 2%;
+    float: left;
+    width: 60%;
 }
 
 /*workflow examples*/
