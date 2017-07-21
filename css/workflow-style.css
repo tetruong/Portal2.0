@@ -381,7 +381,7 @@ table {
 #RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #DownloadTemplateLink {
     display: none;
     width: 120px;
-    background-color: #8FBC8F;
+    background-color: white;
     color: black;
     text-align: center;
     border-radius: 6px;
@@ -391,6 +391,7 @@ table {
     top: 150%;
     left: 50%;
     margin-left: -60px;
+    border:1px #0ea6f3 solid;
 }
 
 #RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after, #DownloadTemplateLink::after {
@@ -401,7 +402,7 @@ table {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #8FBC8F transparent;
+    border-color: transparent transparent #0ea6f3 transparent;
 }
 
 #RDFImage-link1:hover #RDFLink1  {
