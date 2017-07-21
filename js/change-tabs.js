@@ -11,20 +11,16 @@ $(document).ready(function() {
                 setExecutionMetadata(res);
             })
         })
-        
-        var traceSelect = document.getElementById('selection');
-        traceSelect.style.display = 'inline';
-        /*traceSelect.options[0].setAttribute("selected","selected");*/
+        $("#selecttrace").show();
         document.getElementById('workflow-name').style.display = "none";
         document.getElementById('execution-name').style.display = "inline-block";
-        /*document.getElementById('execution-name').innerHTML = "Selected execution: ";*/
-        document.getElementById('selection-explanation').style.display = "inline-block";
         document.getElementById('RDFImage-bar1').style.display = "none";
         document.getElementById('RDFImage-bar2').style.display = "inline-block";
     });
     
     $(".workflowTab").click(function() {
         $("#summaryLegend").hide();
+        $("#selecttrace").hide();
         // remove any panels showing on page 
         clearAllPanels();
         $("#DownloadTemplate-link").show();
@@ -36,16 +32,10 @@ $(document).ready(function() {
             setWorkflowMetadata(res);
         });
                 
-        var traceSelect = document.getElementById('selection');
-        traceSelect.style.display = 'none';
-        
-        for (var i = traceSelect.options.length-1; i >= 0; i--) {
-            traceSelect.remove(i);
-        }
+        $("#dropdown-content").children().remove();
         document.getElementById('execution-name').style.display = "none";
         document.getElementById('workflow-name').style.display = "inline-block";
         document.getElementById('execution-name').innerHTML = "";
-        document.getElementById('selection-explanation').style.display = "none";
         document.getElementById('RDFImage-bar1').style.display = "inline-block";
         document.getElementById('RDFImage-bar2').style.display = "none";
     });

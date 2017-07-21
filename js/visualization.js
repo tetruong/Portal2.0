@@ -305,46 +305,35 @@ var translateVisualization = function() {
 }
 
 var addTraces = function(traces) {
-    var select = document.getElementById("selection");
+    var select = document.getElementById("dropdown-content");
 
-    //var first = document.createElement("option");
-    
-    //text to display on selection box when nothing is selected
-    //first.textContent = 'Selected execution trace on the side';
-    //select.appendChild(first);
-    
     //populates selection box options
     for(var i = 0; i < traces.length; i++) {
         var opt = traces[i];
-        var el = document.createElement("option");
+        var el = document.createElement("a");
         el.textContent = stripNameFromURI(opt.execution.value);
         el.value = opt.execution.value;
         select.appendChild(el);
     }
-    
-    select.addEventListener('change', function() {
-        //if selected index is the string 'Select execution trace'
-        /*if (select.selectedIndex == 0)
-        {
-            return;
-        }*/
-        document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[select.selectedIndex].text;
-        localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
-        getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
+    $("#dropdown-content a").on('click', function() {
+        document.getElementById('execution-name').innerHTML = "Selected execution: " + $(this).text();
+        localStorage.setItem('workflow-uri', $(this).val());
+        $("#collapseSummaryLegend ul").children().remove();
+        getExecutionData($(this).val(), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
                 setExecutionMetadata(res);
 				clearAllPanels();
             })
         });
-        document.getElementById("RDFImage-link2").href = select.options[select.selectedIndex].value;
-        //document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
+        document.getElementById("RDFImage-link2").href = $(this).text();
+        //document.getElementById("RDFLink2").innerHTML = $(this).text();
     });
     
     
-    select.selectedIndex = 0;
-    document.getElementById('execution-name').innerHTML = "Selected execution: " + select.options[0].text;
-    document.getElementById("RDFImage-link2").href = select.options[select.selectedIndex].value;
+    //select.selectedIndex = 0;
+    document.getElementById('execution-name').innerHTML = "Selected execution: " + $($("#dropdown-content a")[0]).text();
+    document.getElementById("RDFImage-link2").href = $($("#dropdown-content a")[0]).text();
     //document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
 }
 
