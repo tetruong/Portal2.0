@@ -7,7 +7,7 @@
 a,
 a:focus,
 a:hover {
-  color: dimgrey;
+  color: #085fe2;
 }
 
 text {
@@ -71,22 +71,25 @@ h1  {
   position: relative;
 }
 .nav.navbar-form  {
-  margin-top: 3%
+  margin-top: 3%;
 }
 #workflow-searchbar  {
-  width: 100%
+  width: 100%;
 }
 #workflow-name {
   display: inline-block;
-  margin-bottom: -2%;
+  margin-top: 0.65%;
   float: left;
-  margin-left: 28%;
+  margin-left: 24%;
   text-align: center;
   /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
-  padding: 14px 0px;
   width: auto;
-  font-size: 14px;
-  color:black;
+  font-size: 18px;
+}
+.nav-tabs>li>a{
+  color: #085fe2 !important;
+  padding: 8px 8px;
+  font-size: 16px;
 }
 #RDFImage-bar1, #RDFImage-bar2  {
     float: left;
@@ -97,15 +100,13 @@ h1  {
 }
 #execution-name {
   display: none;
-  margin-bottom: -2%;
-    float: left;
+  margin-top: 0.65%;
+  float: left;
   margin-left: 18%;
   text-align: center;
   /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
-  padding: 14px 0px;
   width: auto;
-  font-size: 14px;
-  color:black;
+  font-size: 18px;
 }
 .title {
     display: inline-block;
@@ -130,7 +131,7 @@ h1  {
   margin-right: 12%;
   /*padding: 1em;
   border: 1px solid #66ccff;*/
-  color: white;
+  color: #66ccff;
   font-size: 17px;
 }
 .nav-tabs>li {
@@ -140,11 +141,12 @@ h1  {
 /*dropdown menu*/
 /* Dropdown Button */
 .dropbtn {
-    background-color: white;
+    background-color: #f1f1f1;
     padding: 2px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    margin-top: -2%;
 }
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -164,7 +166,6 @@ h1  {
 }
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -318,38 +319,7 @@ table {
 #collapseSummaryLegend  {
     border: 1px solid #f5f5f5;
 }
-/*#status-icon:hover ~ #status-value {
-    display: block;
-}
 
-#label-icon:hover ~ #label-value {
-    display: block;
-}
-
-#start-time-icon:hover ~ #start-time-value {
-    display: block;
-}
-
-#end-time-icon:hover ~ #end-time-value {
-    display: block;
-}
-
-#contributer-icon:hover ~ #contributer-value {
-    display: block;
-}
-
-#modified-icon:hover ~ #modified-value {
-    display: block;
-}
-
-#system-icon:hover ~ #system-value {
-    display: block;
-}
-
-#version-icon:hover ~ #version-value {
-    display: block;
-}
-*/
 .highlight-variables {
 /*    padding: 6px 12px;*/
     font-size: 14px;
@@ -377,7 +347,7 @@ table {
   margin-bottom: -15px;
 }
 .panel-title>.small, .panel-title>.small>a, .panel-title>a, .panel-title>small, .panel-title>small>a {
-    color: #443d3d;
+    color: #085fe2;
 }
 .bottom-spacing-2 {
   margin-bottom: 16px;
