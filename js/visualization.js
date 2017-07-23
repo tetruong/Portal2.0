@@ -121,47 +121,48 @@ var renderVisualization = function (res, isTrace) {
                     putNodeIndices[input] = j;
                     //get readable display for input name
                     var inputToDisplay = stripNameFromURI(input);
-                    var isparameter1 = 'select ?file from <urn:x-arq:UnionGraph> where {<'
-                            + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
-                    var isparameter1URI = endpoint + 'query?query=' + escape(isparameter1) + '&format=json';
-                    var isparameter2 = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+                    var isparam = false;
+                    if(isTrace)  {
+                        var isparameter = 'select ?value from <urn:x-arq:UnionGraph> where {<'
                             + input +'><http://www.opmw.org/ontology/hasValue> ?value}';
-                    var isparameter2URI = endpoint + 'query?query=' + escape(isparameter2) + '&format=json';
-                    var isparam1 = false;
-                    var isparam2 = false;
-                    $.ajax({
-                        url: isparameter1URI,
-                        type: 'GET',
-                        cache: false,
-                        async: false,
-                        timeout: 30000,
-                        error: function(){
-                        },
-                        success: function(res) {
-                            if(res.results.bindings[0]!=null)  {
-                                isparam1 = true;
-                            }
-                            else {
-                                $.ajax({
-                                    url: isparameter2URI,
-                                    type: 'GET',
-                                    cache: false,
-                                    async: false,
-                                    timeout: 30000,
-                                    error: function() {
-                                    },
-                                    success: function(res2) {
-                                        if(typeof res2.results.bindings!='undefined')  {
-                                            if(res2.results.bindings.length!=0)  {
-                                                isparam2 = true;
-                                            }
-                                        }
+                        var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                        $.ajax({
+                            url: isparameterURI,
+                            type: 'GET',
+                            cache: false,
+                            async: false,
+                            timeout: 30000,
+                            error: function() {
+                            },
+                            success: function(res2) {
+                                if(typeof res2.results.bindings!='undefined')  {
+                                    if(res2.results.bindings.length!=0)  {
+                                        isparam = true;
                                     }
-                                });
+                                }
                             }
-                        }
-                    });
-                    if(isparam1||isparam2)  {
+                        });
+                    }
+                    else {
+                        var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+                            + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
+                        var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                        $.ajax({
+                            url: isparameterURI,
+                            type: 'GET',
+                            cache: false,
+                            async: false,
+                            timeout: 30000,
+                            error: function(){
+                            },
+                            success: function(res) {
+                                if(res.results.bindings[0]!=null)  {
+                                    isparam = true;
+                                }
+                            }
+                        });
+                    }
+                    if(isparam)  {
                         vis.setNode(j, { 
                                     label: inputToDisplay,
                                     labelStyle: 'fill: black',
