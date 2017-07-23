@@ -347,14 +347,14 @@ var addTraces = function(traces) {
 				clearAllPanels();
             })
         });
-        document.getElementById("RDFImage-link2").href = $(this).text();
+        document.getElementById("RDFImage-link2").href = $(this).val();
         //document.getElementById("RDFLink2").innerHTML = $(this).text();
     });
     
     
     //select.selectedIndex = 0;
     document.getElementById('execution-name').innerHTML = "Selected execution: " + $($("#dropdown-content a")[0]).text();
-    document.getElementById("RDFImage-link2").href = $($("#dropdown-content a")[0]).text();
+    document.getElementById("RDFImage-link2").href = $($("#dropdown-content a")[0]).val();
     //document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
 }
 
