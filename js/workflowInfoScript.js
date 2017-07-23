@@ -302,7 +302,6 @@ function addVariableInfo(variableURI, usedBy, generatedBy, variableType, artifac
 					if(variablehasvalue.bindings.length!=0)  {
 						variableValue.setAttribute("style", "display:block");
 						$(variableValue).find("span").text(variablehasvalue.bindings[0].value.value);
-						$newPanel.find(".accordion-toggle").text("Parameter: "+variableName);
 					}
 					else {
 						variableValue.setAttribute("style", "display:none");

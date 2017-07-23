@@ -181,10 +181,6 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
     + variableURI +'><http://www.opmw.org/ontology/hasValue> ?value}';
     var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
 
-    var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
-    + variableURI +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
-    var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
-
     var type;
     $.ajax({
         url: typeURI,
@@ -197,21 +193,7 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
         success: function(res) {
             type=res;
         }
-    })
-
-    $.ajax({
-        url: isparameterURI,
-        type: 'GET',
-        cache: false,
-        timeout: 30000,
-        error: function(){
-        },
-        success: function(res) {
-            if(res.results.bindings[0]!=null)  {
-                variableType = 'parameter';
-            }
-        }
-    })
+    });
 
     $.ajax({
         url: endpointURI,
@@ -232,9 +214,9 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
                 success: function(res2) {
                     handler(variableURI, usedBy, generatedBy, variableType, res.results, res2.results, type);
                 }
-            })
+            });
         }
-    })
+    });
 }
 
 var parseAutocomplete = function(res) {

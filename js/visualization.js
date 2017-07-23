@@ -410,6 +410,9 @@ var setupNodeOnClick = function (svg, vis) {
             highlightPuts(processInputMapping[node.uri]);
             highlightPuts(processOutputMapping[node.uri]);
         } else if (node.type == 'input') {
+            if($($(this).find("ellipse")[0]).css("fill")=="rgb(253, 219, 154)") {
+                getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'paramter');
+            }
             getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
             highlightPuts(isVariableOfMapping[node.uri]);
         } else if (node.type == 'output') {
