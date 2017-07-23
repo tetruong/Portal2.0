@@ -200,6 +200,9 @@ h1  {
   align-items: baseline;
 }
 
+ellipse, rect, tspan {
+  cursor: pointer;
+}
 th {
   padding: 5px 15px;
   text-align: center;    
