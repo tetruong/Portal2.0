@@ -580,14 +580,18 @@ $(".metadata-icon").mouseenter(function() {
 
 $(window).resize(function() {
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    if($("#viz svg").height()<canvasheight) {
+    /*if($("#viz svg").height()<canvasheight) {
         $("#viz svg").css("min-height", canvasheight);
-    }
+    }*/
+    $("#viz svg").height(canvasheight-1);
+    $("#viz").height(canvasheight-1);
 });
 
 $("#viz").bind("DOMSubtreeModified",function(){
     var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    if($("#viz svg").height()<canvasheight) {
+    /*if($("#viz svg").height()<canvasheight) {
         $("#viz svg").css("min-height", canvasheight);
-    }
+    }*/
+    $("#viz svg").height(canvasheight-1);
+    $("#viz").height(canvasheight-1);
 });
