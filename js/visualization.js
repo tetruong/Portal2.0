@@ -337,6 +337,8 @@ var addTraces = function(traces) {
         document.getElementById('execution-name').innerHTML = "Selected execution: " + $(this).text();
         localStorage.setItem('workflow-uri', $(this).val());
         $("#collapseSummaryLegend ul").children().remove();
+        summaryList = [];
+        $("#collapseSummaryLegend").collapse('hide');
         getExecutionData($(this).val(), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
@@ -427,32 +429,15 @@ var loadSummary = function (svg, vis) {
     svg.selectAll('g.node').each(function(id)  {
         var node = vis.node(id);
         if(node.type == 'input') {
-            var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
-                            + node.uri +'><http://www.opmw.org/ontology/hasValue> ?value}';
-            var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
-            $.ajax({
-                url: nodevalueURI,
-                type: 'GET',
-                cache: false,
-                timeout: 30000,
-                error: function() {
-                },
-                success: function(res) {
-                    if(typeof res.results.bindings !='undefined')  {
-                        if(res.results.bindings.length!=0)  {
-                            $(".parameter_row ul").append("<li>" + node.label + "</li>");
-                            summaryList.push(node.uri);
-                            $(".parameter_row").show();
-                        }
-                        else  {
-                            if (typeof outputByMapping[node.uri] == 'undefined') {
-                                $(".input_row ul").append("<li>" + node.label + "</li>");
-                                summaryList.push(node.uri);
-                            }
-                        }
-                    }
-                }
-            });
+            if($($(this).find("ellipse")[0]).css("fill")=="rgb(253, 219, 154)") {
+                $(".parameter_row ul").append("<li>" + node.label + "</li>");
+                summaryList.push(node.uri);
+                $(".parameter_row").show();
+            }
+            else if (typeof outputByMapping[node.uri] == 'undefined') {
+                $(".input_row ul").append("<li>" + node.label + "</li>");
+                summaryList.push(node.uri);
+            }
         }
         else if(node.type == 'output') {
             $(".output_row ul").append("<li>" + node.label + "</li>");
