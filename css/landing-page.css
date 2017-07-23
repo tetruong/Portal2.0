@@ -237,10 +237,11 @@ h1 {
 /*dropdown menu*/
 /* Dropdown Button */
 .dropbtn {
-    background-color: #f1f1f1;
+    background-color: white;
+    margin-top: 2%;
     color: #085fe2;
     padding: 8px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
 }

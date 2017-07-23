@@ -124,12 +124,13 @@ var getExecutionData = function(executionID, handler) {
     -gets metadata for an execution ID (status, time started, time ended, time of execution account creation)
 */
 var getExecutionMetadata = function(executionID, handler) {
-    var sparql = 'select ?label ?status ?start ?end ?rights from <urn:x-arq:UnionGraph> where{<'
+    var sparql = 'select ?label ?status ?start ?end ?rights ?controller from <urn:x-arq:UnionGraph> where{<'
     + executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}.optional{<'
-    + executionID + '><http://purl.org/dc/elements/1.1/rights> ?rights}}'
+    + executionID + '><http://purl.org/dc/elements/1.1/rights> ?rights}.optional{<'
+    + executionID + '><http://openprovenance.org/model/opmo#account> ?controller}}'
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
@@ -240,5 +241,21 @@ var parseAutocomplete = function(res) {
         }
         return suggestions;
     }
+}
+
+var testEndpoint = function(uri)  {
+    var sparql = 'ASK WHERE { ?s ?p ?o . }';
+    var endpointURI = uri + 'query?query=' + escape(sparql) + '&format=json';
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            console.log(res);
+        }
+    });
 }
 

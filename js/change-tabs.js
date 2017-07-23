@@ -49,6 +49,7 @@ var setExecutionMetadata = function(res) {
         document.getElementById('start-time-value').textContent = 'start time: ' + new Date(res.results.bindings[0].start.value).toString();
         document.getElementById('end-time-value').textContent = 'end time: ' + new Date(res.results.bindings[0].end.value).toString();
         document.getElementById('rights-value').textContent = 'license: ' + res.results.bindings[0].rights.value;
+        console.log(res);
     } else {
         document.getElementById('status-value').textContent = 'N/A';
         document.getElementById('label-value').textContent = 'N/A';

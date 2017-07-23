@@ -7,6 +7,7 @@ var endpoints = [
 function endpointonclick(event)  {
     var me = event.target;
     localStorage.setItem("endpoint", me.innerHTML);
+    testEndpoint(me.innerHTML);
     location.reload(true);
 }
 function readEndpoint() {
