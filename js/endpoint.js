@@ -28,3 +28,25 @@ function readEndpoint() {
 
 readEndpoint();
 document.getElementById("chosenendpoint").innerHTML += localStorage.getItem("endpoint");
+
+function getRamdomWorkflow()  {
+    populateSearchBar(function(res) { 
+        //executes after ajax call returns
+        workflowSuggestions = parseAutocomplete(res);
+        const shuffled = workflowSuggestions.sort(() => .5 - Math.random());// shuffle
+        if(shuffled.length >= 7) {
+            var selected =shuffled.slice(0,7); //get sub-array of first n elements AFTER shuffle
+        }
+        else {
+            var selected =shuffled.slice(0,shuffled.length);
+        }
+        for(var i=0;i<4;++i) {
+            var currentexample = $($(".workflowexample")[i]);
+            currentexample.find("figcaption").html(selected[i].label + "<br>1 execution");
+            var encryptedURI = CryptoJS.AES.encrypt(selected[i].uri, "csci401-Spring-2017");                
+            currentexample.find(".overlay").attr("href", 'workflow-main.html?uri='+encryptedURI);
+        }
+    });
+}
+
+getRamdomWorkflow();
