@@ -124,13 +124,17 @@ var getExecutionData = function(executionID, handler) {
     -gets metadata for an execution ID (status, time started, time ended, time of execution account creation)
 */
 var getExecutionMetadata = function(executionID, handler) {
-    var sparql = 'select ?label ?status ?start ?end ?rights ?controller from <urn:x-arq:UnionGraph> where{<'
+    var sparql = 'select ?label ?status ?start ?end ?rights ?process ?controller from <urn:x-arq:UnionGraph> where{<'
     + executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}.optional{<' 
     + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}.optional{<'
-    + executionID + '><http://purl.org/dc/elements/1.1/rights> ?rights}.optional{<'
-    + executionID + '><http://openprovenance.org/model/opmo#account> ?controller}}'
+    + executionID + '><http://purl.org/dc/elements/1.1/rights> ?rights}.optional{?process <http://openprovenance.org/model/opmo#account> <'
+    + executionID + '>.?process <http://purl.org/net/opmv/ns#wasControlledBy> ?controller.}}'
+
+    var test='select ?process ?controller from <urn:x-arq:UnionGraph> where{?process <http://openprovenance.org/model/opmo#account> <'
+    + executionID + '>.?process <http://purl.org/net/opmv/ns#wasControlledBy> ?controller.}'
+    var testURI = endpoint + 'query?query=' + escape(test) + '&format=json';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
@@ -143,8 +147,9 @@ var getExecutionMetadata = function(executionID, handler) {
         },
         success: function(res) {
             handler(res);
+            console.log(res);
         }
-    })
+    });
 }
 
 var getWorkflowMetadata = function(workflowURI, handler)  {
