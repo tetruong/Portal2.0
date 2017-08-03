@@ -243,18 +243,19 @@ var parseAutocomplete = function(res) {
     }
 }
 
-var testEndpoint = function(uri)  {
+var testEndpoint = function(uri, handler)  {
     var sparql = 'ASK WHERE { ?s ?p ?o . }';
     var endpointURI = uri + 'query?query=' + escape(sparql) + '&format=json';
     $.ajax({
         url: endpointURI,
         type: 'GET',
         cache: false,
-        timeout: 30000,
+        timeout: 3000,
         error: function(){
+            handler(null);
         },
         success: function(res) {
-            console.log(res);
+            handler(res);
         }
     });
 }

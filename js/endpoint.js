@@ -10,6 +10,24 @@ function endpointonclick(event)  {
     testEndpoint(me.innerHTML);
     location.reload(true);
 }
+
+function handleErrorEndpoint(res)  {
+    if(res==null)  {
+        $("#chosenendpoint").append("<br><font color=#FF0000>Endpoint Down! Choose Another!</font>");
+    }
+    else if(res.hasOwnProperty('boolean'))  {
+        if(res.boolean == true) {
+            return;
+        }
+        else {
+            $("#chosenendpoint").append("<br><font color=#FF0000>Endpoint Down! Choose Another!</font>");
+        }
+    }
+    else {
+        $("#chosenendpoint").append("<br><font color=#FF0000>Endpoint Down! Choose Another!</font>");
+    }
+}
+
 function readEndpoint() {
     /*    $.get(file, function(data) {    
     endpoints = data.split(/\r?\n/);    */
@@ -23,11 +41,34 @@ function readEndpoint() {
         endpoint = endpoints[0];
         localStorage.setItem("endpoint", endpoint);
     }
+    document.getElementById("chosenendpoint").innerHTML += localStorage.getItem("endpoint");
+    testEndpoint(endpoint, handleErrorEndpoint);
 }
 
 
 readEndpoint();
-document.getElementById("chosenendpoint").innerHTML += localStorage.getItem("endpoint");
+
+function getExecutionNumber(workflowURI, currentelement) {
+    var sparql = 'select ?execution from <urn:x-arq:UnionGraph> where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
+    var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            if(res.results.bindings.length==1)  {
+                currentelement.append("1 execution");
+            }
+            else {
+                currentelement.append(res.results.bindings.length+" executions");
+            }
+        }
+    });
+}
+
 
 function getRamdomWorkflow()  {
     populateSearchBar(function(res) { 
@@ -42,7 +83,8 @@ function getRamdomWorkflow()  {
         }
         for(var i=0;i<4;++i) {
             var currentexample = $($(".workflowexample")[i]);
-            currentexample.find("figcaption").html(selected[i].label + "<br>1 execution");
+            currentexample.find("figcaption").html(selected[i].label + "<br>");
+            getExecutionNumber(selected[i].uri, currentexample.find("figcaption"));
             var encryptedURI = CryptoJS.AES.encrypt(selected[i].uri, "csci401-Spring-2017");                
             currentexample.find(".overlay").attr("href", 'workflow-main.html?uri='+encryptedURI);
         }
