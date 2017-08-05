@@ -92,3 +92,48 @@ var setWorkflowMetadata = function(res) {
         document.getElementById('DownloadTemplate-link').download = res.results.bindings[0].download.value;
     }
 }
+
+
+var workflowURI = getWorkflowURI();
+
+document.getElementById("RDFImage-link1").href = workflowURI;
+document.getElementById('workflow-name').innerHTML
+    = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,""); 
+
+populateSearchBar(function(res) { 
+    //executes after ajax call returns
+    searchbarAutocomplete(parseAutocomplete(res));
+});
+
+getWorkflowData(workflowURI, function(res) {
+    renderVisualization(res, false);
+});
+
+getWorkflowMetadata(workflowURI, function(res)  {
+    setWorkflowMetadata(res);
+});
+
+$(".metadata-icon").mouseenter(function() {
+    //$(this).nextAll('.placeholder').show();
+    $(this).nextAll('.placeholder').html($("#"+$(this).attr('id').replace("icon","value")).text());
+    //console.log($("#"+$(this).attr('id').replace("icon","value")).text())
+});
+
+
+$(window).resize(function() {
+    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
+    /*if($("#viz svg").height()<canvasheight) {
+        $("#viz svg").css("min-height", canvasheight);
+    }*/
+    $("#viz svg").height(canvasheight-1);
+    $("#viz").height(canvasheight-1);
+});
+
+$("#viz").bind("DOMSubtreeModified",function(){
+    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
+    /*if($("#viz svg").height()<canvasheight) {
+        $("#viz svg").css("min-height", canvasheight);
+    }*/
+    $("#viz svg").height(canvasheight-1);
+    $("#viz").height(canvasheight-1);
+});

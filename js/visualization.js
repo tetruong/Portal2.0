@@ -8,20 +8,7 @@ var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
 var summaryList = [];
-var workflowURI = getWorkflowURI();
 
-populateSearchBar(function(res) { 
-    //executes after ajax call returns
-    searchbarAutocomplete(parseAutocomplete(res));
-});
-
-getWorkflowData(workflowURI, function(res) {
-    renderVisualization(res, false);
-});
-
-getWorkflowMetadata(workflowURI, function(res)  {
-    setWorkflowMetadata(res);
-});
 
 function getWorkflowURI() {
     var querystring = window.location.search;
@@ -34,10 +21,6 @@ function getWorkflowURI() {
 }
 
 var renderVisualization = function (res, isTrace) {
-    document.getElementById("RDFImage-link1").href = workflowURI;
-    //document.getElementById("RDFLink1").innerHTML = workflowURI;
-    document.getElementById('workflow-name').innerHTML
-        = "Selected template: " + stripNameFromURI(workflowURI).replace(/\-d.*/g,""); 
     d3.select("svg").remove();
     d3.select('.visualization-container').append('svg');
     var results = res['results']['bindings'];
@@ -573,27 +556,3 @@ var addDimensions = function(render) {
 }
 
 
-$(".metadata-icon").mouseenter(function() {
-    //$(this).nextAll('.placeholder').show();
-    $(this).nextAll('.placeholder').html($("#"+$(this).attr('id').replace("icon","value")).text());
-    //console.log($("#"+$(this).attr('id').replace("icon","value")).text())
-});
-
-
-$(window).resize(function() {
-    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    /*if($("#viz svg").height()<canvasheight) {
-        $("#viz svg").css("min-height", canvasheight);
-    }*/
-    $("#viz svg").height(canvasheight-1);
-    $("#viz").height(canvasheight-1);
-});
-
-$("#viz").bind("DOMSubtreeModified",function(){
-    var canvasheight = $(window).height() - $("#myTopnav").height() - $("#switchtabs").height();
-    /*if($("#viz svg").height()<canvasheight) {
-        $("#viz svg").css("min-height", canvasheight);
-    }*/
-    $("#viz svg").height(canvasheight-1);
-    $("#viz").height(canvasheight-1);
-});

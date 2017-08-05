@@ -3,11 +3,31 @@ var endpoints = [
     "http://seagull.isi.edu:3030/ds/", 
     "http://disk.isi.edu:3030/ds/"
 ]
+var exampleworkflowURI = [];
+var workflowURI;
+
+
+function testEndpoint(uri, handler)  {
+    var sparql = 'ASK WHERE { ?s ?p ?o . }';
+    var endpointURI = uri + 'query?query=' + escape(sparql) + '&format=json';
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 3000,
+        error: function(){
+            handler({});
+        },
+        success: function(res) {
+            handler(res);
+        }
+    });
+}
 
 function endpointonclick(event)  {
     var me = event.target;
     localStorage.setItem("endpoint", me.innerHTML);
-    testEndpoint(me.innerHTML);
+    testEndpoint(me.innerHTML, handleErrorEndpoint);
     location.reload(true);
 }
 
@@ -45,9 +65,6 @@ function readEndpoint() {
     testEndpoint(endpoint, handleErrorEndpoint);
 }
 
-
-readEndpoint();
-
 function getExecutionNumber(workflowURI, currentelement) {
     var sparql = 'select ?execution from <urn:x-arq:UnionGraph> where { ?execution <http://www.opmw.org/ontology/correspondsToTemplate> <' + workflowURI + '>}';
     var endpointURI = endpoint + "query?query=" + escape(sparql) + "&format=json";
@@ -69,7 +86,6 @@ function getExecutionNumber(workflowURI, currentelement) {
     });
 }
 
-
 function getRamdomWorkflow()  {
     populateSearchBar(function(res) { 
         //executes after ajax call returns
@@ -85,10 +101,17 @@ function getRamdomWorkflow()  {
             var currentexample = $($(".workflowexample")[i]);
             currentexample.find("figcaption").html(selected[i].label + "<br>");
             getExecutionNumber(selected[i].uri, currentexample.find("figcaption"));
+            exampleworkflowURI.push(selected[i].uri);
             var encryptedURI = CryptoJS.AES.encrypt(selected[i].uri, "csci401-Spring-2017");                
             currentexample.find(".overlay").attr("href", 'workflow-main.html?uri='+encryptedURI);
         }
+        localStorage.setItem("exampleworkflowURI", exampleworkflowURI);
+        workflowURI = exampleworkflowURI[0];
+        getWorkflowData(workflowURI, function(res) {
+            renderVisualization(res, false);
+        });
     });
 }
 
+readEndpoint();
 getRamdomWorkflow();

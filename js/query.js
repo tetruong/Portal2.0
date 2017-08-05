@@ -147,7 +147,6 @@ var getExecutionMetadata = function(executionID, handler) {
         },
         success: function(res) {
             handler(res);
-            console.log(res);
         }
     });
 }
@@ -246,22 +245,5 @@ var parseAutocomplete = function(res) {
         }
         return suggestions;
     }
-}
-
-var testEndpoint = function(uri, handler)  {
-    var sparql = 'ASK WHERE { ?s ?p ?o . }';
-    var endpointURI = uri + 'query?query=' + escape(sparql) + '&format=json';
-    $.ajax({
-        url: endpointURI,
-        type: 'GET',
-        cache: false,
-        timeout: 3000,
-        error: function(){
-            handler(null);
-        },
-        success: function(res) {
-            handler(res);
-        }
-    });
 }
 
