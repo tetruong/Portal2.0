@@ -312,9 +312,15 @@ h1 {
   height:200px;
 }
 
+.visualization-container  {
+  height: 100%;
+  display: none;
+}
+
 .overlaycontainer  {
   position: relative;
   width: 200px;
+  height: 200px;
   margin: 0 auto;
 }
 

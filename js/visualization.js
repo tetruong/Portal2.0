@@ -20,9 +20,18 @@ function getWorkflowURI() {
     return workflowURI;
 }
 
-var renderVisualization = function (res, isTrace) {
-    d3.select("svg").remove();
-    d3.select('.visualization-container').append('svg');
+var renderVisualization = function (res, isTrace, isIndexpage) {
+    vis = {};
+    svg = {};
+    svgGroup = {};
+    zoom = null;
+    if(!isIndexpage)  {
+        d3.select("svg").remove();
+        d3.select('.visualization-container').append('svg');
+    }
+    else {
+        d3.selectAll('.visualization-container:nth-child('+(isIndexpage-1)+')').append('svg');
+    }
     var results = res['results']['bindings'];
     processNodeIndices = {};
     putNodeIndices = {};
@@ -105,45 +114,47 @@ var renderVisualization = function (res, isTrace) {
                     //get readable display for input name
                     var inputToDisplay = stripNameFromURI(input);
                     var isparam = false;
-                    if(isTrace)  {
-                        var isparameter = 'select ?value from <urn:x-arq:UnionGraph> where {<'
-                            + input +'><http://www.opmw.org/ontology/hasValue> ?value}';
-                        var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
-                        $.ajax({
-                            url: isparameterURI,
-                            type: 'GET',
-                            cache: false,
-                            async: false,
-                            timeout: 30000,
-                            error: function() {
-                            },
-                            success: function(res2) {
-                                if(typeof res2.results.bindings!='undefined')  {
-                                    if(res2.results.bindings.length!=0)  {
+                    if(!isIndexpage)  {
+                        if(isTrace)  {
+                            var isparameter = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+                                + input +'><http://www.opmw.org/ontology/hasValue> ?value}';
+                            var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                            $.ajax({
+                                url: isparameterURI,
+                                type: 'GET',
+                                cache: false,
+                                async: false,
+                                timeout: 30000,
+                                error: function() {
+                                },
+                                success: function(res2) {
+                                    if(typeof res2.results.bindings!='undefined')  {
+                                        if(res2.results.bindings.length!=0)  {
+                                            isparam = true;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+                                + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
+                            var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                            $.ajax({
+                                url: isparameterURI,
+                                type: 'GET',
+                                cache: false,
+                                async: false,
+                                timeout: 30000,
+                                error: function(){
+                                },
+                                success: function(res) {
+                                    if(res.results.bindings[0]!=null)  {
                                         isparam = true;
                                     }
                                 }
-                            }
-                        });
-                    }
-                    else {
-                        var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
-                            + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
-                        var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
-                        $.ajax({
-                            url: isparameterURI,
-                            type: 'GET',
-                            cache: false,
-                            async: false,
-                            timeout: 30000,
-                            error: function(){
-                            },
-                            success: function(res) {
-                                if(res.results.bindings[0]!=null)  {
-                                    isparam = true;
-                                }
-                            }
-                        });
+                            });
+                        }
                     }
                     if(isparam)  {
                         vis.setNode(j, { 
@@ -214,8 +225,14 @@ var renderVisualization = function (res, isTrace) {
                 });
             }
         }
-        if (!isTrace)
-            formatInputs(vis, renderGraph);
+        if (!isTrace)  {
+            if(!isIndexpage) { 
+                formatInputs(vis, renderGraph);
+            }
+            else  {
+                renderGraph(vis);
+            }
+        }
         else {
             renderGraph(vis);
         }
@@ -228,7 +245,12 @@ var renderVisualization = function (res, isTrace) {
         // Add dimensions to nodes if there are any
         addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
-        svg = d3.select("svg").attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
+        if(!isIndexpage)  {
+            svg = d3.select("svg").attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
+        }
+        else  {
+            svg = d3.selectAll("svg:nth-child("+(isIndexpage-1)+')').attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
+        }
 
         // Set up zoom support
         zoom = d3.behavior.zoom().on("zoom", function() {
@@ -247,9 +269,11 @@ var renderVisualization = function (res, isTrace) {
         zoom.translate([xCenterOffset, 20])
             .scale(scale)
             .event(svg);
-        svg.attr('height', vis.graph().height * scale + yTopMargin);
 
-        setupNodeOnClick(svg, vis);
+        if(!isIndexpage)  {
+            svg.attr('height', vis.graph().height * scale + yTopMargin);
+            setupNodeOnClick(svg, vis);
+        }   
     }
     
     /*
@@ -257,6 +281,9 @@ var renderVisualization = function (res, isTrace) {
         - styles input of workflow after querying endpoint
     */
     var formatInputs = function(vis, callback) {
+        if(isIndexpage)  {
+            workflowURI = exampleworkflowURI[isIndexpage-1];
+        }
         getInputs(workflowURI, function (inputs) {
             for (var i = 0; i < inputs.length; i++) {
                 var nodeIndex = putNodeIndices[inputs[i].input.value];
@@ -288,7 +315,6 @@ var renderVisualization = function (res, isTrace) {
         });
 
     mapNodesEdges(vis);
-
     if(isTrace) {
         loadSummary(svg, vis);
     }

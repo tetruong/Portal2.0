@@ -106,7 +106,7 @@ populateSearchBar(function(res) {
 });
 
 getWorkflowData(workflowURI, function(res) {
-    renderVisualization(res, false);
+    renderVisualization(res, false, false);
 });
 
 getWorkflowMetadata(workflowURI, function(res)  {
