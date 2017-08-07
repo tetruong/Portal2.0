@@ -4,7 +4,7 @@ var endpoints = [
     "http://disk.isi.edu:3030/ds/"
 ]
 var exampleworkflowURI = [];
-var workflowURI;
+var leftindex;
 
 
 function testEndpoint(uri, handler)  {
@@ -117,7 +117,8 @@ function getRamdomWorkflow()  {
         else {
             var selected =shuffled.slice(0,shuffled.length);
         }
-        for(var i=0;i<4;++i) {
+        leftindex = 0;
+        for(var i=0;i<7;++i) {
             var currentexample = $($(".workflowexample")[i]);
             currentexample.find("figcaption").html(selected[i].label + "<br>");
             getExecutionNumber(selected[i].uri, currentexample.find("figcaption"));
@@ -127,8 +128,18 @@ function getRamdomWorkflow()  {
             getexampleWorkflowData(selected[i].uri, i);
         }
         localStorage.setItem("exampleworkflowURI", exampleworkflowURI);
-        workflowURI = exampleworkflowURI[0];
-        
+        $("#slideleft").on("click", function() {
+            $("#example"+leftindex).hide();
+            leftindex = (leftindex+1)%7;
+            $("#example"+(leftindex+3)%7).insertAfter("#example"+(leftindex+2)%7);
+            $("#example"+(leftindex+3)%7).show();
+        });
+        $("#slideright").on("click", function() {
+            $("#example"+(leftindex+3)%7).hide();
+            leftindex = (leftindex+6)%7;
+            $("#example"+leftindex).insertBefore("#example"+(leftindex+1)%7);
+            $("#example"+leftindex).show();
+        });
     });
 }
 
