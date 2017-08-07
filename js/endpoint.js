@@ -5,6 +5,7 @@ var endpoints = [
 ]
 var exampleworkflowURI = [];
 var leftindex;
+var gallerylength;
 
 
 function testEndpoint(uri, handler)  {
@@ -112,13 +113,15 @@ function getRamdomWorkflow()  {
         workflowSuggestions = parseAutocomplete(res);
         const shuffled = workflowSuggestions.sort(() => .5 - Math.random());// shuffle
         if(shuffled.length >= 7) {
-            var selected =shuffled.slice(0,7); //get sub-array of first n elements AFTER shuffle
+            var selected = shuffled.slice(0,7); //get sub-array of first n elements AFTER shuffle
+            gallerylength = 7;
         }
         else {
-            var selected =shuffled.slice(0,shuffled.length);
+            var selected = shuffled;
+            gallerylength = selected.length;
         }
         leftindex = 0;
-        for(var i=0;i<7;++i) {
+        for(var i=0;i<gallerylength;++i) {
             var currentexample = $($(".workflowexample")[i]);
             currentexample.find("figcaption").html(selected[i].label + "<br>");
             getExecutionNumber(selected[i].uri, currentexample.find("figcaption"));
@@ -130,14 +133,14 @@ function getRamdomWorkflow()  {
         localStorage.setItem("exampleworkflowURI", exampleworkflowURI);
         $("#slideleft").on("click", function() {
             $("#example"+leftindex).hide();
-            leftindex = (leftindex+1)%7;
-            $("#example"+(leftindex+3)%7).insertAfter("#example"+(leftindex+2)%7);
-            $("#example"+(leftindex+3)%7).show();
+            leftindex = (leftindex+1)%gallerylength;
+            $("#example"+(leftindex+3)%gallerylength).insertAfter("#example"+(leftindex+2)%gallerylength);
+            $("#example"+(leftindex+3)%gallerylength).show();
         });
         $("#slideright").on("click", function() {
-            $("#example"+(leftindex+3)%7).hide();
-            leftindex = (leftindex+6)%7;
-            $("#example"+leftindex).insertBefore("#example"+(leftindex+1)%7);
+            $("#example"+(leftindex+3)%gallerylength).hide();
+            leftindex = (leftindex+6)%gallerylength;
+            $("#example"+leftindex).insertBefore("#example"+(leftindex+1)%gallerylength);
             $("#example"+leftindex).show();
         });
     });
