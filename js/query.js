@@ -1,4 +1,4 @@
-var endpoint = 'http://seagull.isi.edu:3030/ds/';
+endpoint = localStorage.getItem("endpoint");
 
 /*
     @params: function "handler" that can be called when ajax call finishes
@@ -124,8 +124,40 @@ var getExecutionData = function(executionID, handler) {
     -gets metadata for an execution ID (status, time started, time ended, time of execution account creation)
 */
 var getExecutionMetadata = function(executionID, handler) {
-    var sparql = 'select ?label ?status ?start ?end  from <urn:x-arq:UnionGraph> where{<'
-+ executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}optional{<' + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}}'
+    var sparql = 'select ?label ?status ?start ?end ?rights ?process ?controller from <urn:x-arq:UnionGraph> where{<'
+    + executionID + '><http://www.w3.org/2000/01/rdf-schema#label> ?label.optional{<' 
+    + executionID + '><http://www.opmw.org/ontology/hasStatus> ?status}.optional{<' 
+    + executionID + '><http://www.opmw.org/ontology/overallStartTime> ?start}.optional{<' 
+    + executionID + '><http://www.opmw.org/ontology/overallEndTime> ?end}.optional{<'
+    + executionID + '><http://purl.org/dc/elements/1.1/rights> ?rights}.optional{?process <http://openprovenance.org/model/opmo#account> <'
+    + executionID + '>.?process <http://purl.org/net/opmv/ns#wasControlledBy> ?controller.}}'
+
+    var test='select ?process ?controller from <urn:x-arq:UnionGraph> where{?process <http://openprovenance.org/model/opmo#account> <'
+    + executionID + '>.?process <http://purl.org/net/opmv/ns#wasControlledBy> ?controller.}'
+    var testURI = endpoint + 'query?query=' + escape(test) + '&format=json';
+    
+    var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+    
+    $.ajax({
+        url: endpointURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+        },
+        success: function(res) {
+            handler(res);
+        }
+    });
+}
+
+var getWorkflowMetadata = function(workflowURI, handler)  {
+    var sparql = 'select ?contributer ?version ?modified ?system ?download  from <urn:x-arq:UnionGraph> where{<'
+    + workflowURI + '><http://purl.org/dc/terms/contributor> ?e.?e <http://www.w3.org/2000/01/rdf-schema#label> ?contributer.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/versionNumber> ?version}.optional{<' 
+    + workflowURI + '><http://purl.org/dc/terms/modified> ?modified}.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/createdInWorkflowSystem> ?system}.optional{<' 
+    + workflowURI + '><http://www.opmw.org/ontology/hasNativeSystemTemplate> ?download}}';
     
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
     
@@ -145,8 +177,29 @@ var getExecutionMetadata = function(executionID, handler) {
 var getExecutionArtifactValues = function(handler, variableURI, usedBy, generatedBy, variableType) {
     var sparql = 'select ?file from <urn:x-arq:UnionGraph> where {<'
     + variableURI +'><http://www.opmw.org/ontology/hasLocation> ?file}';
-    
     var endpointURI = endpoint + 'query?query=' + escape(sparql) + '&format=json';
+
+    var typequery = 'select ?type from <urn:x-arq:UnionGraph> where {<'+ variableURI +'><http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type}';   
+    var typeURI = endpoint + 'query?query=' + escape(typequery) + '&format=json';
+
+    var nodevalue = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+    + variableURI +'><http://www.opmw.org/ontology/hasValue> ?value}';
+    var nodevalueURI = endpoint + 'query?query=' + escape(nodevalue) + '&format=json';
+
+    var type;
+    $.ajax({
+        url: typeURI,
+        type: 'GET',
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            type=null;
+        },
+        success: function(res) {
+            type=res;
+        }
+    });
+
     $.ajax({
         url: endpointURI,
         type: 'GET',
@@ -155,9 +208,20 @@ var getExecutionArtifactValues = function(handler, variableURI, usedBy, generate
         error: function(){
         },
         success: function(res) {
-            handler(variableURI, usedBy, generatedBy, variableType, res.results);
+            $.ajax({
+                url: nodevalueURI,
+                type: 'GET',
+                cache: false,
+                timeout: 30000,
+                error: function() {
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, null, type);
+                },
+                success: function(res2) {
+                    handler(variableURI, usedBy, generatedBy, variableType, res.results, res2.results, type);
+                }
+            });
         }
-    })
+    });
 }
 
 var parseAutocomplete = function(res) {

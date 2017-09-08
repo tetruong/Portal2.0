@@ -7,16 +7,8 @@ var isVariableOfMapping = {};
 var outputByMapping = {};
 var processNodeIndices = {};
 var putNodeIndices = {};
-var workflowURI = getWorkflowURI();
+var summaryList = [];
 
-populateSearchBar(function(res) { 
-    //executes after ajax call returns
-    searchbarAutocomplete(parseAutocomplete(res));
-});
-
-getWorkflowData(workflowURI, function(res) {
-    renderVisualization(res, false);
-});
 
 function getWorkflowURI() {
     var querystring = window.location.search;
@@ -28,11 +20,18 @@ function getWorkflowURI() {
     return workflowURI;
 }
 
-var renderVisualization = function (res, isTrace) {
-    document.getElementById('workflow-name').innerHTML
-        = stripNameFromURI(workflowURI).replace(/\-d.*/g,"").toUpperCase();
-    d3.select("svg").remove();
-    d3.select('.visualization-container').append('svg');
+var renderVisualization = function (res, isTrace, isIndexpage) {
+    vis = {};
+    svg = {};
+    svgGroup = {};
+    zoom = null;
+    if(!isIndexpage)  {
+        d3.select("svg").remove();
+        d3.select('.visualization-container').append('svg');
+    }
+    else {
+        d3.selectAll('.visualization-container:nth-child('+(isIndexpage-1)+')').append('svg');
+    }
     var results = res['results']['bindings'];
     processNodeIndices = {};
     putNodeIndices = {};
@@ -114,14 +113,69 @@ var renderVisualization = function (res, isTrace) {
                     putNodeIndices[input] = j;
                     //get readable display for input name
                     var inputToDisplay = stripNameFromURI(input);
-                    vis.setNode(j, { 
-                        label: inputToDisplay,
-                        labelStyle: 'fill: #FFF',
-                        shape: 'customEllipse',
-                        style: 'fill: #003366;',
-                        uri: input,
-                        type: 'input'
-                    });
+                    var isparam = false;
+                    if(!isIndexpage)  {
+                        if(isTrace)  {
+                            var isparameter = 'select ?value from <urn:x-arq:UnionGraph> where {<'
+                                + input +'><http://www.opmw.org/ontology/hasValue> ?value}';
+                            var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                            $.ajax({
+                                url: isparameterURI,
+                                type: 'GET',
+                                cache: false,
+                                async: false,
+                                timeout: 30000,
+                                error: function() {
+                                },
+                                success: function(res2) {
+                                    if(typeof res2.results.bindings!='undefined')  {
+                                        if(res2.results.bindings.length!=0)  {
+                                            isparam = true;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            var isparameter = 'select ?file from <urn:x-arq:UnionGraph> where {<'
+                                + input +'><http://www.opmw.org/ontology/isParameterOfTemplate> ?file}';
+                            var isparameterURI = endpoint + 'query?query=' + escape(isparameter) + '&format=json';
+                            $.ajax({
+                                url: isparameterURI,
+                                type: 'GET',
+                                cache: false,
+                                async: false,
+                                timeout: 30000,
+                                error: function(){
+                                },
+                                success: function(res) {
+                                    if(res.results.bindings[0]!=null)  {
+                                        isparam = true;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    if(isparam)  {
+                        vis.setNode(j, { 
+                                    label: inputToDisplay,
+                                    labelStyle: 'fill: black',
+                                    shape: 'customEllipse',
+                                    style: 'fill: #fddb9a;',
+                                    uri: input,
+                                    type: 'input'
+                                });
+                    }
+                    else  {
+                        vis.setNode(j, { 
+                                    label: inputToDisplay,
+                                    labelStyle: 'fill: #FFF',
+                                    shape: 'customEllipse',
+                                    style: 'fill: #003366;',
+                                    uri: input,
+                                    type: 'input'
+                                });
+                    }
                     j++;
                 }
                 addInputProcess(step, input);
@@ -171,8 +225,14 @@ var renderVisualization = function (res, isTrace) {
                 });
             }
         }
-        if (!isTrace)
-            formatInputs(vis, renderGraph);
+        if (!isTrace)  {
+            if(!isIndexpage) { 
+                formatInputs(vis, renderGraph);
+            }
+            else  {
+                renderGraph(vis);
+            }
+        }
         else {
             renderGraph(vis);
         }
@@ -185,7 +245,12 @@ var renderVisualization = function (res, isTrace) {
         // Add dimensions to nodes if there are any
         addDimensions(render);
         // Set up an SVG group so that we can translate the final graph.
-        svg = d3.select("svg").attr('width','75%').attr('height','100%'), svgGroup = svg.append("g");
+        if(!isIndexpage)  {
+            svg = d3.select("svg").attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
+        }
+        else  {
+            svg = d3.selectAll("svg:nth-child("+(isIndexpage-1)+')').attr('width','100%').attr('height','100%'), svgGroup = svg.append("g");
+        }
 
         // Set up zoom support
         zoom = d3.behavior.zoom().on("zoom", function() {
@@ -204,9 +269,11 @@ var renderVisualization = function (res, isTrace) {
         zoom.translate([xCenterOffset, 20])
             .scale(scale)
             .event(svg);
-        svg.attr('height', vis.graph().height * scale + yTopMargin);
 
-        setupNodeOnClick(svg, vis);
+        if(!isIndexpage)  {
+            svg.attr('height', vis.graph().height * scale + yTopMargin);
+            setupNodeOnClick(svg, vis);
+        }   
     }
     
     /*
@@ -214,6 +281,9 @@ var renderVisualization = function (res, isTrace) {
         - styles input of workflow after querying endpoint
     */
     var formatInputs = function(vis, callback) {
+        if(isIndexpage)  {
+            workflowURI = exampleworkflowURI[isIndexpage-1];
+        }
         getInputs(workflowURI, function (inputs) {
             for (var i = 0; i < inputs.length; i++) {
                 var nodeIndex = putNodeIndices[inputs[i].input.value];
@@ -245,6 +315,9 @@ var renderVisualization = function (res, isTrace) {
         });
 
     mapNodesEdges(vis);
+    if(isTrace) {
+        loadSummary(svg, vis);
+    }
 }   
 
 var translateVisualization = function() {
@@ -260,38 +333,38 @@ var translateVisualization = function() {
 }
 
 var addTraces = function(traces) {
-    var select = document.getElementById("selection");
+    var select = document.getElementById("dropdown-content");
 
-    var first = document.createElement("option");
-    
-    //text to display on selection box when nothing is selected
-    first.textContent = 'Select execution trace';
-    select.appendChild(first);
-    
     //populates selection box options
     for(var i = 0; i < traces.length; i++) {
         var opt = traces[i];
-        var el = document.createElement("option");
+        var el = document.createElement("a");
         el.textContent = stripNameFromURI(opt.execution.value);
         el.value = opt.execution.value;
         select.appendChild(el);
     }
-    
-    select.addEventListener('change', function() {
-        //if selected index is the string 'Select execution trace'
-        if (select.selectedIndex == 0)
-            return;
-        localStorage.setItem('workflow-uri', select.options[select.selectedIndex].value);
-        getExecutionData(select.options[select.selectedIndex].value, function(res, executionID) {
+    $("#dropdown-content a").on('click', function() {
+        document.getElementById('execution-name').innerHTML = "Selected execution: " + $(this).text();
+        localStorage.setItem('workflow-uri', $(this).val());
+        $("#collapseSummaryLegend ul").children().remove();
+        summaryList = [];
+        $("#collapseSummaryLegend").collapse('hide');
+        getExecutionData($(this).val(), function(res, executionID) {
             renderVisualization(res, true);
             getExecutionMetadata(executionID, function(res) {
-                setWorkflowMetadata(res);
-								clearAllPanels();
+                setExecutionMetadata(res);
+				clearAllPanels();
             })
-        })
+        });
+        document.getElementById("RDFImage-link2").href = $(this).val();
+        //document.getElementById("RDFLink2").innerHTML = $(this).text();
     });
     
-    select.selectedIndex = 1;
+    
+    //select.selectedIndex = 0;
+    document.getElementById('execution-name').innerHTML = "Selected execution: " + $($("#dropdown-content a")[0]).text();
+    document.getElementById("RDFImage-link2").href = $($("#dropdown-content a")[0]).val();
+    //document.getElementById("RDFLink2").innerHTML = select.options[select.selectedIndex].value;
 }
 
 var highlightPuts = function(putsArray) {
@@ -349,11 +422,38 @@ var setupNodeOnClick = function (svg, vis) {
             highlightPuts(processInputMapping[node.uri]);
             highlightPuts(processOutputMapping[node.uri]);
         } else if (node.type == 'input') {
-            getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
+            if($($(this).find("ellipse")[0]).css("fill")=="rgb(253, 219, 154)") {
+                getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'parameter');
+            }
+            else {
+                getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'input');
+            }
             highlightPuts(isVariableOfMapping[node.uri]);
         } else if (node.type == 'output') {
             getExecutionArtifactValues(addVariableInfo, node.uri, isVariableOfMapping[node.uri], outputByMapping[node.uri], 'output');
             highlightPuts(outputByMapping[node.uri]);
+        }
+    });
+}
+
+var loadSummary = function (svg, vis) {
+    summaryList = [];
+    svg.selectAll('g.node').each(function(id)  {
+        var node = vis.node(id);
+        if(node.type == 'input') {
+            if($($(this).find("ellipse")[0]).css("fill")=="rgb(253, 219, 154)") {
+                $(".parameter_row ul").append("<li>" + node.label + "</li>");
+                summaryList.push(node.uri);
+                $(".parameter_row").show();
+            }
+            else if (typeof outputByMapping[node.uri] == 'undefined') {
+                $(".input_row ul").append("<li>" + node.label + "</li>");
+                summaryList.push(node.uri);
+            }
+        }
+        else if(node.type == 'output') {
+            $(".output_row ul").append("<li>" + node.label + "</li>");
+            summaryList.push(node.uri);
         }
     });
 }
@@ -367,6 +467,13 @@ var stripNameFromURI = function(uri) {
         return uri.substring(uri.lastIndexOf('/')+1, uri.length-13).toLowerCase();
     }
     return uri.substring(uri.lastIndexOf('CE_')+3, uri.length).toLowerCase();
+}
+
+var stripTypeFromURI = function(uri)  {
+    if (uri.indexOf('ontology.owl') > -1)  {
+        return uri.substring(uri.lastIndexOf('ontology.owl')+13, uri.length).replace(/_/g, " ");
+    }
+    return -1;
 }
 
 
@@ -473,3 +580,5 @@ var addDimensions = function(render) {
         return shapeSvg;
     }
 }
+
+

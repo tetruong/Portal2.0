@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../favicon.ico">
 
     <title>Workflow Explorer</title>
 
@@ -22,41 +22,164 @@
 
 
   <body>
-    <div id="title"></div>
+    <div class="nav-bar">
+        <div id="title"></div>
+        <a class="nav-link" href="about.html">
+                About
+        </a>
+        <a class="nav-link" href="index.html">
+                Home
+        </a>
+    </div>
+    
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
           <!-- Navigation Bar-->
-        <div class="nav-bar">
-            <a class="nav-link" href="index.html">
-                Home
-            </a>
-            <a class="nav-link" href="about.html">
-                About
-            </a>
-        </div>
+        
         <div class="cover-container" style="margin-left:auto;margin-right:auto;width:47%;max-width:50%">
 
           <!-- Page Description -->
           <div class="inner-cover">
             <h3 class="cover-heading">Search for Workflows</h3>
-            <p>Type the name or the initial letters of the template you want to browse and the system will autocomplete it. For example, type "a" in the box below:</p>
+            <p class="search-explanation">Type the name or the initial letters of the template you want to browse and the system will autocomplete it. For example, type "a" in the box below:</p>
           </div>
             
           <!-- Search Bar -->
           <div id="search-bar"></div>
+        
+          <div class="wrapper">
+            <div class="dropdown">
+              <button class="dropbtn">Choose your endpoint <span class="glyphicon glyphicon-chevron-down"></span> </button>
+                  <div class="dropdown-content" id="dropdown-content">
+                  </div>
+            </div>
+            
+            <div id="chosenendpoint">Currently chosen: </div>
+            <div style="clear: both"></div>
+          </div>
 
-        </div>   
+        </div> 
+        <h3>Example Workflows</h3>
+        <p>Click on an example workflow to explore, slide left or right to view more examples</p>
+        <div id="examplecontainer">
+
+          <span class="glyphicon glyphicon-chevron-left" id="slideleft"></span>
+
+          <div class="workflowexample" id="example0">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example1">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example2">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example3">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example4" style="display:none">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example5" style="display:none">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <div class="workflowexample" id="example6" style="display:none">
+            <figure class="imagecontainer">
+              <div class="overlaycontainer">
+                <div class="visualization-container"></div>
+                <img class='spinner' src="../images/spin.gif"/>
+                <a class="overlay">
+                  <div class="overlaycontent">View Workflow</div>
+                </a>
+              </div>
+              <figcaption>Loading</figcaption>
+            </figure>
+          </div>
+
+          <span class="glyphicon glyphicon-chevron-right" id="slideright"></span>
+
+          <br>
+
+
+        </div>  
+          <div class="disclaimer">Workflow Explorer is a beta in progress</div>
     </div>
   </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/dagre-d3.min.js"></script>
+    <script src="../js/d3.min.js"></script>
     <script src="../js/query.js"></script>
+    <script src="../js/visualization.js"></script>
+    <script src = "../js/endpoint.js"></script>
     <script src = "../js/bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    
   </body>
 
 </html>

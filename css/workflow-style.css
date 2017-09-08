@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+* {
+    box-sizing: border-box;
+}
+
 a,
 a:focus,
 a:hover {
-  color: dimgrey;
+  color: #085fe2;
 }
 
 text {
@@ -22,10 +26,14 @@ text {
   width: 100%;
   display: block;
   margin: auto;
+  background-color: lightgrey;
+  overflow: hidden;
 }
 
 svg {
-  background-image: url('../images/grid.png');
+  /*background-image: url('../images/grid.png');*/
+    background-color: lightgrey;
+    height: 100%;
 }
 
 .edgePath path {
@@ -41,14 +49,137 @@ body {
 }
 
 body {
-  color: #66ccff;
+  color: #085fe2;
   text-align: center;
+  min-height: 100%;
+}
+.topnav {
+  background-color: #333;
+  overflow: visible;
+}
+h1  {
+    margin-top: 14px;
+    line-height: 1.1;
+    color: #4fd5f5; 
+}
+.searchbar {
+  float: left;
+  display: inline-block;
+  padding: 0px 16px;
+  margin-top: 6px;
+  width: 30%;
+  position: relative;
+}
+.nav.navbar-form  {
+  margin-top: 3%;
+}
+#workflow-searchbar  {
+  width: 100%;
 }
 #workflow-name {
-  margin-top: 3%;
-  font-size: 40px;
+  display: inline-block;
+  margin-top: 0.65%;
+  float: left;
+  margin-left: 24%;
   text-align: center;
-  text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+  /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
+  width: auto;
+  font-size: 18px;
+}
+.nav-tabs>li>a{
+  color: #085fe2 !important;
+  padding: 8px 8px;
+  font-size: 16px;
+}
+#RDFImage-bar1, #RDFImage-bar2  {
+    float: left;
+    width: 20px;
+    margin-top: 0.8em;
+    margin-left: 0.2em;
+    cursor: pointer;
+}
+#execution-name {
+  display: none;
+  margin-top: 0.65%;
+  float: left;
+  margin-left: 18%;
+  text-align: center;
+  /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
+  width: auto;
+  font-size: 18px;
+}
+.title {
+    display: inline-block;
+    /* margin-top: -1%; */
+    margin-left: -14%;
+    font-size: 40px;
+    text-align: center;
+    text-shadow: 0 0.05rem 0.1rem rgba(0,0,0,.5);
+    /* padding: 14px 0px; */
+    width: auto;
+    color: #66ccff;
+}
+.workflow-nav {
+  margin-top: 1.5%;
+  float: right;
+  display: inline-block;
+  /*padding: 14px 16px;*/
+  width: 15%
+}
+.nav-link {
+  float: right;
+  margin-right: 12%;
+  /*padding: 1em;
+  border: 1px solid #66ccff;*/
+  color: #66ccff;
+  font-size: 17px;
+}
+.nav-tabs>li {
+  margin-bottom: 0px;
+}
+
+/*dropdown menu*/
+/* Dropdown Button */
+.dropbtn {
+    background-color: white;
+    padding: 2px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: -2%;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    margin-top: 0.8%;
+    position: relative;
+    display: inline-block;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 200%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: -50%;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: whitesmoke;
 }
 
 #metadata-label { 
@@ -58,6 +189,10 @@ body {
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
 }
 
+.glyphicon.glyphicon-remove-circle.pull-right, .glyphicon.glyphicon-remove-sign.pull-right
+{
+    cursor: pointer;
+}
 .container-fluid { 
   list-style-type: none;
   width: auto;
@@ -65,6 +200,9 @@ body {
   align-items: baseline;
 }
 
+ellipse, rect, tspan {
+  cursor: pointer;
+}
 th {
   padding: 5px 15px;
   text-align: center;    
@@ -122,47 +260,42 @@ table {
 .table-responsive {
     border: 1px solid #66ccff;
 }
-
-
 .navbar-nav>li, .navbar-nav {
   float: left !important;
   background-color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+}
+.panel-group-legend {
+  display: block;
+  /*float: right;*/
+}
+
+.col-md-3 {
+    width: 30%;
 }
 
 .navbar {
  background-color: #fff;   
 }
 
-.nav-link {
-  margin: 10px;
-  padding: 1em;
-  border: 1px solid #66ccff;
-}
-
-.workflow-nav {
-  margin-top: 3%;
-  clear: both;
-}
-
-.searchbar {
-  display: block;
-  margin: auto;
-}
-
 .ui-autocomplete {
-    max-height: 100px;
+    max-height: 150px;
     overflow-y: auto;
     list-style: none;
-    display: inline-block;
+    position: absolute;
     background: #f2f6f7;
-    display: block;
     text-align: center;
+    top: 90% !important;
+    left: 8% !important;
+    width: 85%;
 }
 
 .ui-autocomplete li {
     padding: 10px;
     margin-bottom: 1px;
+    margin-left: -15%;
+    /*float: left;*/
+    cursor: pointer;
 }
 
 /* Metadata Icons and Values */
@@ -177,10 +310,6 @@ table {
     color:blue;
 }
 
-.metadata-icon:hover ~ .placeholder {
-    display: none;
-}
-
 .metadata-value {
     font-size: 20px;
     display: none;
@@ -188,23 +317,10 @@ table {
 
 .placeholder {
     font-size: 20px;
-    opacity: 0;
 }
 
-#status-icon:hover ~ #status-value {
-    display: block;
-}
-
-#label-icon:hover ~ #label-value {
-    display: block;
-}
-
-#start-time-icon:hover ~ #start-time-value {
-    display: block;
-}
-
-#end-time-icon:hover ~ #end-time-value {
-    display: block;
+#collapseSummaryLegend  {
+    border: 1px solid #f5f5f5;
 }
 
 .highlight-variables {
@@ -219,17 +335,19 @@ table {
 /*    border-radius: 4px;*/
 }
 
-.variable-header {
-	color: rgb(140,156,177);
-}
-
 
 .panel {
   margin-top: 0;
 	margin-bottom: 6px;
 }
 
-
+.panel-collapse.collapse.variable.in {
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+.panel-title>.small, .panel-title>.small>a, .panel-title>a, .panel-title>small, .panel-title>small>a {
+    color: #085fe2;
+}
 .bottom-spacing-2 {
   margin-bottom: 16px;
 	margin-left: 8px;
@@ -238,4 +356,88 @@ table {
 .bottom-spacing-1 {
   margin-bottom: 8px;
 	margin-left: 16px;
+}
+
+#RDFImage-link1, #RDFImage-link2, #DownloadTemplate-link, #RDFImage-variable-link, #DownloadImage-variable-link {
+    float: left;
+    position: relative;
+}
+
+.RDFImage-variable  {
+    float: left;
+    width: 20px;
+    margin-top: 0.65em;
+    margin-left: 0.2em;
+    cursor: pointer;
+}
+
+#fileDownload  {
+    position: relative;
+    float: left;
+    margin-top: 0.2em;
+    margin-left: 0.3em;
+    /* cursor: pointer; */
+    font-size: 25px;
+    color: #085fe2;
+}
+
+#TemplateDownload {
+    position: relative;
+    float: left;
+    margin-top: 0.22em;
+    margin-left: 0.3em;
+    /* cursor: pointer; */
+    font-size: 25px;
+    color: #085fe2;
+}
+
+#RDFLink1, #RDFLink2, #RDFVariableLink, #DownloadLink, #DownloadTemplateLink {
+    display: none;
+    width: 120px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+    border:1px #085fe2 solid;
+}
+
+#RDFLink1::after, #RDFLink2::after, #RDFVariableLink::after, #DownloadLink::after, #DownloadTemplateLink::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #085fe2 transparent;
+}
+
+#RDFImage-link1:hover #RDFLink1  {
+    display: block;
+}
+
+#DownloadTemplate-link:hover #DownloadTemplateLink  {
+    display: block;
+}
+
+#RDFImage-link2:hover #RDFLink2  {
+    display: block;
+}
+
+.panel.panel-info.templ.variable #RDFImage-variable-link:hover #RDFVariableLink  {
+    display: block;
+}
+
+.panel.panel-warning.template #RDFImage-variable-link:hover #RDFVariableLink  {
+    display: block;
+}
+
+.panel-group-info #DownloadImage-variable-link:hover #DownloadLink  {
+  display: block;
 }
